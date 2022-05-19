@@ -1,38 +1,227 @@
-.App {
-  text-align: center;
+:root{
+  --primary-color:#F5F5F5;/*rgb(245, 245, 245)*/
+  --secondary-1-color:#E2D784;/*rgb(226, 215, 132)*/
+  --secondary-2-color:#05595B;/*rgb(5, 89, 91)*/
+  --secondary-3-color:#062C30;/*rgb(6, 44, 48)*/
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*,*::before,*::after{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-container{
+  display: flex;
   min-height: 100vh;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+input[type='submit']:hover{
+  cursor: pointer;
+}
+.center{
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+}
+svg:hover,button:hover{
+  cursor: pointer;
+}
+ul{
+  list-style: none;
+}
+nav{
+  min-height:50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  background-color: var(--secondary-3-color);
+  color: var(--primary-color);
+}
+nav .nav-logo h4{
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+nav .nav-link{
+  width: 40%;
+}
+nav .nav-link ul{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav .nav-link ul li{
+  height: 100%;
+  width: 25%;
+}
+nav .nav-link a{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+nav .nav-link li:last-of-type{
+  background-color: blue;
+}
+nav .nav-link ul li a:hover{
+  background-color: var(--secondary-2-color);
+}
+nav .nav-burger{
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+nav .nav-burger svg{
+  fill:var(--primary-color);
+  height: 30px;
+  width: 30px;
+}
+@media screen and (max-width:1024px) {
+  nav .nav-link{
+    width: 50%;
+  }
+}
+@media screen and (max-width:900px) {
+  nav .nav-burger{
+    display: flex;
+  }
+  nav .nav-link{
+    width: 100%;
+    height: 150px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 50px;
+    z-index: 1;
+    background-color: var(--secondary-3-color);
+    animation: nav .2s ;
+  }
+  nav .nav-link ul{
+    flex-direction: column;
+  }
+  nav .nav-link ul li{
+    width: 100%;
+  }
+  nav .nav-mobile{
+    display: none;
+  }
+}
+main{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 40px 20px;
+}
+main form{
+  width: 70%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: rgba(6, 44, 48,.1);
+  border-radius: 5px;
+}
+main .form-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding:50px 20px;
+  gap: 10px;
+}
+main form h1{
+  padding: 20px;
+  text-align: center;
+  color: var(--secondary-2-color);
+  font-weight: 500;
+}
+main form input[type='submit']{
+  padding: 10px;
+  background-color: var(--secondary-2-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-top: 10px;
+}
+main form input[type='submit']:hover{
+  background-color: var(--secondary-3-color);
+}
+main .contact-us-form textarea,
+main .contact-us-form select,
+main form input:not([type='submit']){
+  padding: 8px;
+  font-size: 15px;
+  background-color: transparent;
+  border: 1px solid grey;
+  border-radius:5px;
+  color: gray;
+}
+main .contact-us-form textarea{
+  min-height: 100px;
+  resize: vertical;
+}
+main form .form-input{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 5px;
+}
+main form .form-input label{
+  font-size: 14px;
+}
+main form .form-input span{
+  font-size: 12px;
+  padding: 3px;
+  color: red;
+  display: none;
+}
+main form .form-input input:invalid[focused="true"]{
+  border-color: red;
+}
+main form .form-input input:invalid[focused="true"] ~ span{
+  display: block;
 }
 
-.App-link {
-  color: #61dafb;
+footer{
+  background-color: var(--secondary-3-color);
+  padding:20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary-color);
+  font-size: 17px;
+}
+footer .footer-media-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+footer .footer-media-container svg{
+  fill: var(--primary-color);
+  transition: all .1s ease-in;
+}
+footer .footer-media-container svg:hover{
+  transform: scale(1.1);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
