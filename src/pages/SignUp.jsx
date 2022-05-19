@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import FormInput from '../components/FormInput'
+import * as Axios  from 'axios'
 
 const SignUp = () => {
   const[userInfo,setUserInfo] = useState({
@@ -64,8 +65,12 @@ const SignUp = () => {
 
   const handleSubmit = (e)=>{
     e.preventDefault()
-    console.log(e.target)
     e.target.reset()
+    Axios.post('http://localhost:17733/api/Users',userInfo).then((result)=>{
+      console.log(result)
+    },(error)=>{
+      console.log(error)
+    });
   }
 
   const handleChange =(event)=>{
