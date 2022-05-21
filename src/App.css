@@ -198,6 +198,9 @@ main form .form-input input:invalid[focused="true"]{
 main form .form-input input:invalid[focused="true"] ~ span{
   display: block;
 }
+main form .db-warning{
+  color: red;
+}
 
 footer{
   background-color: var(--secondary-3-color);

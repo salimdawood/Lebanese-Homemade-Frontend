@@ -1,8 +1,13 @@
 import React,{useState} from 'react'
 import FormInput from '../components/FormInput'
 import * as Axios  from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
+
+  const[nameIsUnique,setNameIsUnique] = useState(true)
+  const navigate = useNavigate()
+
   const[userInfo,setUserInfo] = useState({
     name:"",
     email:"",
@@ -64,24 +69,44 @@ const SignUp = () => {
   ]
 
   const handleSubmit = (e)=>{
+    console.log("clicked")
+    const {name,email,password,location} = userInfo
     e.preventDefault()
-    e.target.reset()
-    Axios.post('http://localhost:17733/api/Users',userInfo).then((result)=>{
+    Axios.post('http://localhost:17733/api/Users',{name,email,password,location})
+    .then((result)=>{
       console.log(result)
+      switch (result.data) {
+        case -1:
+          console.log("name is not unique")
+          setNameIsUnique(false)
+          break;
+        case 0:
+          console.log("couldn't add try agian later")
+          setNameIsUnique(true)
+          break;
+        case 1:
+          console.log("added successfully")
+          setNameIsUnique(true)
+          navigate("/signin")
+          break;
+        default:
+          console.log("success code not founded")
+          break;
+      }
     },(error)=>{
       console.log(error)
-    });
+    }); 
   }
 
-  const handleChange =(event)=>{
-    setUserInfo({ ...userInfo, [event.target.name]: event.target.value });
+  const handleChange =(e)=>{
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
   return (
-    <>
       <form onSubmit={handleSubmit} className="sign-up-form">
         <h1>Register</h1>
         <div className="form-container">
+          {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
           {
             userInfoInput.map((input)=>(
               <FormInput
@@ -94,7 +119,6 @@ const SignUp = () => {
           <input type="submit" value="Sign up" />
         </div>
       </form>
-    </>
   )
 }
 
