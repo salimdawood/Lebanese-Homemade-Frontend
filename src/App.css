@@ -201,6 +201,13 @@ main form .form-input input:invalid[focused="true"] ~ span{
 main form .db-warning{
   color: red;
 }
+main form .form-checkbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
 
 footer{
   background-color: var(--secondary-3-color);

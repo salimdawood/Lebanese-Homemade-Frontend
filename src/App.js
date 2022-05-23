@@ -7,27 +7,32 @@ import Error from './pages/Error'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 import Home from './pages/Home'
+import UserDashboard from './pages/UserDashboard'
+import {UserContextProvider} from './context/userContext'
 
 function App() {
   return (
     <Router>
-      <div className="app-container">
-        <nav>
-          <Navbar/>
-        </nav>
-        <main>
-          <Routes>
-              <Route index element={<Home />}/>
-              <Route path="/contactus" element={<ContactUs />}/>
-              <Route path="/signin" element={<SignIn />}/>
-              <Route path="/signup" element={<SignUp />}/>
-              <Route path="/*" element={<Error />}/>
-            </Routes>
-        </main>
-        <footer>
-          <Footer/>
-        </footer>
-      </div>
+      <UserContextProvider>
+        <div className="app-container">
+          <nav>
+            <Navbar/>
+          </nav>
+          <main>
+            <Routes>
+                <Route path="/user/:userName" element={<UserDashboard />}/>
+                <Route path="/contactus" element={<ContactUs />}/>
+                <Route path="/signin" element={<SignIn />}/>
+                <Route path="/signup" element={<SignUp />}/>
+                <Route index element={<Home />}/>
+                <Route path="/*" element={<Error />}/>
+              </Routes>
+          </main>
+          <footer>
+            <Footer/>
+          </footer>
+        </div>
+      </UserContextProvider>
     </Router>
   );
 }

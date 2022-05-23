@@ -7,7 +7,7 @@ const Footer = () => {
   //change paragraph if found better
   return (
     <>
-      <span>Developed By Salim Dawood</span>
+      <span>Developed By <a href="/#">Salim Dawood</a></span>
       <div className="footer-media-container">
         <Facebook/>
         <Instagram/>
