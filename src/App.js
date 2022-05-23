@@ -7,6 +7,7 @@ import Error from './pages/Error'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 import Home from './pages/Home'
+import AboutUs from './pages/AboutUs';
 import UserDashboard from './pages/UserDashboard'
 import {UserContextProvider} from './context/userContext'
 
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/contactus" element={<ContactUs />}/>
                 <Route path="/signin" element={<SignIn />}/>
                 <Route path="/signup" element={<SignUp />}/>
+                <Route path="/aboutus" element={<AboutUs />}/>
                 <Route index element={<Home />}/>
                 <Route path="/*" element={<Error />}/>
               </Routes>

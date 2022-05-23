@@ -112,7 +112,7 @@ const SignUp = () => {
               <FormInput
               key={input.id}
               {...input}
-              value={userInfo[userInfoInput.name]}
+              value={userInfo[input.name]}
               onChange={handleChange} />
             ))
           }

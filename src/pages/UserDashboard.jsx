@@ -75,10 +75,9 @@ const UserDashboard = () => {
   ]
 
   const handleSubmit = (e)=>{
-    console.log("clicked")
     const {name,email,password,location} = userInfo
     e.preventDefault()
-    Axios.put(URL_PATH+'Users',{name,email,password,location})
+    Axios.put(URL_PATH+'Users/'+userProfile.id,{name,email,password,location})
     .then((result)=>{
       console.log(result)
       switch (result.data) {
@@ -91,9 +90,8 @@ const UserDashboard = () => {
           setNameIsUnique(true)
           break;
         case 1:
-          console.log("added successfully")
+          console.log("updated successfully")
           setNameIsUnique(true)
-          navigate("/signin")
           break;
         default:
           console.log("success code not founded")
