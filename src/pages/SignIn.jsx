@@ -1,19 +1,22 @@
-import React,{useState,useContext} from 'react'
+import React,{useState} from 'react'
 import * as Axios  from 'axios'
-import { useNavigate } from 'react-router-dom'
-import {userContext} from '../context/userContext'
+import {useNavigate} from 'react-router-dom'
+import userAuth from '../hooks/userAuth'
 import {URL_PATH} from '../path'
 
 const SignIn = () => {
 
-  const {userProfile,dispatch} = useContext(userContext)
+  const {userProfile,dispatch} = userAuth()
   const [warningMessage, setWarningMessage] = useState("")
   const[userInfo,setUserInfo] = useState({
     name:"",
     password:""
   })
   const navigate = useNavigate()
-
+  /*
+  const location = useLocation()
+  const from = location.state?.from?.pathname || "/"
+  */
   const handleSubmit = (e) =>{
     const {name,password} = userInfo
     e.preventDefault()
@@ -48,7 +51,7 @@ const SignIn = () => {
 
   return (
     <form onSubmit={handleSubmit} className="sign-up-form">
-      <h1>Log in</h1>
+      <h1>Sign in</h1>
       <div className="form-container">
         <span className="db-warning">{warningMessage}</span>
         <div className="form-input">
@@ -63,7 +66,7 @@ const SignIn = () => {
           <input type="checkbox" value="remember-me" />
           <label>Remember me</label>
         </div>
-        <input type="submit" value="Sign up" />
+        <input type="submit" value="Sign in" />
       </div>
     </form>
   )

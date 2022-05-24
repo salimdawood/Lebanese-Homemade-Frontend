@@ -1,13 +1,13 @@
-import React,{useContext,useState,useEffect} from 'react'
-import {userContext} from '../context/userContext'
+import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import FormInput from '../components/FormInput'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
+import userAuth from '../hooks/userAuth'
 
 const UserDashboard = () => {
 
-  const {userProfile} = useContext(userContext)
+  const {userProfile} = userAuth()
   //console.log(userProfile)
  
 
@@ -73,7 +73,7 @@ const UserDashboard = () => {
       pattern:"^[a-zA-Z]{3,20}$"
     }
   ]
-
+  
   const handleSubmit = (e)=>{
     const {name,email,password,location} = userInfo
     e.preventDefault()

@@ -3,6 +3,7 @@ import FormInput from '../components/FormInput'
 import * as Axios  from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+
 const SignUp = () => {
 
   const[nameIsUnique,setNameIsUnique] = useState(true)
