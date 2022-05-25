@@ -126,7 +126,7 @@ main{
   background-color: var(--primary-color);
   padding: 40px 20px;
 }
-main form{
+main .sign-up-form{
   width: 70%;
   max-width: 350px;
   display: flex;
@@ -135,22 +135,24 @@ main form{
   align-items: stretch;
   background-color: rgba(6, 44, 48,.1);
   border-radius: 5px;
+  padding:20px;
 }
 main .form-container{
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  padding:50px 20px;
+  padding-top:50px;
   gap: 10px;
 }
-main form h1{
-  padding: 20px;
+main .sign-up-form h1{
+  padding: 20px 0;
   text-align: center;
   color: var(--secondary-2-color);
   font-weight: 500;
 }
-main form input[type='submit']{
+main .sign-up-form input[type='submit']{
   padding: 10px;
   background-color: var(--secondary-2-color);
   color: var(--primary-color);
@@ -159,7 +161,7 @@ main form input[type='submit']{
   font-size: 20px;
   margin-top: 10px;
 }
-main form input[type='submit']:hover{
+main .sign-up-form input[type='submit']:hover{
   background-color: var(--secondary-3-color);
 }
 main .contact-us-form textarea,
@@ -207,6 +209,37 @@ main form .form-checkbox{
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+}
+main .cards-gallery{
+  background-color: red;
+  width: 30%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+main .cards-gallery > *{
+  width: 100%;
+  background-color: green;
+}
+main .cards-gallery .cards-container{
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y:scroll;
+}
+main .cards-gallery .card-space{
+  background-color: #E2D784;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 100px;
 }
 
 footer{

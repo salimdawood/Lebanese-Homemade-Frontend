@@ -1,19 +1,15 @@
-import React,{useState,useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
-import FormInput from '../components/FormInput'
+import React,{useState} from 'react'
+import FormInput from './FormInput'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
 import userAuth from '../hooks/userAuth'
-import EditForm from '../components/EditForm'
-import CardsGallery from '../components/CardsGallery'
 
 const UserDashboard = () => {
 
-  const {userProfile,dispatch} = userAuth()
+  const {userProfile,dispatch,toggleCardsGallery} = userAuth()
  
 
   const[nameIsUnique,setNameIsUnique] = useState(true)
-  const navigate = useNavigate()
 
   const[userInfo,setUserInfo] = useState({
     id:userProfile.id,
@@ -110,11 +106,25 @@ const UserDashboard = () => {
   }
 
   return (
-    <>
-      <EditForm/>
-      <CardsGallery/>
-    </>
+      <div className="sign-up-form">
+        <h1>Edit your profile</h1>
+        <form onSubmit={handleSubmit} className="form-container">
+          {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
+          {
+            userInfoInput.map((input)=>(
+              <FormInput
+              key={input.id}
+              {...input}
+              value={userInfo[input.name]}
+              onChange={handleChange} />
+            ))
+          }
+          <input type="submit" value="Edit" />
+        </form>
+        <input type="submit" value="Manage cards" onClick={toggleCardsGallery}/>
+      </div>
   )
 }
 
 export default UserDashboard
+//add icon(arrow) to input manage cards to inform user on  cards gallery toggle action
