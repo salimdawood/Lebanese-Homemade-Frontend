@@ -7,14 +7,14 @@ import userAuth from '../hooks/userAuth'
 
 const UserDashboard = () => {
 
-  const {userProfile} = userAuth()
-  //console.log(userProfile)
+  const {userProfile,dispatch} = userAuth()
  
 
   const[nameIsUnique,setNameIsUnique] = useState(true)
   const navigate = useNavigate()
 
   const[userInfo,setUserInfo] = useState({
+    id:userProfile.id,
     name:userProfile.name,
     email:userProfile.email,
     password:userProfile.password,
@@ -91,6 +91,7 @@ const UserDashboard = () => {
           break;
         case 1:
           console.log("updated successfully")
+          dispatch({type:'UPDATE_USER_PROFILE',userProfile:userInfo})
           setNameIsUnique(true)
           break;
         default:

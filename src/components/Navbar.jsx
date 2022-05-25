@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import {Hamburger,Close} from './Svg.jsx'
 
 const Navbar = () => {
+
+  
   const [isOpen,setIsOpen] = useState(false)
   return (
     <>

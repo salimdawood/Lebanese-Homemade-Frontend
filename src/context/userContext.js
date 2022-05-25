@@ -2,7 +2,8 @@ import React,{createContext,useReducer} from 'react'
 import userReducer  from '../reducer/userReducer'
 
 
-const user = {
+const user = sessionStorage.getItem("userProfile")? JSON.parse(sessionStorage.getItem("userProfile")) :
+ {
   id:null,
   name:null,
   email:null,

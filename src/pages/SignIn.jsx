@@ -31,8 +31,8 @@ const SignIn = () => {
       switch (result.status) {
         case 200:
           setWarningMessage("")
-          dispatch({type:'USER_PROFILE',userProfile:result.data})
-          navigate(`/user/${result.data.name}`)
+          dispatch({type:'GET_USER_PROFILE',userProfile:result.data})
+          navigate(`/user/${result.data.id}`)
           break;
         case 204:
           setWarningMessage("Username or password data are wrong *.")
