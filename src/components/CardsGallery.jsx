@@ -1,26 +1,27 @@
 import React,{useContext} from 'react'
 import { userContext } from '../context/userContext'
 import {ExpandLess,ExpandMore} from './Svg'
-import Card from './Card'
+import AddCard from './AddCard'
 
 const CardsGallery = () => {
 
-  const{showCardsGallery,userProfile:{cardList}} = useContext(userContext)
+  const{showCardsGallery,userProfile:{id,cardList}} = useContext(userContext)
   console.log(cardList)
   let arr =[]
 
-  for(let i=1;i<=10;i++){
-    arr.push(Card(i))
+  for(let i=0;i<cardList.length;i++){
+    arr.push(AddCard({i,id}))
+  }
+  for(let i=0;i<10-cardList.length;i++){
+    arr.push(AddCard({i,id}))
   }
 
   return (
       showCardsGallery && 
       <div className="cards-gallery">
-        <ExpandLess/>
           <div className="cards-container slide">
             {arr}
           </div>
-        <ExpandMore/>
       </div>
   )
 }

@@ -166,6 +166,7 @@ main .sign-up-form input[type='submit']:hover{
 }
 main .contact-us-form textarea,
 main .contact-us-form select,
+main .sign-up-form select,
 main form input:not([type='submit']){
   padding: 8px;
   font-size: 15px;
@@ -233,13 +234,14 @@ main .cards-gallery .cards-container{
   display: flex;
   flex-direction: column;
   gap: 5px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 main .cards-gallery .card-space{
   background-color: #E2D784;
   border-radius: 10px;
   width: 100%;
   min-height: 100px;
+  cursor: pointer;
 }
 
 footer{
