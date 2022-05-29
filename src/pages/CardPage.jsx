@@ -3,12 +3,13 @@ import FormInput from '../components/FormInput'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
 import userAuth from '../hooks/userAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 const CardPage = () => {
 
 
-  const {userProfile:{id}} = userAuth()
+  const {userProfile,dispatch} = userAuth()
   const [typesArray,setTypesArray] = useState([])
 
 
@@ -18,12 +19,15 @@ const CardPage = () => {
     instagramLink:"",
     whatsappLink:"",
     typeId:null,
-    userId:id
+    userId:userProfile.id
   })
+
+  const navigate = useNavigate()
 
   console.log(cardInfo)
   
   useEffect(() => {
+    //fix calling too much unnecessary
     console.log("clicked")
     Axios.get(URL_PATH+'Types/')
     .then((result)=>{
@@ -67,30 +71,28 @@ const CardPage = () => {
       label:"Whatsapp link"
     }
   ]
-
-/*      
-
-  
-
+    
   const handleSubmit = (e)=>{
-    const {title,email,password,location} = userInfo
     e.preventDefault()
-    Axios.put(URL_PATH+'Users/'+userProfile.id,{name,email,password,location})
+    Axios.post(URL_PATH+'Cards',cardInfo)
     .then((result)=>{
       console.log(result)
       switch (result.data) {
         case -1:
-          console.log("name is not unique")
-          setNameIsUnique(false)
-          break;
-        case 0:
-          console.log("couldn't add try agian later")
-          setNameIsUnique(true)
+          console.log("something went wrong")
           break;
         case 1:
-          console.log("updated successfully")
-          dispatch({type:'UPDATE_USER_PROFILE',userProfile:userInfo})
-          setNameIsUnique(true)
+          console.log("card added successfully")
+          dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
+            ...userProfile,
+            cardList:[...userProfile.cardList,{
+              title:cardInfo.title,
+              //find better solution for type match
+              type:typesArray.filter(type=>type.id == cardInfo.typeId)[0].name,
+              dateCreated: Date().toLocaleString()
+            }]}
+          })
+          navigate(`/user/${userProfile.id}`)
           break;
         default:
           console.log("success code not founded")
@@ -100,7 +102,6 @@ const CardPage = () => {
       console.log(error)
     }); 
   }
-  */
 
   const handleChange =(e)=>{
     setCardInfo({ ...cardInfo, [e.target.name]: e.target.value });
@@ -109,7 +110,7 @@ const CardPage = () => {
   return (
       <div className="sign-up-form">
         <h1>Create your card</h1>
-        <form className="form-container">
+        <form onSubmit={handleSubmit} className="form-container">
           {
             cardInfoInput.map((input)=>(
               <FormInput

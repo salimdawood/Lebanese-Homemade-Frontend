@@ -1,6 +1,5 @@
 import React,{useContext} from 'react'
 import { userContext } from '../context/userContext'
-import {ExpandLess,ExpandMore} from './Svg'
 import AddCard from './AddCard'
 
 const CardsGallery = () => {
