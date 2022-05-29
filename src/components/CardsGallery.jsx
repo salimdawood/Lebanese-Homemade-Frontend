@@ -4,15 +4,15 @@ import AddCard from './AddCard'
 
 const CardsGallery = () => {
 
-  const{showCardsGallery,userProfile:{id,cardList}} = useContext(userContext)
+  const{showCardsGallery,userProfile:{cardList}} = useContext(userContext)
   console.log(cardList)
   let arr =[]
 
   for(let i=0;i<cardList.length;i++){
-    arr.push(AddCard({i,id}))
+    arr.push(AddCard({i}))
   }
   for(let i=0;i<10-cardList.length;i++){
-    arr.push(AddCard({i,id}))
+    arr.push(AddCard({i}))
   }
 
   return (

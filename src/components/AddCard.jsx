@@ -1,8 +1,10 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
+import { userContext } from '../context/userContext'
 
-const AddCard = ({i,id}) => {
+const AddCard = ({i}) => {
 
+  const {userProfile:{id}} = useContext(userContext)
   const navigate = useNavigate()
 
 
@@ -10,7 +12,7 @@ const AddCard = ({i,id}) => {
     navigate(`/user/${id}/add-card`)
   }
   return (
-    <div onClick={handleClick} className="card-space">
+    <div key={i} onClick={handleClick} className="card-space">
       Card {i}
     </div>
   )
