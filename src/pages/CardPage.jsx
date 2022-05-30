@@ -1,42 +1,28 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import FormInput from '../components/FormInput'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
 import userAuth from '../hooks/userAuth'
 import { useNavigate } from 'react-router-dom'
+import { cardContext } from '../context/cardContext'
 
 
 const CardPage = () => {
 
 
   const {userProfile,dispatch} = userAuth()
-  const [typesArray,setTypesArray] = useState([])
-
+  const {cardProfile,dispatch:cardDispatch,typesArray} = useContext(cardContext)
 
   const[cardInfo,setCardInfo] = useState({
-    title:"",
-    facebookLink:"",
-    instagramLink:"",
-    whatsappLink:"",
-    typeId:null,
+    title:cardProfile.title || "",
+    facebookLink:cardProfile.faceBookLink || "",
+    instagramLink:cardProfile.instagramLink || "",
+    whatsappLink:cardProfile.whatsAppLink || "",
+    typeId:typesArray.filter(type=>type.name === cardProfile.type)[0].id,
     userId:userProfile.id
   })
 
   const navigate = useNavigate()
-
-  console.log(cardInfo)
-  
-  useEffect(() => {
-    //fix calling too much unnecessary
-    console.log("clicked")
-    Axios.get(URL_PATH+'Types/')
-    .then((result)=>{
-      console.log(result)
-      setTypesArray([...result.data])
-    },(error)=>{
-      console.log(error)
-    }); 
-  },[])
 
   const cardInfoInput = [
     {
@@ -81,23 +67,22 @@ const CardPage = () => {
         case -1:
           console.log("something went wrong")
           break;
-        case 1:
+        default:
           console.log("card added successfully")
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
             ...userProfile,
             cardList:[...userProfile.cardList,{
+              id:result.data,
               title:cardInfo.title,
-              //find better solution for type match
+              //better way???better solution
               type:typesArray.filter(type=>type.id == cardInfo.typeId)[0].name,
-              dateCreated: Date().toLocaleString()
+              dateCreated: Date()
             }]}
           })
+          cardInfo.id=result.data
           navigate(`/user/${userProfile.id}`)
           break;
-        default:
-          console.log("success code not founded")
-          break;
-      }
+        }
     },(error)=>{
       console.log(error)
     }); 
@@ -105,6 +90,25 @@ const CardPage = () => {
 
   const handleChange =(e)=>{
     setCardInfo({ ...cardInfo, [e.target.name]: e.target.value });
+  }
+
+  const deleteCard = ()=>{
+    Axios.delete(URL_PATH+'Cards/'+cardInfo.id)
+    .then((result)=>{
+      console.log(result)
+      switch (result.data) {
+        case -1:
+          console.log("something went wrong")
+          break;
+        default:
+          console.log("card deleted successfully")
+          dispatch({type:'UPDATE_USER_PROFILE',userProfile:{...userProfile}})
+          navigate(`/user/${userProfile.id}`)
+          break;
+      }
+    },(error)=>{
+      console.log(error)
+    });
   }
 
   return (
@@ -121,7 +125,7 @@ const CardPage = () => {
             ))
           }
           <select
-            defaultValue=""
+            defaultValue={cardInfo.typeId}
             name="typeId"
             onChange={handleChange}
             required
@@ -135,6 +139,7 @@ const CardPage = () => {
           </select>
           <input type="submit" value="Create" />
         </form>
+        <input type="submit" value="Delete card" className="delete-btn" onClick={deleteCard}/>
       </div>
   )
 }

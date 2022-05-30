@@ -12,34 +12,37 @@ import RequireAuth from './components/RequireAuth'
 import UserDashboard from './pages/UserDashboard'
 import CardPage from './pages/CardPage';
 import {UserContextProvider} from './context/userContext'
+import {CardContextProvider} from './context/cardContext'
 
 function App() {
   
   return (
     <Router>
       <UserContextProvider>
-        <div className="app-container">
-          <nav>
-            <Navbar/>
-          </nav>
-          <main>
-            <Routes>
-                <Route element={<RequireAuth/>}>
-                  <Route path="/user/:id" element={<UserDashboard />}/>
-                  <Route path="/user/:id/add-card" element={<CardPage />}/>
-                </Route>
-                <Route path="/contactus" element={<ContactUs />}/>
-                <Route path="/signin" element={<SignIn />}/>
-                <Route path="/signup" element={<SignUp />}/>
-                <Route path="/aboutus" element={<AboutUs />}/>
-                <Route index element={<Home />}/>
-                <Route path="/*" element={<Error />}/>
-              </Routes>
-          </main>
-          <footer>
-            <Footer/>
-          </footer>
-        </div>
+        <CardContextProvider>
+          <div className="app-container">
+            <nav>
+              <Navbar/>
+            </nav>
+            <main>
+              <Routes>
+                  <Route element={<RequireAuth/>}>
+                    <Route path="/user/:id" element={<UserDashboard />}/>
+                    <Route path="/user/:id/add-card" element={<CardPage />}/>
+                  </Route>
+                  <Route path="/contactus" element={<ContactUs />}/>
+                  <Route path="/signin" element={<SignIn />}/>
+                  <Route path="/signup" element={<SignUp />}/>
+                  <Route path="/aboutus" element={<AboutUs />}/>
+                  <Route index element={<Home />}/>
+                  <Route path="/*" element={<Error />}/>
+                </Routes>
+            </main>
+            <footer>
+              <Footer/>
+            </footer>
+          </div>
+        </CardContextProvider>
       </UserContextProvider>
     </Router>
   );

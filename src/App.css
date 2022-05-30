@@ -3,6 +3,9 @@
   --secondary-1-color:#E2D784;/*rgb(226, 215, 132)*/
   --secondary-2-color:#05595B;/*rgb(5, 89, 91)*/
   --secondary-3-color:#062C30;/*rgb(6, 44, 48)*/
+  --warning-color:#CC3300;/*rgb(204,51,0)*/
+  --notification-color:#339900;	/*(51,153,0)*/
+  --confirm-color:#0080ff;
 }
 *,*::before,*::after{
   padding: 0;
@@ -161,12 +164,17 @@ main .sign-up-form input[type='submit']{
   font-size: 20px;
   margin-top: 10px;
 }
+main .sign-up-form input[class*='delete-btn']{
+  background-color: rgb(255, 65, 60);
+}
 main .sign-up-form input[type='submit']:hover{
   background-color: var(--secondary-3-color);
 }
-main .contact-us-form textarea,
-main .contact-us-form select,
+main .sign-up-form input[class*='delete-btn']:hover{
+  background-color:var(--warning-color);
+}
 main .sign-up-form select,
+main .sign-up-form textarea,
 main form input:not([type='submit']){
   padding: 8px;
   font-size: 15px;
@@ -175,7 +183,7 @@ main form input:not([type='submit']){
   border-radius:5px;
   color: gray;
 }
-main .contact-us-form textarea{
+main .sign-up-form textarea{
   min-height: 100px;
   resize: vertical;
 }
@@ -242,6 +250,10 @@ main .cards-gallery .card-space{
   width: 100%;
   min-height: 100px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 footer{

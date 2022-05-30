@@ -32,7 +32,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="contact-us-form">
+      <form onSubmit={handleSubmit} className="sign-up-form">
         <h1>Contact us</h1>
         <div className="form-container">
           <select
