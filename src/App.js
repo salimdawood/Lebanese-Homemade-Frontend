@@ -11,6 +11,7 @@ import AboutUs from './pages/AboutUs'
 import RequireAuth from './components/RequireAuth'
 import UserDashboard from './pages/UserDashboard'
 import CardPage from './pages/CardPage';
+import AddCardPage from './pages/AddCardPage';
 import {UserContextProvider} from './context/userContext'
 import {CardContextProvider} from './context/cardContext'
 
@@ -27,8 +28,9 @@ function App() {
             <main>
               <Routes>
                   <Route element={<RequireAuth/>}>
-                    <Route path="/user/:id" element={<UserDashboard />}/>
-                    <Route path="/user/:id/add-card" element={<CardPage />}/>
+                    <Route path="/user/:userId/cards" element={<CardPage />}/>
+                    <Route path="/user/:userId/add-card" element={<AddCardPage />}/>
+                    <Route path="/user/:userId" element={<UserDashboard />}/>
                   </Route>
                   <Route path="/contactus" element={<ContactUs />}/>
                   <Route path="/signin" element={<SignIn />}/>

@@ -11,7 +11,7 @@ const AddCard = (props) => {
   const {cardProfile,dispatch} = useContext(cardContext)
   const navigate = useNavigate()
 
-  const handleClick = () =>{
+  const updateCard = () =>{
     Axios.get(URL_PATH+`Cards/${props.id}`)
     .then((result)=>{
       console.log(result)
@@ -36,22 +36,25 @@ const AddCard = (props) => {
           break;
       }
       */
-      navigate(`/user/${id}/add-card`)
+      navigate(`/user/${id}/cards?card=${props.id}`)
     },(error)=>{
       console.log(error)
-    }); 
-    //navigate(`/user/${id}/add-card`)
+    });
+  }
+
+  const addCard = () =>{
+    navigate(`/user/${id}/add-card`)
   }
   
   return (
     props != null ?
-    <div key={props.id} onClick={handleClick} className="card-space">
+    <div key={props.id} onClick={updateCard} className="card-space">
       <h3>{props.title}</h3>
       <h4>{props.type}</h4>
       <h6>{props.dateCreated}</h6>
     </div>
     :
-    <div className="card-space">
+    <div onClick={addCard} className="card-space card-add">
     </div>
 
   )
