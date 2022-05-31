@@ -44,11 +44,16 @@ const AddCard = (props) => {
   }
   
   return (
+    props != null ?
     <div key={props.id} onClick={handleClick} className="card-space">
       <h3>{props.title}</h3>
       <h4>{props.type}</h4>
       <h6>{props.dateCreated}</h6>
     </div>
+    :
+    <div className="card-space">
+    </div>
+
   )
 }
 

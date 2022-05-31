@@ -14,6 +14,7 @@ const CardPage = () => {
   const {cardProfile,dispatch:cardDispatch,typesArray} = useContext(cardContext)
 
   const[cardInfo,setCardInfo] = useState({
+    id:cardProfile.id,
     title:cardProfile.title || "",
     facebookLink:cardProfile.faceBookLink || "",
     instagramLink:cardProfile.instagramLink || "",
@@ -100,10 +101,13 @@ const CardPage = () => {
         case -1:
           console.log("something went wrong")
           break;
-        default:
+        case 1:
           console.log("card deleted successfully")
-          dispatch({type:'UPDATE_USER_PROFILE',userProfile:{...userProfile}})
           navigate(`/user/${userProfile.id}`)
+          dispatch({type:'DELETE_CARD',id:cardInfo.id})
+          break;
+        default:
+          console.log("code not recognized")
           break;
       }
     },(error)=>{

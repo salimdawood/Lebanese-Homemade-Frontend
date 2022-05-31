@@ -6,6 +6,17 @@ const cardReducer = (state,action)=>{
     case 'UPDATE_CARD_PROFILE':
       //sessionStorage.setItem("userProfile",JSON.stringify(action.userProfile))
       return action.cardProfile
+    case 'DELETE_CARD':
+      //sessionStorage.setItem("userProfile",JSON.stringify(action.userProfile))
+      const newCards = state.cardList.filter(card=>card.id != state.id)
+      console.log(newCards)
+      return state
+      /*
+      return {
+        ...state,
+        cardList : newCards
+      }
+      */
     default:
       break;
   }

@@ -1,14 +1,13 @@
-import React,{useContext} from 'react'
+import React,{useContext,useState} from 'react'
 import { userContext } from '../context/userContext'
 import AddCard from './AddCard'
 
 const CardsGallery = () => {
 
   const{showCardsGallery,userProfile:{cardList}} = useContext(userContext)
-  //console.log(cardList)
-  let arr =[]
+  const arr = []
 
-  for(let i=0;i<cardList.length;i++){
+  for(let i=0;i<cardList.length && i<10;i++){
     arr.push(AddCard(cardList[i]))
   }
   for(let i=0;i<10-cardList.length;i++){
