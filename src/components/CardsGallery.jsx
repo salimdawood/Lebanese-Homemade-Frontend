@@ -1,6 +1,6 @@
 import React,{useContext,useState} from 'react'
 import { userContext } from '../context/userContext'
-import AddCard from './AddCard'
+import UserCard from './UserCard'
 
 const CardsGallery = () => {
 
@@ -8,10 +8,10 @@ const CardsGallery = () => {
   const arr = []
 
   for(let i=0;i<cardList.length && i<10;i++){
-    arr.push(AddCard(cardList[i]))
+    arr.push(UserCard(cardList[i]))
   }
   for(let i=0;i<10-cardList.length;i++){
-    arr.push(AddCard())
+    arr.push(UserCard())
   }
 
   return (

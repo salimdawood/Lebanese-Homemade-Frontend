@@ -10,7 +10,7 @@ import Home from './pages/Home'
 import AboutUs from './pages/AboutUs'
 import RequireAuth from './components/RequireAuth'
 import UserDashboard from './pages/UserDashboard'
-import CardPage from './pages/CardPage';
+import UpdateCardPage from './pages/UpdateCardPage';
 import AddCardPage from './pages/AddCardPage';
 import {UserContextProvider} from './context/userContext'
 import {CardContextProvider} from './context/cardContext'
@@ -28,7 +28,7 @@ function App() {
             <main>
               <Routes>
                   <Route element={<RequireAuth/>}>
-                    <Route path="/user/:userId/cards" element={<CardPage />}/>
+                    <Route path="/user/:userId/cards" element={<UpdateCardPage />}/>
                     <Route path="/user/:userId/add-card" element={<AddCardPage />}/>
                     <Route path="/user/:userId" element={<UserDashboard />}/>
                   </Route>

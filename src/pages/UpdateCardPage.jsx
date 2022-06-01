@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { cardContext } from '../context/cardContext'
 
 
-const CardPage = () => {
+const UpdateCardPage = () => {
 
 
   const {userProfile,dispatch} = userAuth()
@@ -148,4 +148,4 @@ const CardPage = () => {
   )
 }
 
-export default CardPage
+export default UpdateCardPage

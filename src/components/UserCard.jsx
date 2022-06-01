@@ -5,7 +5,7 @@ import { cardContext } from '../context/cardContext'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
 
-const AddCard = (props) => {
+const UserCard = (props) => {
 
   const {userProfile:{id}} = useContext(userContext)
   const {cardProfile,dispatch} = useContext(cardContext)
@@ -60,4 +60,4 @@ const AddCard = (props) => {
   )
 }
 
-export default AddCard
+export default UserCard
