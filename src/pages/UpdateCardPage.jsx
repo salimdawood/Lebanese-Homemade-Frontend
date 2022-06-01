@@ -59,6 +59,7 @@ const UpdateCardPage = () => {
     }
   ]
     
+  //change from add to update
   const handleSubmit = (e)=>{
     e.preventDefault()
     Axios.post(URL_PATH+'Cards',cardInfo)
@@ -117,7 +118,7 @@ const UpdateCardPage = () => {
 
   return (
       <div className="sign-up-form">
-        <h1>Create your card</h1>
+        <h1>Update your card</h1>
         <form onSubmit={handleSubmit} className="form-container">
           {
             cardInfoInput.map((input)=>(
@@ -141,7 +142,7 @@ const UpdateCardPage = () => {
               ))
             }
           </select>
-          <input type="submit" value="Create" />
+          <input type="submit" value="Update" />
         </form>
         <input type="submit" value="Delete card" className="delete-btn" onClick={deleteCard}/>
       </div>

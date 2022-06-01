@@ -31,7 +31,7 @@ const SignIn = () => {
       switch (result.status) {
         case 200:
           setWarningMessage("")
-          dispatch({type:'GET_USER_PROFILE',userProfile:result.data})
+          dispatch({type:'UPDATE_USER_PROFILE',userProfile:result.data})
           navigate(`/user/${result.data.id}`)
           break;
         case 204:
