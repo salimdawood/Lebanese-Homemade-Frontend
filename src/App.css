@@ -281,4 +281,49 @@ footer .footer-media-container svg{
 footer .footer-media-container svg:hover{
   transform: scale(1.1);
 }
-
+.model{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0,0,.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.model-container{
+  position: relative;
+  width: 400px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  padding:20px;
+  background-color: var(--primary-color);
+}
+.model-container svg{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.model-container input[type='file']{
+  display: none;
+}
+.model-container label{
+  background-color: rgba(0, 0,0,.2);
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+}
+.model-container label:hover{
+  background-color: rgba(0, 0,0,.4);
+  cursor: pointer;
+}
+.model-container label img{
+  height: 100%;
+  width: 100%;
+}

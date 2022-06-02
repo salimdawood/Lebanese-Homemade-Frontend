@@ -17,6 +17,10 @@ const cardReducer = (state,action)=>{
         cardList : newCards
       }
       */
+    case 'ADD_PHOTO':
+      //sessionStorage.setItem("userProfile",JSON.stringify(action.userProfile))
+      console.log(action.photo)
+      return state
     default:
       break;
   }

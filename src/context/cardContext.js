@@ -10,7 +10,9 @@ const card = sessionStorage.getItem("cardProfile")? JSON.parse(sessionStorage.ge
   faceBookLink:"",
   instagramLink:"",
   whatsAppLink:"",
-  dateCreated:""
+  dateCreated:"",
+  itemList:[],
+  photoList:[]
 }
 
 
@@ -21,9 +23,14 @@ export const CardContextProvider = ({children}) => {
 
   const [state, dispatch] = useReducer(cardReducer,card)
   const [typesArray,setTypesArray] = useState([])
+  const [photoModel,setPhotoModel] = useState(false)
+  const [menuModel,setMenuModel] = useState(false)
 
   return (
-    <cardContext.Provider value={{dispatch,cardProfile:state,setTypesArray,typesArray}}>
+    <cardContext.Provider value={{
+      dispatch,cardProfile:state,setTypesArray,typesArray,photoModel,setPhotoModel,
+      menuModel,setMenuModel
+    }}>
       {children}
     </cardContext.Provider>
   )

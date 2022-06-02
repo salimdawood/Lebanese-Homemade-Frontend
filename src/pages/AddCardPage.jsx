@@ -10,7 +10,7 @@ const AddCardPage = () => {
   
   const navigate = useNavigate()
   const {userProfile,dispatch} = userAuth()
-  const {typesArray} = useContext(cardContext)
+  const {typesArray,setMenuModel,setPhotoModel} = useContext(cardContext)
 
   const[cardInfo,setCardInfo] = useState({
     title:"",
@@ -89,6 +89,13 @@ const AddCardPage = () => {
     setCardInfo({ ...cardInfo, [e.target.name]: e.target.value });
   }
 
+  const openMenuModel = () =>{
+    setMenuModel(true)
+  }
+
+  const openPhotoModel = () =>{
+    setPhotoModel(true)
+  }
 
   return (
       <div className="sign-up-form">
@@ -118,6 +125,8 @@ const AddCardPage = () => {
           </select>
           <input type="submit" value="Create" />
         </form>
+        <input type="submit" onClick={openMenuModel} value="Manage menu" />
+        <input type="submit" onClick={openPhotoModel} value="Add photos" />
       </div>
   )
 }

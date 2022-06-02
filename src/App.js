@@ -14,6 +14,8 @@ import UpdateCardPage from './pages/UpdateCardPage';
 import AddCardPage from './pages/AddCardPage';
 import {UserContextProvider} from './context/userContext'
 import {CardContextProvider} from './context/cardContext'
+import MenuModel from './model/MenuModel'
+import PhotoModel from './model/PhotoModel'
 
 function App() {
   
@@ -44,6 +46,8 @@ function App() {
               <Footer/>
             </footer>
           </div>
+          <PhotoModel/>
+          <MenuModel/>
         </CardContextProvider>
       </UserContextProvider>
     </Router>
