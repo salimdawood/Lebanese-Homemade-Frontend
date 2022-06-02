@@ -302,7 +302,7 @@ footer .footer-media-container svg:hover{
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
-  padding:20px;
+  padding:40px 20px;
   background-color: var(--primary-color);
 }
 .model-container svg{
@@ -313,17 +313,76 @@ footer .footer-media-container svg:hover{
 .model-container input[type='file']{
   display: none;
 }
-.model-container label{
+.model-container .photo-label{
   background-color: rgba(0, 0,0,.2);
   width: 150px;
   height: 150px;
   border-radius: 5px;
 }
-.model-container label:hover{
+.model-container .photo-label:hover{
   background-color: rgba(0, 0,0,.4);
   cursor: pointer;
 }
-.model-container label img{
+.model-container .photo-label img{
   height: 100%;
+  width: 100%;
+}
+.add-item-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 10px;
+}
+.add-item-form .form-input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.add-item-form .input-container{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 10px;
+}
+.add-item-form .input-container input{
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: transparent;
+  font-size: 15px;
+}
+.add-item-form input[type="submit"]{
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--secondary-2-color);
+  color: var(--primary-color);
+  font-size: 17px;
+  border: none;
+}
+.add-item-form input[type="submit"]:hover{
+  background-color: var(--secondary-3-color);
+}
+.model table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.model th,.model td {
+  text-align: left;
+  padding: 8px;
+}
+.model tr:nth-of-type(even){
+  background-color: var(--secondary-1-color)
+}
+.model th{
+  background-color: var(--secondary-2-color);
+  color: white;
+}
+.model .table-form{
   width: 100%;
 }

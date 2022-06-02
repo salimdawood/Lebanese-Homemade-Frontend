@@ -38,7 +38,7 @@ const PhotoBox = (props) => {
 
 
   return (
-    <label key={id}>
+    <label className="photo-label" key={id}>
       {file != null && <img src={fileDataURL}/>}
       <input type="file" onChange={handleFileChange} accept="image/png,image/jpeg"/>
     </label>

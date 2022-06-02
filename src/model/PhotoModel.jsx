@@ -9,7 +9,6 @@ const PhotoModel = () => {
   const {photoModel,setPhotoModel,dispatch,cardProfile} = useContext(cardContext)
   const [photoArray,setPhotoArray] = useState(cardProfile.photoList)
   const arr = []
-  console.log(photoArray.length)
   
   for(let i=0;i<photoArray.length && i<5;i++){
     arr.push(PhotoBox({id:i,photo:photoArray[i],setPhotoArray,photoArray}))
