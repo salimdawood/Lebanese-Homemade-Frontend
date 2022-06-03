@@ -11,7 +11,7 @@ const MenuModel = () => {
   const [items,setItems] = useState(cardProfile.itemList)
   const [itemInput,setItemInput] = useState({
     name:"",
-    price:""
+    price:0
   })
 
   const handleChange = (e) =>{
@@ -22,6 +22,10 @@ const MenuModel = () => {
     e.preventDefault()
     setItems([...items,itemInput])
     setItemInput({name:"",price:""})
+  }
+
+  const confirmItems = () =>{
+    //add items to card information context
   }
 
   return (
@@ -66,6 +70,7 @@ const MenuModel = () => {
             </div>
             <input type="submit" value="Add to menu"/>
           </form>
+          <input type="submit" onClick={confirmItems} value="Confirm"/>
         </div>
       </div>
     ,document.getElementById('model')

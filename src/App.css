@@ -6,6 +6,9 @@
   --warning-color:#CC3300;/*rgb(204,51,0)*/
   --notification-color:#339900;	/*(51,153,0)*/
   --confirm-color:#0080ff;
+  --confirm-hover-color:#003f9a;	/*(0,63,154)*/
+  --warning-hover-color:#b62020;	/*(182,32,32)*/
+  --notification-hover-color:#00b300;	/*(0,179,0)*/
 }
 *,*::before,*::after{
   padding: 0;
@@ -291,6 +294,7 @@ footer .footer-media-container svg:hover{
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
 }
 .model-container{
   position: relative;
@@ -300,12 +304,12 @@ footer .footer-media-container svg:hover{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   padding:40px 20px;
   background-color: var(--primary-color);
 }
-.model-container svg{
+.model-container > svg{
   position: absolute;
   top: 10px;
   right: 10px;
@@ -313,19 +317,34 @@ footer .footer-media-container svg:hover{
 .model-container input[type='file']{
   display: none;
 }
-.model-container .photo-label{
+.model-container .photo-box{
   background-color: rgba(0, 0,0,.2);
   width: 150px;
   height: 150px;
   border-radius: 5px;
+  position: relative;
+}
+.model-container .photo-label{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.model-container .photo-label img{
+  width: 100%;
+  height: 100%;
 }
 .model-container .photo-label:hover{
   background-color: rgba(0, 0,0,.4);
   cursor: pointer;
 }
-.model-container .photo-label img{
-  height: 100%;
-  width: 100%;
+.model-container .photo-box svg{
+  padding: 5px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,.7);
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 2;
 }
 .add-item-form{
   display: flex;
@@ -385,4 +404,16 @@ footer .footer-media-container svg:hover{
 }
 .model .table-form{
   width: 100%;
+}
+.model input[value='Confirm']{
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--confirm-color);
+  color: var(--primary-color);
+  font-size: 20px;
+  border: none;
+  width: 100%;
+}
+.model input[value='Confirm']:hover{
+  background-color:var(--confirm-hover-color);
 }

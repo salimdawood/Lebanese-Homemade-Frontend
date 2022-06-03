@@ -12,7 +12,7 @@ const card = sessionStorage.getItem("cardProfile")? JSON.parse(sessionStorage.ge
   whatsAppLink:"",
   dateCreated:"",
   itemList:[],
-  photoList:[]
+  photoList:new Array(5).fill(null)
 }
 
 

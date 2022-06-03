@@ -1,16 +1,23 @@
 import React,{useState,useEffect} from 'react'
+import { Close } from './Svg';
 
 const PhotoBox = (props) => {
 
-  const{id,photo,photoArray,setPhotoArray} = props
+  const{id,photo,photos,setPhotos} = props
   const [fileDataURL, setFileDataURL] = useState(null);
   const [file, setFile] = useState(photo);
+  let newPhotos = [...photos]
 
   const handleFileChange = (e) =>{
-    let photos = [...photoArray]
-    photos[id] = e.target.files[0]
-    setPhotoArray([...photos])
+    newPhotos[id] = e.target.files[0]
+    setPhotos([...newPhotos])
     setFile(e.target.files[0])
+  }
+
+  const removePhoto = () =>{
+    newPhotos[id]=null 
+    setPhotos([...newPhotos])
+    setFile(null)
   }
 
 
@@ -32,16 +39,22 @@ const PhotoBox = (props) => {
         fileReader.abort();
       }
     }
-
   }, [file]);
 
 
 
   return (
-    <label className="photo-label" key={id}>
-      {file != null && <img src={fileDataURL}/>}
-      <input type="file" onChange={handleFileChange} accept="image/png,image/jpeg"/>
-    </label>
+    <div className="photo-box" key={id}>
+      {
+        file != null && <Close onClick={removePhoto}/>
+      }
+      <label className="photo-label">
+        {
+          file != null && <img src={fileDataURL}/>
+        }
+        <input type="file" onChange={handleFileChange} accept="image/png,image/jpeg"/>
+      </label>
+    </div>
   )
 }
 
