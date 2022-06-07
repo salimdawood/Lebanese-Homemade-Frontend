@@ -40,6 +40,7 @@ const MenuModel = () => {
 
   const confirmItems = () =>{
     //add items to card information context
+    dispatch({type:'ADD_MENU',items})
   }
 
   const removeItem = (itemId) =>{
@@ -114,7 +115,7 @@ const MenuModel = () => {
               <div className="input-container">
                 <label>Price</label>
                 <input type="number" placeholder="Enter item price"
-                 value={itemInput.price} onChange={handleChange} name="price"/>
+                 value={itemInput.price} onChange={handleChange} name="price" min="0"/>
               </div>
             </div>
             <input type="submit" value="Add to menu"/>

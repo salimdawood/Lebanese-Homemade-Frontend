@@ -26,7 +26,6 @@ const PhotoModel = () => {
     dispatch({type:'ADD_PHOTOS',photos})
   }
 
-
   return (
     photoModel && reactDom.createPortal(
       <div className="model">

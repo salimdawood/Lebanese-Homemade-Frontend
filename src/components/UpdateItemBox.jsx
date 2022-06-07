@@ -5,7 +5,7 @@ const UpdateItemBox = ({item,onChange,editItem}) => {
   return (
     <tr>
       <td><input type="text" name="name" value={item.name} onChange={onChange}/></td>
-      <td><input type="number" name="price" value={item.price} onChange={onChange}/></td>
+      <td><input type="number" name="price" value={item.price} onChange={onChange} min="0"/></td>
       <td className="action-cell">
         <Check onClick={()=>editItem(1,item.id)}/>
         <Close onClick={()=>editItem(-1,item.id)}/>

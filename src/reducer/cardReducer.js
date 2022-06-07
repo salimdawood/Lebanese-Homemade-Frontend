@@ -19,6 +19,11 @@ const cardReducer = (state,action)=>{
         ...state,
         photoList:action.photos
       }
+    case 'ADD_MENU':
+      return {
+        ...state,
+        itemList:action.items
+      }
     default:
       break;
   }
