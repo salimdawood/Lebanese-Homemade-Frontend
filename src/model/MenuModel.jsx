@@ -4,6 +4,7 @@ import {Close} from '../components/Svg'
 import { cardContext } from '../context/cardContext'
 import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
+import { nanoid } from 'nanoid'
 
 const MenuModel = () => {
 
@@ -13,19 +14,59 @@ const MenuModel = () => {
     name:"",
     price:0
   })
+  const [editItemInput,setEditItemInput] = useState({
+    name:"",
+    price:0
+  })
+  const [editTarget,setEditTarget] = useState(null)
 
   const handleChange = (e) =>{
     setItemInput({...itemInput,[e.target.name]:e.target.value})
   }
+  const handleEditChange = (e) =>{
+    setEditItemInput({...editItemInput,[e.target.name]:e.target.value})
+  }
 
   const addItem = (e)=>{
     e.preventDefault()
-    setItems([...items,itemInput])
-    setItemInput({name:"",price:""})
+    const newItem ={
+      id:nanoid(),
+      name:itemInput.name,
+      price:itemInput.price
+    }
+    setItems([...items,newItem])
+    setItemInput({name:"",price:0})
   }
 
   const confirmItems = () =>{
     //add items to card information context
+  }
+
+  const removeItem = (itemId) =>{
+    //remove item from local state
+    setItems([...items.filter(item=>item.id !== itemId)])
+  }
+
+  const editItem = (editCode,itemId) =>{
+    switch (editCode) {
+      //open the edit form
+      case 0:
+        setEditItemInput(...items.filter(item=>item.id === itemId))
+        setEditTarget(itemId)
+        break;
+      //cancel the edit
+      case -1:
+        setEditItemInput({name:"",price:0})
+        setEditTarget(null)
+        break;
+      //save the edit
+      case 1:
+        setItems([...items.filter(item=>item.id !== itemId),editItemInput])
+        setEditTarget(null)
+        break;
+      default:
+        break;
+    }
   }
 
   return (
@@ -44,11 +85,19 @@ const MenuModel = () => {
               </thead>
               <tbody>
                 {
-                  items.map((item)=>(
-                      <>
-                        <UpdateItemBox />
-                        <ReadOnlyItemBox item={item}/>
-                      </>
+                  items
+                  .sort(function(a, b){
+                    var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+                    if (nameA < nameB)
+                     return -1;
+                    if (nameA > nameB)
+                     return 1;
+                    return 0;
+                   })
+                  .map((item)=>(
+                        editTarget === item.id ?
+                        <UpdateItemBox key={item.id} item={editItemInput} editItem={editItem} onChange={handleEditChange} /> : 
+                        <ReadOnlyItemBox key={item.id} item={item} removeItem={removeItem} editItem={editItem}/>
                     )
                   )
                 }

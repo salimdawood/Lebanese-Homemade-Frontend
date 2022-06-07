@@ -298,6 +298,7 @@ footer .footer-media-container svg:hover{
   overflow-y: scroll;
 }
 .model-container{
+  position: relative;
   width: 400px;
   min-height: 200px;
   display: flex;
@@ -426,4 +427,8 @@ footer .footer-media-container svg:hover{
 }
 .model .table-form td[class*='action-cell'] svg{
   fill: var(--warning-color);
+}
+.model .table-form tbody input{
+  width: 100px;
+  font-size: 20px;
 }

@@ -1,14 +1,14 @@
 import React from 'react'
-import { Close,Edit } from './Svg'
+import { Delete,Edit } from './Svg'
 
-const ReadOnlyItemBox = ({item}) => {
+const ReadOnlyItemBox = ({item,removeItem,editItem}) => {
   return (
-    <tr key={item.name}>
+    <tr>
       <td>{item.name}</td>
       <td>{item.price}</td>
       <td className="action-cell">
-        <Edit/>
-        <Close/>
+        <Edit onClick={()=>editItem(0,item.id)}/>
+        <Delete onClick={()=>removeItem(item.id)}/>
       </td>
     </tr>
   )
