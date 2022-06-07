@@ -2,7 +2,7 @@ import React,{useState,useEffect,useContext} from 'react'
 import FormInput from '../components/FormInput'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
-import userAuth from '../hooks/userAuth'
+import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { cardContext } from '../context/cardContext'
 
@@ -10,7 +10,7 @@ import { cardContext } from '../context/cardContext'
 const UpdateCardPage = () => {
 
 
-  const {userProfile,dispatch} = userAuth()
+  const {userProfile,dispatch} = useAuth()
   const {cardProfile,dispatch:cardDispatch,typesArray} = useContext(cardContext)
 
   const[cardInfo,setCardInfo] = useState({

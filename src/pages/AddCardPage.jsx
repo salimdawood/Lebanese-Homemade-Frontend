@@ -2,14 +2,14 @@ import React,{useState,useContext} from 'react'
 import FormInput from '../components/FormInput'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
-import userAuth from '../hooks/userAuth'
+import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { cardContext } from '../context/cardContext'
 
 const AddCardPage = () => {
   
   const navigate = useNavigate()
-  const {userProfile,dispatch} = userAuth()
+  const {userProfile,dispatch} = useAuth()
   const {typesArray,setMenuModel,setPhotoModel} = useContext(cardContext)
 
   const[cardInfo,setCardInfo] = useState({

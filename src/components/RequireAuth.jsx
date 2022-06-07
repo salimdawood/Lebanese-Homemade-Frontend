@@ -1,10 +1,10 @@
 import React from 'react'
 import {Navigate,useLocation,Outlet } from 'react-router-dom'
-import userAuth from '../hooks/userAuth'
+import useAuth from '../hooks/useAuth'
 
 
 const RequireAuth = () => {
-  const {userProfile} = userAuth()
+  const {userProfile} = useAuth()
   const location = useLocation()
   return (
     userProfile.name? <Outlet/> : <Navigate to="/signin" state={{from:location}} replace />

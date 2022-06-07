@@ -15,11 +15,9 @@ const PhotoModel = () => {
   for(let i =0;i<5;i++){
     if(photos[i] != null){
       arr.push(PhotoBox({id:i,photo:photos[i],setPhotos,photos}))
-      console.log("existing")
     }
     else{
       arr.push(PhotoBox({id:i,photo:null,setPhotos,photos}))
-      console.log("null")
     }
   }
 

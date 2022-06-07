@@ -2,11 +2,11 @@ import React,{useState} from 'react'
 import FormInput from './FormInput'
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
-import userAuth from '../hooks/userAuth'
+import useAuth from '../hooks/useAuth'
 
 const UserDashboard = () => {
 
-  const {userProfile,dispatch,toggleCardsGallery} = userAuth()
+  const {userProfile,dispatch,toggleCardsGallery} = useAuth()
  
 
   const[nameIsUnique,setNameIsUnique] = useState(true)

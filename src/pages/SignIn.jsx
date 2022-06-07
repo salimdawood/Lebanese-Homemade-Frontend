@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
 import * as Axios  from 'axios'
 import {useNavigate} from 'react-router-dom'
-import userAuth from '../hooks/userAuth'
+import useAuth from '../hooks/useAuth'
 import {URL_PATH} from '../path'
 
 const SignIn = () => {
 
-  const {userProfile,dispatch} = userAuth()
+  const {userProfile,dispatch} = useAuth()
   const [warningMessage, setWarningMessage] = useState("")
   const[userInfo,setUserInfo] = useState({
     name:"",
