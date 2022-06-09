@@ -10,7 +10,7 @@ const AddCardPage = () => {
   
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
-  const {typesArray,setMenuModel,setPhotoModel} = useContext(cardContext)
+  const {typesArray,setMenuModel,setPhotoModel,cardProfile} = useContext(cardContext)
 
   const[cardInfo,setCardInfo] = useState({
     title:"",
@@ -57,7 +57,34 @@ const AddCardPage = () => {
     
   const addCard = (e)=>{
     e.preventDefault()
-    Axios.post(URL_PATH+'Cards',cardInfo)
+
+    let formData = new FormData()
+
+    //search for better solution,way of send and recieve
+    //card basic info
+    for ( var info in cardInfo ) {
+      formData.append(info, cardInfo[info]);
+    }
+    //card photos
+    for(let i=0;i<cardProfile.photoList.length;i++){
+      if(cardProfile.photoList[i] !== null){
+        formData.append('photoList', cardProfile.photoList[i])
+      }
+    }
+    for(let i=0;i<cardProfile.itemList.length;i++){
+      formData.append('itemList', JSON.stringify(cardProfile.itemList[i]))
+    }
+    //print the form
+    for (var pair of formData.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+    }
+    
+    Axios({
+      method: "post",
+      url: URL_PATH+'Cards',
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
     .then((result)=>{
       console.log(result)
       switch (result.data) {
