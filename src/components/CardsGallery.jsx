@@ -7,10 +7,10 @@ const CardsGallery = () => {
   const{showCardsGallery,userProfile:{cardList}} = useContext(userContext)
   const arr = []
 
-  for(let i=0;i<cardList.length && i<10;i++){
+  for(let i=0;i<cardList.$values.length && i<10;i++){
     arr.push(UserCard(cardList[i]))
   }
-  for(let i=0;i<10-cardList.length;i++){
+  for(let i=0;i<10-cardList.$values.length;i++){
     arr.push(UserCard())
   }
 

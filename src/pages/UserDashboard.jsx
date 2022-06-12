@@ -14,7 +14,7 @@ const UserDashboard = () => {
       Axios.get(URL_PATH+'Types/')
         .then((result)=>{
           console.log(result)
-          setTypesArray([...result.data])
+          setTypesArray([...result.data.$values])
         },(error)=>{
           console.log(error)
       }); 
