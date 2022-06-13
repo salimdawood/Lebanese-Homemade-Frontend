@@ -14,8 +14,10 @@ import UpdateCardPage from './pages/UpdateCardPage';
 import AddCardPage from './pages/AddCardPage';
 import {UserContextProvider} from './context/userContext'
 import {CardContextProvider} from './context/cardContext'
+import {NotificationContextProvider} from './context/notificationContext'
 import MenuModel from './model/MenuModel'
 import PhotoModel from './model/PhotoModel'
+import NotificationModel from './model/NotificationModel'
 
 function App() {
   
@@ -23,31 +25,34 @@ function App() {
     <Router>
       <UserContextProvider>
         <CardContextProvider>
-          <div className="app-container">
-            <nav>
-              <Navbar/>
-            </nav>
-            <main>
-              <Routes>
-                  <Route element={<RequireAuth/>}>
-                    <Route path="/user/:userId/cards" element={<UpdateCardPage />}/>
-                    <Route path="/user/:userId/add-card" element={<AddCardPage />}/>
-                    <Route path="/user/:userId" element={<UserDashboard />}/>
-                  </Route>
-                  <Route path="/contactus" element={<ContactUs />}/>
-                  <Route path="/signin" element={<SignIn />}/>
-                  <Route path="/signup" element={<SignUp />}/>
-                  <Route path="/aboutus" element={<AboutUs />}/>
-                  <Route index element={<Home />}/>
-                  <Route path="/*" element={<Error />}/>
-                </Routes>
-            </main>
-            <footer>
-              <Footer/>
-            </footer>
-          </div>
-          <PhotoModel/>
-          <MenuModel/>
+          <NotificationContextProvider>
+            <div className="app-container">
+              <nav>
+                <Navbar/>
+              </nav>
+              <main>
+                <Routes>
+                    <Route element={<RequireAuth/>}>
+                      <Route path="/user/:userId/cards" element={<UpdateCardPage />}/>
+                      <Route path="/user/:userId/add-card" element={<AddCardPage />}/>
+                      <Route path="/user/:userId" element={<UserDashboard />}/>
+                    </Route>
+                    <Route path="/contactus" element={<ContactUs />}/>
+                    <Route path="/signin" element={<SignIn />}/>
+                    <Route path="/signup" element={<SignUp />}/>
+                    <Route path="/aboutus" element={<AboutUs />}/>
+                    <Route index element={<Home />}/>
+                    <Route path="/*" element={<Error />}/>
+                  </Routes>
+              </main>
+              <footer>
+                <Footer/>
+              </footer>
+            </div>
+            <PhotoModel/>
+            <MenuModel/>
+            <NotificationModel/>
+          </NotificationContextProvider>
         </CardContextProvider>
       </UserContextProvider>
     </Router>

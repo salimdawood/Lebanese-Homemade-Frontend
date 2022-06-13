@@ -8,7 +8,7 @@ const CardsGallery = () => {
   const arr = []
 
   for(let i=0;i<cardList.$values.length && i<10;i++){
-    arr.push(UserCard(cardList[i]))
+    arr.push(UserCard(cardList.$values[i]))
   }
   for(let i=0;i<10-cardList.$values.length;i++){
     arr.push(UserCard())
