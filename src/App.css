@@ -452,7 +452,7 @@ footer .footer-media-container svg:hover{
   z-index: 10;
   transform: translateX(-50%);
   animation-name: simple;
-  animation-duration:.3s;
+  animation-duration:1.5s;
   animation-fill-mode: forwards;
 }
 @keyframes simple {
@@ -460,9 +460,13 @@ footer .footer-media-container svg:hover{
     top: 0;
     opacity: 0;
   }
-  100% {
+  50% {
     top: 10%;
     opacity: 1;
+  }
+  100% {
+    top: 0;
+    opacity: 0;
   }
 }
 .note-box{

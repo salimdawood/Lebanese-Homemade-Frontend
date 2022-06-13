@@ -8,8 +8,7 @@ export const NotificationContextProvider = ({children}) => {
   const[notification,setNotification] = useState({
     isShown:true,
     color:"red",
-    message:"Something went wrong.",
-    time:1000
+    message:"Something went wrong."
   })
 
   return (

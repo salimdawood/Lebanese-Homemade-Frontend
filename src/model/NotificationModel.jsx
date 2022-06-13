@@ -9,7 +9,7 @@ const NotificationModel = () => {
   useEffect(()=>{
     setTimeout(function() {
       setNotification({...notification,isShown:false})
-         }, notification.time);
+         }, 1500);
        },
    [])
 
