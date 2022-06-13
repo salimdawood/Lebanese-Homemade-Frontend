@@ -9,10 +9,8 @@ const NotificationModel = () => {
   useEffect(()=>{
     setTimeout(function() {
       setNotification({...notification,isShown:false})
-         }, 1500);
-       },
-   [])
-
+    }, 1500)
+  },[notification.isShown])
 
   return (
     notification.isShown && reactDom.createPortal(
