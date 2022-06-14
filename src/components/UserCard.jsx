@@ -11,6 +11,7 @@ const UserCard = (props) => {
   const {cardProfile,dispatch} = useContext(cardContext)
   const navigate = useNavigate()
 
+  
   const updateCard = () =>{
     Axios.get(URL_PATH+`Cards/${props.id}`)
     .then((result)=>{
@@ -47,8 +48,8 @@ const UserCard = (props) => {
   }
   
   return (
-    props != null ?
-    <div key={props.id} onClick={updateCard} className="card-space">
+    props.id != null ?
+    <div onClick={updateCard} className="card-space">
       <h3>{props.title}</h3>
       <h4>{props.type}</h4>
       <h6>{props.dateCreated}</h6>

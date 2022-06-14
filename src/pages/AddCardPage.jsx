@@ -97,7 +97,8 @@ const AddCardPage = () => {
           break;
         default:
           console.log("card added successfully")
-          /*
+          setNotification({isShown:true,message:"Card added successfully",color:"green"})
+          navigate(`/user/${userProfile.id}`)
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
             ...userProfile,
             cardList:[...userProfile.cardList,{
@@ -109,9 +110,6 @@ const AddCardPage = () => {
               dateCreated: Date()
             }]}
           })
-          */
-          setNotification({isShown:true,message:"Card added successfully",color:"green"})
-          navigate(`/user/${userProfile.id}`)
           break;
         }
     },(error)=>{

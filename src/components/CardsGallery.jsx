@@ -1,24 +1,29 @@
 import React,{useContext,useState} from 'react'
 import { userContext } from '../context/userContext'
 import UserCard from './UserCard'
+import { nanoid } from 'nanoid'
 
 const CardsGallery = () => {
 
   const{showCardsGallery,userProfile:{cardList}} = useContext(userContext)
   const arr = []
 
-  for(let i=0;i<cardList.$values.length && i<10;i++){
-    arr.push(UserCard(cardList.$values[i]))
-  }
-  for(let i=0;i<10-cardList.$values.length;i++){
-    arr.push(UserCard())
+  for(let i=0;i<10;i++){
+    if(cardList[i] != null){
+      arr.push(cardList[i])
+    }
+    else{
+      arr.push(null)
+    }
   }
 
   return (
       showCardsGallery && 
       <div className="cards-gallery">
           <div className="cards-container slide">
-            {arr.slice(0,10)}
+            {arr.map(card=>(
+              <UserCard key={nanoid()} {...card}/>
+            ))}
           </div>
       </div>
   )
