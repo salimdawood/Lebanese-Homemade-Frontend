@@ -1,12 +1,14 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import * as Axios  from 'axios'
 import {useNavigate} from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import {URL_PATH} from '../path'
+import {notificationContext} from '../context/notificationContext'
 
 const SignIn = () => {
 
   const {userProfile,dispatch} = useAuth()
+  const {setNotification} = useContext(notificationContext)
   const [warningMessage, setWarningMessage] = useState("")
   const[userInfo,setUserInfo] = useState({
     name:"",
@@ -43,6 +45,7 @@ const SignIn = () => {
       }
     },(error)=>{
       console.log(error)
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
     });
   }
   const handleChange =(e)=>{

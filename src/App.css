@@ -355,6 +355,7 @@ footer .footer-media-container svg:hover{
 }
 /*menu model*/
 .add-item-form{
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -363,8 +364,8 @@ footer .footer-media-container svg:hover{
 }
 .add-item-form .form-input{
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;

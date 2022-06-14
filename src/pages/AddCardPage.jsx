@@ -5,12 +5,14 @@ import {URL_PATH} from '../path'
 import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { cardContext } from '../context/cardContext'
+import {notificationContext} from '../context/notificationContext'
 
 const AddCardPage = () => {
   
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
   const {typesArray,setMenuModel,setPhotoModel,cardProfile} = useContext(cardContext)
+  const {setNotification} = useContext(notificationContext)
 
   const[cardInfo,setCardInfo] = useState({
     title:"",
@@ -27,10 +29,10 @@ const AddCardPage = () => {
       name:"title",
       type:"text",
       placeholder:"Enter your card title",
-      errorMessage:"Title should be between 5-30 characters, and should include only letters and numbers.",
+      errorMessage:"Title should be between 3-30 characters, and should include only letters,spaces and numbers.",
       required:true,
       label:"Title *",
-      pattern:"^[a-zA-Z0-9 ]{5,30}$"
+      pattern:"^[a-zA-Z0-9' ]{5,30}$"
     },
     {
       id:2,
@@ -71,6 +73,7 @@ const AddCardPage = () => {
         formData.append('photoList', cardProfile.photoList[i])
       }
     }
+    //card menu
     for(let i=0;i<cardProfile.itemList.length;i++){
       formData.append('itemList', JSON.stringify(cardProfile.itemList[i]))
     }
@@ -90,9 +93,11 @@ const AddCardPage = () => {
       switch (result.data) {
         case -1:
           console.log("something went wrong")
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
           break;
         default:
           console.log("card added successfully")
+          /*
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
             ...userProfile,
             cardList:[...userProfile.cardList,{
@@ -104,11 +109,14 @@ const AddCardPage = () => {
               dateCreated: Date()
             }]}
           })
+          */
+          setNotification({isShown:true,message:"Card added successfully",color:"green"})
           navigate(`/user/${userProfile.id}`)
           break;
         }
     },(error)=>{
       console.log(error)
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
     }); 
   }
 

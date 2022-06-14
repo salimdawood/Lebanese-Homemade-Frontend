@@ -5,9 +5,11 @@ import { cardContext } from '../context/cardContext'
 import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
 import { nanoid } from 'nanoid'
+import { notificationContext } from '../context/notificationContext'
 
 const MenuModel = () => {
 
+  const {setNotification} = useContext(notificationContext)
   const {menuModel,setMenuModel,dispatch,cardProfile} = useContext(cardContext)
   const [items,setItems] = useState(cardProfile.itemList)
   const [itemInput,setItemInput] = useState({
@@ -62,8 +64,13 @@ const MenuModel = () => {
         break;
       //save the edit
       case 1:
-        setItems([...items.filter(item=>item.id !== itemId),editItemInput])
-        setEditTarget(null)
+        if(editItemInput.price >= 0 && editItemInput.price <= 99000000 ){
+          setItems([...items.filter(item=>item.id !== itemId),editItemInput])
+          setEditTarget(null)  
+        }
+        else{
+          setNotification({isShown:true,message:"Price must range between 0 - 99,000,000",color:"red"})
+        }
         break;
       default:
         break;
@@ -115,7 +122,8 @@ const MenuModel = () => {
               <div className="input-container">
                 <label>Price</label>
                 <input type="number" placeholder="Enter item price"
-                 value={itemInput.price} onChange={handleChange} name="price" min="0"/>
+                 value={itemInput.price} onChange={handleChange} name="price" min="0"
+                 max="99000000"/>
               </div>
             </div>
             <input type="submit" value="Add to menu"/>
