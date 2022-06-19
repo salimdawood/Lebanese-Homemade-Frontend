@@ -6,12 +6,18 @@ import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
 import { nanoid } from 'nanoid'
 import { notificationContext } from '../context/notificationContext'
+import { useLocation } from 'react-router-dom'
 
 const MenuModel = () => {
 
   const {setNotification} = useContext(notificationContext)
   const {menuModel,setMenuModel,dispatch,cardProfile} = useContext(cardContext)
-  const [items,setItems] = useState(cardProfile.itemList)
+  
+  //detect whether we are in a update or create state 
+  const location = useLocation()
+  let inExistingCard = location.pathname.includes('/cards')? true :false 
+  
+  //local state
   const [itemInput,setItemInput] = useState({
     name:"",
     price:0
@@ -21,7 +27,22 @@ const MenuModel = () => {
     price:0
   })
   const [editTarget,setEditTarget] = useState(null)
+  const [items,setItems] = useState([])
 
+  //change the displaying items depending on our current card state
+  useEffect(() => {
+    if(inExistingCard){
+      let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+      if(tmpItems.menu !== null){
+        setItems(tmpItems.menu.itemList.$values)
+      }
+    }
+    else{
+      setItems(cardProfile.itemList)
+    } 
+  },[location])
+
+  //handle the local state
   const handleChange = (e) =>{
     setItemInput({...itemInput,[e.target.name]:e.target.value})
   }
@@ -38,11 +59,6 @@ const MenuModel = () => {
     }
     setItems([...items,newItem])
     setItemInput({name:"",price:0})
-  }
-
-  const confirmItems = () =>{
-    //add items to card information context
-    dispatch({type:'ADD_MENU',items})
   }
 
   const removeItem = (itemId) =>{
@@ -75,6 +91,22 @@ const MenuModel = () => {
       default:
         break;
     }
+  }
+
+  //for card update
+  const deleteItems = () =>{
+    //delete all menu items from database
+    //delete all the menu items from local state
+    //check if need to update session storage
+  }
+  const updateItems = () =>{
+    //update the menu items from the database
+    //check if need to update session storage
+  }
+  //for card create
+  const confirmItems = () =>{
+    //add items to card information context
+    dispatch({type:'ADD_MENU',items})
   }
 
   return (
@@ -128,7 +160,16 @@ const MenuModel = () => {
             </div>
             <input type="submit" value="Add to menu"/>
           </form>
-          <input type="submit" onClick={confirmItems} value="Confirm"/>
+          {inExistingCard ? 
+          <>
+            <input type="submit" onClick={updateItems} value="Update"/>
+            <input type="submit" onClick={deleteItems} className="delete-btn" value="Delete all items"/>
+          </>
+          :
+          <>
+            <input type="submit" onClick={confirmItems} value="Confirm"/>
+          </>
+          }
         </div>
       </div>
     ,document.getElementById('model')

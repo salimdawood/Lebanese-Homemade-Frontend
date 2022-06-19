@@ -414,7 +414,7 @@ footer .footer-media-container svg:hover{
 .model .table-form{
   width: 100%;
 }
-.model input[value='Confirm']{
+.model input[value='Confirm'],.model input[value='Update'],.model input[class*='delete-btn']{
   padding: 10px;
   border-radius: 5px;
   background-color: var(--confirm-color);
@@ -423,7 +423,13 @@ footer .footer-media-container svg:hover{
   border: none;
   width: 100%;
 }
-.model input[value='Confirm']:hover{
+.model input[class*='delete-btn']{
+  background-color: var(--warning-color);
+}
+.model input[class*='delete-btn']:hover{
+  background-color: var(--warning-hover-color);
+}
+.model input[value='Confirm']:hover,.model input[value='Update']:hover{
   background-color:var(--confirm-hover-color);
 }
 .model .table-form td[class*='action-cell']{

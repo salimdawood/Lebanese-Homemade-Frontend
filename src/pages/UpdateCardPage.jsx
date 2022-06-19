@@ -5,21 +5,27 @@ import {URL_PATH} from '../path'
 import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { cardContext } from '../context/cardContext'
+import {notificationContext} from '../context/notificationContext'
 
 
 const UpdateCardPage = () => {
 
 
   const {userProfile,dispatch} = useAuth()
-  const {cardProfile,dispatch:cardDispatch,typesArray} = useContext(cardContext)
+  const {dispatch:cardDispatch,typesArray,setPhotoModel,setMenuModel} = useContext(cardContext)
+  const {setNotification} = useContext(notificationContext)
+  //put inside use effect
+  const cardProfile = sessionStorage.getItem("card")?
+   JSON.parse(sessionStorage.getItem("card")) : {} 
+  
 
   const[cardInfo,setCardInfo] = useState({
-    id:cardProfile.id,
+    id:cardProfile.id || "",
     title:cardProfile.title || "",
     facebookLink:cardProfile.faceBookLink || "",
     instagramLink:cardProfile.instagramLink || "",
     whatsappLink:cardProfile.whatsAppLink || "",
-    typeId:typesArray.filter(type=>type.name === cardProfile.type)[0].id,
+    //typeId:typesArray.filter(type=>type.name === cardProfile.type)[0].id || "",
     userId:userProfile.id
   })
 
@@ -101,9 +107,11 @@ const UpdateCardPage = () => {
       switch (result.data) {
         case -1:
           console.log("something went wrong")
+          setNotification({isShown:true,message:"Unable to delete the card",color:"red"})
           break;
         case 1:
           console.log("card deleted successfully")
+          setNotification({isShown:true,message:"Card was deleted successfully",color:"green"})
           navigate(`/user/${userProfile.id}`)
           dispatch({type:'DELETE_CARD',id:cardInfo.id})
           break;
@@ -114,6 +122,12 @@ const UpdateCardPage = () => {
     },(error)=>{
       console.log(error)
     });
+  }
+  const updatePhotos = () =>{
+    setPhotoModel(true)
+  }
+  const updateMenu = () =>{
+    setMenuModel(true)
   }
 
   return (
@@ -144,6 +158,8 @@ const UpdateCardPage = () => {
           </select>
           <input type="submit" value="Update" />
         </form>
+        <input type="submit" value="Manage photos" onClick={updatePhotos}/>
+        <input type="submit" value="Manage menu" onClick={updateMenu}/>
         <input type="submit" value="Delete card" className="delete-btn" onClick={deleteCard}/>
       </div>
   )

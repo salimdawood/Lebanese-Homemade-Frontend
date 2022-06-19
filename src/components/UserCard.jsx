@@ -16,27 +16,9 @@ const UserCard = (props) => {
     Axios.get(URL_PATH+`Cards/${props.id}`)
     .then((result)=>{
       console.log(result)
-      dispatch({type:'UPDATE_CARD_PROFILE',cardProfile:{...result.data}})
-      /*
-      switch (result.data) {
-        case -1:
-          console.log("name is not unique")
-          setNameIsUnique(false)
-          break;
-        case 0:
-          console.log("couldn't add try agian later")
-          setNameIsUnique(true)
-          break;
-        case 1:
-          console.log("added successfully")
-          setNameIsUnique(true)
-          navigate("/signin")
-          break;
-        default:
-          console.log("success code not founded")
-          break;
-      }
-      */
+      
+      //dispatch({type:'UPDATE_CARD_PROFILE',cardProfile:{...result.data}})
+      sessionStorage.setItem("card",JSON.stringify(result.data))
       navigate(`/user/${id}/cards?card=${props.id}`)
     },(error)=>{
       console.log(error)
