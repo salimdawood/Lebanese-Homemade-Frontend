@@ -7,6 +7,8 @@ import UpdateItemBox from '../components/UpdateItemBox'
 import { nanoid } from 'nanoid'
 import { notificationContext } from '../context/notificationContext'
 import { useLocation } from 'react-router-dom'
+import * as Axios from 'axios'
+import { URL_PATH } from '../path'
 
 const MenuModel = () => {
 
@@ -96,12 +98,55 @@ const MenuModel = () => {
   //for card update
   const deleteItems = () =>{
     //delete all menu items from database
-    //delete all the menu items from local state
-    //check if need to update session storage
+    let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+    if(tmpItems.menu !== null){
+      Axios.delete(URL_PATH+`menus/${tmpItems.menu.id}`)
+      .then(result=>{
+        switch (result.data) {
+          case 1:
+            setNotification({isShown:true,message:"All items were deleted successfully",color:"green"})
+            //delete all the menu items from local state
+            setItems([])
+            //check if need to update session storage
+            //update the session
+            tmpItems.menu.itemList.$values = []
+            console.log(tmpItems)
+            sessionStorage.setItem("card",JSON.stringify(tmpItems))
+            break;
+          default:
+            setNotification({isShown:true,message:"Something went wrong",color:"red"})
+            break;
+        }
+        console.log(result)
+      }
+      ,error=>{
+        console.log(error)
+        setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      })
+    }
   }
   const updateItems = () =>{
     //update the menu items from the database
-    //check if need to update session storage
+    let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+    Axios.put(URL_PATH+`menus/${tmpItems.id}`,items)
+      .then(result=>{
+        console.log(result)
+        switch (result.data) {
+          case 1:
+            setNotification({isShown:true,message:"Menu updated successfully",color:"green"})
+            //update the session
+            tmpItems.menu.itemList.$values = items
+            sessionStorage.setItem("card",JSON.stringify(tmpItems))
+            break;
+          default:
+            setNotification({isShown:true,message:"Something went wrong",color:"red"})
+            break;
+        }
+      }
+      ,error=>{
+        setNotification({isShown:true,message:"Something went wrong",color:"red"})
+        console.log(error)
+      })
   }
   //for card create
   const confirmItems = () =>{
@@ -162,12 +207,12 @@ const MenuModel = () => {
           </form>
           {inExistingCard ? 
           <>
-            <input type="submit" onClick={updateItems} value="Update"/>
+            <input type="submit" onClick={updateItems} className="confirm-btn" value="Update"/>
             <input type="submit" onClick={deleteItems} className="delete-btn" value="Delete all items"/>
           </>
           :
           <>
-            <input type="submit" onClick={confirmItems} value="Confirm"/>
+            <input type="submit" onClick={confirmItems} className="confirm-btn" value="Confirm"/>
           </>
           }
         </div>
