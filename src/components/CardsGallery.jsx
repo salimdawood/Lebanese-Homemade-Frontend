@@ -1,11 +1,12 @@
-import React,{useContext,useState} from 'react'
-import { userContext } from '../context/userContext'
+import React,{useState} from 'react'
 import UserCard from './UserCard'
 import { nanoid } from 'nanoid'
+import {Close} from './Svg'
+import useAuth from '../hooks/useAuth'
 
 const CardsGallery = () => {
 
-  const{showCardsGallery,userProfile:{cardList}} = useContext(userContext)
+  const{showCardsGallery,toggleCardsGallery,userProfile:{cardList}} = useAuth()
   const arr = []
 
   for(let i=0;i<10;i++){
@@ -20,7 +21,8 @@ const CardsGallery = () => {
   return (
       showCardsGallery && 
       <div className="cards-gallery">
-          <div className="cards-container slide">
+          <Close onClick={toggleCardsGallery} />
+          <div className="cards-container">
             {arr.map(card=>(
               <UserCard key={nanoid()} {...card}/>
             ))}
