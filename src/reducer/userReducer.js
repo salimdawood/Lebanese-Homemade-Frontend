@@ -11,6 +11,19 @@ const userReducer = (state,action)=>{
         ...state,
         cardList : [...newCards]
       }
+    case 'UPDATE_USER_CARD':
+      const cardListTmp = state.cardList
+      let index = cardListTmp.findIndex(card=>card.id === action.cardInfo.id)
+      cardListTmp[index].title = action.cardInfo.title
+      cardListTmp[index].type = action.cardInfo.type
+
+      state.cardList = [...cardListTmp]
+      sessionStorage.setItem("userProfile",JSON.stringify(state))
+
+      return {
+        ...state,
+        cardList :[...cardListTmp]
+      }
     default:
       break;
   }

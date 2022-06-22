@@ -10,14 +10,14 @@ import {notificationContext} from '../context/notificationContext'
 
 const UpdateCardPage = () => {
 
-
+  const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
-  const {dispatch:cardDispatch,typesArray,setPhotoModel,setMenuModel} = useContext(cardContext)
+  const {typesArray,setPhotoModel,setMenuModel} = useContext(cardContext)
   const {setNotification} = useContext(notificationContext)
-  //put inside use effect
+
+   //put inside use effect
   const cardProfile = sessionStorage.getItem("card")?
-   JSON.parse(sessionStorage.getItem("card")) : {} 
-  
+  JSON.parse(sessionStorage.getItem("card")) : {} 
 
   const[cardInfo,setCardInfo] = useState({
     id:cardProfile.id || "",
@@ -25,11 +25,8 @@ const UpdateCardPage = () => {
     facebookLink:cardProfile.faceBookLink || "",
     instagramLink:cardProfile.instagramLink || "",
     whatsappLink:cardProfile.whatsAppLink || "",
-    //typeId:typesArray.filter(type=>type.name === cardProfile.type)[0].id || "",
-    userId:userProfile.id
+    typeId:cardProfile.typeId || ""
   })
-
-  const navigate = useNavigate()
 
   const cardInfoInput = [
     {
@@ -64,40 +61,33 @@ const UpdateCardPage = () => {
       label:"Whatsapp link"
     }
   ]
+
+  const handleChange =(e)=>{
+    setCardInfo({ ...cardInfo, [e.target.name]: e.target.value });
+  }
     
   //change from add to update
-  const handleSubmit = (e)=>{
+  const updateCard = (e)=>{
     e.preventDefault()
-    Axios.post(URL_PATH+'Cards',cardInfo)
+    Axios.put(URL_PATH+`Cards/${cardInfo.id}`,cardInfo)
     .then((result)=>{
       console.log(result)
       switch (result.data) {
         case -1:
           console.log("something went wrong")
+          setNotification({isShown:true,message:"Unable to delete the card",color:"red"})
           break;
         default:
           console.log("card added successfully")
-          dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
-            ...userProfile,
-            cardList:[...userProfile.cardList,{
-              id:result.data,
-              title:cardInfo.title,
-              //better way???better solution
-              type:typesArray.filter(type=>type.id == cardInfo.typeId)[0].name,
-              dateCreated: Date()
-            }]}
-          })
-          cardInfo.id=result.data
+          cardInfo.type = typesArray.filter(type=>type.id == cardInfo.typeId)[0].name
+          dispatch({type:'UPDATE_USER_CARD',cardInfo})
+          setNotification({isShown:true,message:"Card was updated successfully",color:"green"})
           navigate(`/user/${userProfile.id}`)
           break;
         }
     },(error)=>{
       console.log(error)
     }); 
-  }
-
-  const handleChange =(e)=>{
-    setCardInfo({ ...cardInfo, [e.target.name]: e.target.value });
   }
 
   const deleteCard = ()=>{
@@ -133,7 +123,7 @@ const UpdateCardPage = () => {
   return (
       <div className="sign-up-form">
         <h1>Update your card</h1>
-        <form onSubmit={handleSubmit} className="form-container">
+        <form onSubmit={updateCard} className="form-container">
           {
             cardInfoInput.map((input)=>(
               <FormInput
