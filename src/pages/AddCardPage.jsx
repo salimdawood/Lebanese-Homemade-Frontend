@@ -149,7 +149,7 @@ const AddCardPage = () => {
             onChange={handleChange}
             required
           >
-            <option value="" disabled >Card Type</option>
+            <option value="" disabled >Card Type *</option>
             {
               typesArray.map((type)=>(
                 <option key={type.id} value={type.id}>{type.name}</option>

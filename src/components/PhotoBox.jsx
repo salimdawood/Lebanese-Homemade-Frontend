@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import { Close } from './Svg'
 import { notificationContext } from '../context/notificationContext'
+import {IMAGE_PATH} from '../path'
 
 
 const PhotoBox = (props) => {
@@ -37,9 +38,18 @@ const PhotoBox = (props) => {
     setFile(null)
   }
 
+  useEffect(() => {
+    setFile(photo)
+  }, [photo])
+
 
   useEffect(() => {
     let fileReader, isCancel = false;
+    //check type of file if file continue else assign dataurl to IMAGE_PATH+photoname passed
+    if( file != null && !('size' in file)){
+      setFileDataURL(IMAGE_PATH+file.name)
+      return
+    }
     if (file) {
       fileReader = new FileReader();
       fileReader.onload = (e) => {
