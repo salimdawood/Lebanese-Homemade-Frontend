@@ -84,7 +84,10 @@ const PhotoModel = () => {
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           break;
         default:
-          console.log("card added successfully")
+          console.log("photos updated successfully")
+           //update card session
+           card.photoList.$values = [...result.data.$values]
+           sessionStorage.setItem("card",JSON.stringify(card))
           setNotification({isShown:true,message:"Card added successfully",color:"green"})
           break;
         }
@@ -92,8 +95,6 @@ const PhotoModel = () => {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
     });
-
-    //update card session
   }
   const deletePhotos = () =>{
     //delete all photos using api call
@@ -104,6 +105,9 @@ const PhotoModel = () => {
       switch (result.data) {
         case 1:
           setNotification({isShown:true,message:"Photos were deleted successfully",color:'green'})
+          //update card session
+          card.photoList.$values = []
+          sessionStorage.setItem("card",JSON.stringify(card))
           break;
       
         default:
@@ -114,9 +118,6 @@ const PhotoModel = () => {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:'red'})
     });
-    //update card session
-    card.photoList.$values = []
-    sessionStorage.setItem("card",JSON.stringify(card))
   }
 
   return (
