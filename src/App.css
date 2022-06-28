@@ -512,3 +512,62 @@ footer .footer-media-container svg:hover{
 .green svg{
   fill: var(--notification-color);
 }
+/*home*/
+main .home-page{
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+main .home-page select{
+  width: 50%;
+  padding:10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: transparent;
+}
+main .home-page .card-container{
+  flex: 1;
+  width: 100%;
+  background-color: var(--notification-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+main .home-page .card-box{
+  background-color: var(--secondary-1-color);
+  min-width: 350px;
+}
+.card-box img{
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.card-box .info-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.card-box .info-box h4{
+  opacity: .6;
+}
+.card-box .info-box h4:last-of-type:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+.card-popup{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: var(--warning-color);
+}

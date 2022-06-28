@@ -6,6 +6,7 @@ import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { cardContext } from '../context/cardContext'
 import {notificationContext} from '../context/notificationContext'
+import SelectType from '../components/SelectType'
 
 const AddCardPage = () => {
   
@@ -143,19 +144,8 @@ const AddCardPage = () => {
               onChange={handleChange} />
             ))
           }
-          <select
-            defaultValue=""
-            name="typeId"
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled >Card Type *</option>
-            {
-              typesArray.map((type)=>(
-                <option key={type.id} value={type.id}>{type.name}</option>
-              ))
-            }
-          </select>
+          <label>Card type *</label>
+          <SelectType defaultValue="" handleChange={handleChange} typesArray={typesArray}/>
           <input type="submit" value="Create" />
         </form>
         <input type="submit" onClick={openMenuModel} value="Manage menu" />
