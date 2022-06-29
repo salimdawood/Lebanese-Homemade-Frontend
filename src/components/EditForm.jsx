@@ -89,7 +89,7 @@ const UserDashboard = () => {
           break;
         case 1:
           console.log("updated successfully")
-          dispatch({type:'UPDATE_USER_PROFILE',userProfile:userInfo})
+          dispatch({type:'UPDATE_USER_PROFILE',userProfile:{...userInfo,cardList:userProfile.cardList}})
           setNameIsUnique(true)
           break;
         default:

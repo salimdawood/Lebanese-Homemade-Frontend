@@ -571,3 +571,18 @@ main .home-page .card-box{
   left: 0;
   background-color: var(--warning-color);
 }
+.card-popup table {
+  border-collapse: collapse;
+  width: 50%;
+}
+.card-popup th,.model td {
+  text-align: left;
+  padding: 8px;
+}
+.card-popup tr:nth-of-type(even){
+  background-color: var(--secondary-1-color)
+}
+.card-popup th{
+  background-color: var(--secondary-2-color);
+  color: white;
+}
