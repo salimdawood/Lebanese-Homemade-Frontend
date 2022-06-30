@@ -9,9 +9,9 @@ const Card = (props) => {
     <div className="card-box">
       {
         card.photoList.$values.length>0 ?
-          <img src={IMAGE_PATH+card.photoList.$values[0].name} />
+          <img src={IMAGE_PATH+card.photoList.$values[0].name} loading="lazy" />
         :
-          <img src={IMAGE_PATH+"default.jpg"} />
+          <img src={IMAGE_PATH+"default.jpg"} loading="lazy" />
       }
       <h1>{card.title}</h1>
       <h3>{card.type}</h3>

@@ -529,6 +529,9 @@ main .home-page select{
   border-radius: 5px;
   background-color: transparent;
 }
+main .home-page select option{
+  text-transform: capitalize;
+}
 main .home-page .card-container{
   flex: 1;
   width: 100%;
@@ -569,11 +572,65 @@ main .home-page .card-box{
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: var(--warning-color);
+  background-color: #F5F5F5;
+}
+.card-popup .card-info{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+.card-popup svg{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.card-popup .top-container{
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+  background-color: #00b300;
+}
+.card-popup .photo-gallery{
+  flex: 1;
+  overflow:hidden;
+  height: 350px;
+  position: relative;
+}
+.card-popup .photo-gallery .dots-container{
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+.card-popup .photo-gallery .dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid white;
+  margin: 0 5px;
+  background: white;
+}
+.card-popup .photo-gallery .dot.active {
+  background: var(--secondary-3-color);
+}
+.card-popup img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.card-popup .info-gallery{
+  flex: 1;
+}
+.card-popup .bottom-container{
+
 }
 .card-popup table {
   border-collapse: collapse;
-  width: 50%;
+  width: 100%;
 }
 .card-popup th,.model td {
   text-align: left;

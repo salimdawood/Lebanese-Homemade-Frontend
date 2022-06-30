@@ -11,7 +11,16 @@ const SelectType = ({defaultValue,typesArray,handleChange}) => {
       >
       <option value="" disabled >Choose a card type</option>
       {
-        typesArray.map((type)=>(
+        typesArray
+        .sort(function(a, b){
+          var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+          if (nameA < nameB)
+           return -1;
+          if (nameA > nameB)
+           return 1;
+          return 0;
+         })
+        .map((type)=>(
           <option key={type.id} value={type.id}>{type.name}</option>
         ))
       }

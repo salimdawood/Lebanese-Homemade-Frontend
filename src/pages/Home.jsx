@@ -9,7 +9,7 @@ import CardPopUp from '../components/CardPopUp'
 
 const Home = () => {
 
-  const {typesArray} = useContext(cardContext)
+  const [typesArray,setTypesArray] = useState([])
   const [isLoading,setIsLoading] = useState(false)
   const [paginate,setPaginate] = useState({
     perPage:10,
@@ -23,7 +23,13 @@ const Home = () => {
   })
 
   useEffect(() => {
-    
+    Axios.get(URL_PATH+'Types/')
+    .then((result)=>{
+      console.log(result)
+      setTypesArray([...result.data.$values])
+    },(error)=>{
+      console.log(error)
+  });
   },[])
 
 
