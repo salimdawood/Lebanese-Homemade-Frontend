@@ -14,11 +14,13 @@ const Card = (props) => {
         :
           <img src={IMAGE_PATH+"default.jpg"} loading="lazy" />
       }
-      <h1>{card.title}</h1>
-      <h3>{card.type}</h3>
-      <div className="info-box">
-        <h4>{card.dateCreated}</h4>
-        <h4 onClick={()=>openCardPopUp(card)}>Show more</h4>
+      <div className="info-card">
+        <h1>{card.title}</h1>
+        <h3>{card.type}</h3>
+        <div className="info-box">
+          <h4>{card.dateCreated}</h4>
+          <h4 onClick={()=>openCardPopUp(card)}>Show more</h4>
+        </div>
       </div>
     </div>
   )

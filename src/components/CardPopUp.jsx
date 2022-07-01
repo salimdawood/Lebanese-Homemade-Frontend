@@ -22,7 +22,7 @@ const CardPopUp = (props) => {
             <div className="media-link">
               {faceBookLink !== null ? <a href={faceBookLink}><Facebook/></a> : <></>}
               {whatsAppLink !== null? <a href={whatsAppLink}><WhatsApp/></a> : <></>}
-              {instagramLink !== null? <a href={instagramLink}><Instagram/></a> : <></>}
+              {instagramLink !== null? <a href={`//${instagramLink}`} target="_blank"><Instagram/></a> : <></>}
             </div>
           </div>
           <div className="flex-box">
