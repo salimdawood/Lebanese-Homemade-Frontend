@@ -1,17 +1,34 @@
 import React from 'react'
 import { IMAGE_PATH } from '../path'
 import ImageSlider from './ImageSlider'
+import { Facebook,Instagram,WhatsApp } from './Svg'
 
 const CardPopUp = (props) => {
   const {title,type,photoList,menu,instagramLink,faceBookLink,whatsAppLink,dateCreated} = props
+
+  //get userId of the card and allow visitor to see all cards of this user in a different page
   return (
     <div className="card-info">
       <div className="top-container">
         <ImageSlider photoList={photoList} />
         <div className="info-gallery">
-          <p>{title}</p>
-          <p>{type}</p>
-          <p>{dateCreated}</p>
+          <h1>{title}</h1>
+          <div className="flex-box">
+            <h3>Type :</h3>
+            <h2>{type}</h2>
+          </div>
+          <div className="flex-box">
+            <h3>Social media :</h3>
+            <div className="media-link">
+              {faceBookLink !== null ? <a href={faceBookLink}><Facebook/></a> : <></>}
+              {whatsAppLink !== null? <a href={whatsAppLink}><WhatsApp/></a> : <></>}
+              {instagramLink !== null? <a href={instagramLink}><Instagram/></a> : <></>}
+            </div>
+          </div>
+          <div className="flex-box">
+            <h3>Created on :</h3>
+            <h2>{dateCreated}</h2>
+          </div>
         </div>
       </div>
       <div className="bottom-container">

@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {IMAGE_PATH,URL_PATH} from '../path'
 import * as Axios from 'axios'
+import ImageSlider from './ImageSlider'
 const Card = (props) => {
   const{openCardPopUp,...card} = props
 
@@ -9,7 +10,7 @@ const Card = (props) => {
     <div className="card-box">
       {
         card.photoList.$values.length>0 ?
-          <img src={IMAGE_PATH+card.photoList.$values[0].name} loading="lazy" />
+          <ImageSlider photoList={card.photoList}/>
         :
           <img src={IMAGE_PATH+"default.jpg"} loading="lazy" />
       }

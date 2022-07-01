@@ -582,22 +582,35 @@ main .home-page .card-box{
   gap: 10px;
   padding: 20px;
 }
-.card-popup svg{
+.card-popup > svg{
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 10px;
+  top: 10px;
+  z-index: 2;
 }
 .card-popup .top-container{
   display: flex;
   flex-direction: row;
-  gap:10px;
-  background-color: #00b300;
 }
 .card-popup .photo-gallery{
   flex: 1;
   overflow:hidden;
-  height: 350px;
+  height: 550px;
   position: relative;
+}
+.card-popup .photo-gallery svg{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: white;
+  width: 35px;
+  height: 35px;
+}
+.card-popup .photo-gallery svg:first-of-type{
+  left: 5px;
+}
+.card-popup .photo-gallery svg:last-of-type{
+  right: 5px;
 }
 .card-popup .photo-gallery .dots-container{
   position: absolute;
@@ -613,6 +626,7 @@ main .home-page .card-box{
   border: 3px solid white;
   margin: 0 5px;
   background: white;
+  cursor: pointer;
 }
 .card-popup .photo-gallery .dot.active {
   background: var(--secondary-3-color);
@@ -621,10 +635,68 @@ main .home-page .card-box{
   height: 100%;
   width: 100%;
   object-fit: cover;
+  animation-name: simple_appear;
+  animation-duration:.5s;
+  animation-fill-mode:forwards;
+  border-radius: 10px;
+}
+@keyframes simple_appear {
+  0%   {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .card-popup .info-gallery{
   flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
 }
+.card-popup .info-gallery h1{
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--secondary-3-color);
+  position: relative;
+}
+.card-popup .info-gallery h1::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  height: 5px;
+  border-bottom: 2px solid var(--secondary-1-color)
+}
+.card-popup .info-gallery .flex-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+.card-popup .info-gallery .flex-box > *:nth-child(2){
+  transform: translateX(20px);
+}
+.card-popup .info-gallery .media-link{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+.card-popup .info-gallery .media-link svg{
+  width: 30px;
+  height: 30px;
+  fill: var(--secondary-3-color);
+}
+.card-popup .info-gallery .media-link svg:hover{
+  transform: scale(1.1);
+}
+
 .card-popup .bottom-container{
 
 }

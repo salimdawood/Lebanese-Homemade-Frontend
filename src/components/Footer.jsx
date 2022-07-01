@@ -1,5 +1,5 @@
 import React from 'react'
-import {Facebook,Twitter,Instagram} from './Svg'
+import {Facebook,Instagram} from './Svg'
 
 const Footer = () => {
   //change icons
@@ -11,7 +11,6 @@ const Footer = () => {
       <div className="footer-media-container">
         <Facebook/>
         <Instagram/>
-        <Twitter/>
       </div>
       <span>&copy;copyright 2022</span>
     </>
