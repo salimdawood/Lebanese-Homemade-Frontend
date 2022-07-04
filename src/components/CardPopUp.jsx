@@ -2,17 +2,29 @@ import React from 'react'
 import { IMAGE_PATH } from '../path'
 import ImageSlider from './ImageSlider'
 import { Facebook,Instagram,WhatsApp } from './Svg'
+import { useNavigate } from 'react-router-dom'
 
 const CardPopUp = (props) => {
-  const {title,type,photoList,menu,instagramLink,faceBookLink,whatsAppLink,dateCreated} = props
+  const {title,type,photoList,menu,instagramLink,faceBookLink,whatsAppLink,dateCreated,user} = props
+
+  const navigate = useNavigate()
 
   //get userId of the card and allow visitor to see all cards of this user in a different page
+  const getCardsOfUser = ()=>{
+      navigate(`${user.name}/cards`,{replace:true})
+  }
+
+
   return (
     <div className="card-info">
       <div className="top-container">
         <ImageSlider photoList={photoList} />
         <div className="info-gallery">
           <h1>{title}</h1>
+          <div className="flex-box">
+            <h3>Owner :</h3>
+            <h2 onClick={()=>getCardsOfUser()}>{user.name}</h2>
+          </div>
           <div className="flex-box">
             <h3>Type :</h3>
             <h2>{type}</h2>

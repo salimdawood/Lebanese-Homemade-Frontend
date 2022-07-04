@@ -592,7 +592,8 @@ main .home-page .card-box .info-card:hover{
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: #F5F5F5;
+  background-color: var(--secondary-3-color);
+  color: var(--secondary-1-color);
 }
 .card-popup .card-info{
   display: flex;
@@ -600,13 +601,14 @@ main .home-page .card-box .info-card:hover{
   align-items: stretch;
   justify-content: center;
   gap: 10px;
-  padding: 20px;
+  padding: 30px;
 }
 .card-popup > svg{
   position: absolute;
   right: 10px;
   top: 10px;
   z-index: 2;
+  fill: white;
 }
 .card-popup .top-container{
   display: flex;
@@ -676,20 +678,20 @@ main .home-page .card-box .info-card:hover{
   flex-direction: column;
   justify-content: space-evenly;
   align-items: stretch;
+  gap: 20px;
 }
 .card-popup .info-gallery h1{
   font-size: 40px;
   font-weight: 400;
-  color: var(--secondary-3-color);
+  color: var(--secondary-1-color);
   position: relative;
 }
 .card-popup .info-gallery h1::after{
   content: "";
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
   width: 30%;
-  height: 5px;
   border-bottom: 2px solid var(--secondary-1-color)
 }
 .card-popup .info-gallery .flex-box{
@@ -698,6 +700,10 @@ main .home-page .card-box .info-card:hover{
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
+}
+.card-popup .info-gallery .flex-box:first-of-type :nth-child(2){
+  cursor: pointer;
+  text-decoration: underline;
 }
 .card-popup .info-gallery .flex-box > *:nth-child(2){
   transform: translateX(20px);
@@ -712,7 +718,7 @@ main .home-page .card-box .info-card:hover{
 .card-popup .info-gallery .media-link svg{
   width: 30px;
   height: 30px;
-  fill: var(--secondary-3-color);
+  fill: var(--secondary-1-color);
 }
 .card-popup .info-gallery .media-link svg:hover{
   transform: scale(1.1);
@@ -735,4 +741,12 @@ main .home-page .card-box .info-card:hover{
 .card-popup th{
   background-color: var(--secondary-2-color);
   color: white;
+}
+@media screen and (max-width:800px) {
+  .card-popup .top-container{
+    flex-direction: column;
+  } 
+  .photo-gallery{
+    max-height: 350px;
+  }
 }

@@ -18,6 +18,7 @@ import {NotificationContextProvider} from './context/notificationContext'
 import MenuModel from './model/MenuModel'
 import PhotoModel from './model/PhotoModel'
 import NotificationModel from './model/NotificationModel'
+import UserCards from './pages/UserCards';
 
 function App() {
   
@@ -37,6 +38,7 @@ function App() {
                       <Route path="/user/:userId/add-card" element={<AddCardPage />}/>
                       <Route path="/user/:userId" element={<UserDashboard />}/>
                     </Route>
+                    <Route path="/:username/cards" element={<UserCards />}/>
                     <Route path="/contactus" element={<ContactUs />}/>
                     <Route path="/signin" element={<SignIn />}/>
                     <Route path="/signup" element={<SignUp />}/>

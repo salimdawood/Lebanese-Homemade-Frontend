@@ -1,19 +1,15 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useEffect,useState} from 'react'
 import * as Axios from 'axios'
-import SelectType from '../components/SelectType'
 import {URL_PATH} from '../path'
 import {Close} from '../components/Svg'
 import Card from '../components/Card.jsx'
-import CardPopUp from '../components/CardPopUp'
+import CardPopUp from '../components/CardPopUp' 
+import { useHistory, useParams } from 'react-router-dom'
 
-const Home = () => {
 
-  const [typesArray,setTypesArray] = useState([])
+const UserCards = () => {
+
   const [isLoading,setIsLoading] = useState(false)
-  const [paginate,setPaginate] = useState({
-    perPage:10,
-    currentPage:1
-  })
   const[cards,setCards] = useState([])
   //popup model
   const[cardModel, setCardModel] = useState(false)
@@ -21,14 +17,17 @@ const Home = () => {
     //add the information of a card
   })
 
+  const {username} = useParams()
   useEffect(() => {
-    Axios.get(URL_PATH+'Types/')
-    .then((result)=>{
+    setIsLoading(true)
+    Axios.get(URL_PATH+`Cards/GetCards/${username}`)
+    .then(result=>{
       console.log(result)
-      setTypesArray([...result.data.$values])
-    },(error)=>{
+      setCards(result.data.$values)
+    },error=>{
       console.log(error)
-  });
+    })
+    setIsLoading(false)
   },[])
 
 
@@ -41,19 +40,6 @@ const Home = () => {
     //fill the card state with the info passed
     setCard(card)
   }
-  
-
-  const handleChange =(e)=>{
-    setIsLoading(true)
-    Axios.get(URL_PATH+`Cards/GetCards?typeId=${e.target.value}`)
-    .then(result=>{
-      console.log(result)
-      setCards(result.data.$values)
-    },error=>{
-      console.log(error)
-    })
-    setIsLoading(false)
-  }
 
 
   return (
@@ -63,7 +49,6 @@ const Home = () => {
           <>Loading......</>
             :
           <>
-            <SelectType defaultValue="" handleChange={handleChange} typesArray={typesArray}/>
             <div className="card-container">
               {
                 cards.map(card=>(
@@ -81,7 +66,8 @@ const Home = () => {
           </>
       }
     </div>
-  )
+
+    )
 }
 
-export default Home
+export default UserCards
