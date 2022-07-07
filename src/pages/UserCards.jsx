@@ -49,6 +49,7 @@ const UserCards = () => {
           <>Loading......</>
             :
           <>
+            <h1>Owner : {username}</h1>
             <div className="card-container">
               {
                 cards.map(card=>(

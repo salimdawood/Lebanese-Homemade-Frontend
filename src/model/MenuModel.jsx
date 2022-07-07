@@ -33,6 +33,7 @@ const MenuModel = () => {
 
   //change the displaying items depending on our current card state
   useEffect(() => {
+    console.log("menu model rendered.....")
     if(inExistingCard){
       let tmpItems = JSON.parse(sessionStorage.getItem("card"))
       if(tmpItems.menu !== null){
@@ -152,6 +153,7 @@ const MenuModel = () => {
   const confirmItems = () =>{
     //add items to card information context
     dispatch({type:'ADD_MENU',items})
+    setMenuModel(false)
   }
 
   return (

@@ -1,29 +1,31 @@
 import React,{useContext,useState,useEffect} from 'react'
-import reactDom from 'react-dom'
-import {Close} from '../components/Svg'
-import { cardContext } from '../context/cardContext'
-import PhotoBox from '../components/PhotoBox'
 import { useLocation } from 'react-router-dom'
-import * as Axios from 'axios'
-import { URL_PATH } from '../path'
+import reactDom from 'react-dom'
+//components
+import {Close} from '../components/Svg'
+import PhotoBox from '../components/PhotoBox'
+//context
+import { cardContext } from '../context/cardContext'
 import { notificationContext } from '../context/notificationContext'
+//api
+import { URL_PATH } from '../path'
+import * as Axios from 'axios'
 
 const PhotoModel = () => {
 
   const {photoModel,setPhotoModel,dispatch,cardProfile} = useContext(cardContext)
   const {setNotification} = useContext(notificationContext)
-  //get photolist from card session
-  //like menu model assign photos according to add or update card state
+  //assign photos according to add or update card state
   //pass it to photobox
   const [photos,setPhotos] = useState([])
-  const arr = []
 
   //detect whether we are in a update or create state 
   const location = useLocation()
-  let inExistingCard = location.pathname.includes('/cards')? true :false 
-
+  let inExistingCard = location.pathname.includes('/add-card')? false :true 
   //change the displaying items depending on our current card state
+  //find better way than location too much render
   useEffect(() => {
+    console.log("photo model rendered.....")
     if(inExistingCard){
       let tmpItems = JSON.parse(sessionStorage.getItem("card"))
       if(tmpItems.photoList !== null){
@@ -35,8 +37,11 @@ const PhotoModel = () => {
   },[location])
 
 
-
+  const arr = []
   for(let i =0;i<5;i++){
+    //five photo placeholders
+    //if file is entered pass it to the placeholder
+    //else pass null
     if(photos[i] != null){
       arr.push(PhotoBox({id:i,photo:photos[i],setPhotos,photos}))
     }
@@ -45,10 +50,14 @@ const PhotoModel = () => {
     }
   }
 
+  //transfer data from local state to global 
   const confirmPhotos = () =>{
     //add photos to card information context
     dispatch({type:'ADD_PHOTOS',photos})
+    setPhotoModel(false)
   }
+
+  //api calls
   const updatePhotos = () =>{
     let card = JSON.parse(sessionStorage.getItem("card"))
     //update photos using api call
@@ -64,7 +73,6 @@ const PhotoModel = () => {
         }
       }
     }
-
      //print the form
      for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 

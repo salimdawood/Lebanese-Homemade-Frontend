@@ -587,13 +587,14 @@ main .home-page .card-box .info-card:hover{
   cursor: pointer;
 }
 .card-popup{
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   background-color: var(--secondary-3-color);
   color: var(--secondary-1-color);
+  overflow-y: scroll;
 }
 .card-popup .card-info{
   display: flex;
