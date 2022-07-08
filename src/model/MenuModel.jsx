@@ -15,7 +15,7 @@ import { nanoid } from 'nanoid'
 
 const MenuModel = () => {
 
-  const {setNotification} = useContext(notificationContext)
+  const {setNotification,closeNotification} = useContext(notificationContext)
   const {menuModel,setMenuModel,dispatch,cardProfile} = useContext(cardContext)
   
   
@@ -95,6 +95,7 @@ const MenuModel = () => {
         }
         else{
           setNotification({isShown:true,message:"Price must range between 0 - 99,000,000",color:"red"})
+          closeNotification()
         }
         break;
       default:
@@ -112,6 +113,7 @@ const MenuModel = () => {
         switch (result.data) {
           case 1:
             setNotification({isShown:true,message:"All items were deleted successfully",color:"green"})
+            closeNotification()
             //delete all the menu items from local state
             setItems([])
             //check if need to update session storage
@@ -121,12 +123,14 @@ const MenuModel = () => {
             break;
           default:
             setNotification({isShown:true,message:"Something went wrong",color:"red"})
+            closeNotification()
             break;
         }
         console.log(result)
       }catch (error) {
         console.log(error)
-        setNotification({isShown:true,message:"Something went wrong",color:"red"}) 
+        setNotification({isShown:true,message:"Something went wrong",color:"red"})
+        closeNotification() 
       }
     }
   }
@@ -140,16 +144,19 @@ const MenuModel = () => {
       switch (result.data) {
         case 1:
           setNotification({isShown:true,message:"Menu updated successfully",color:"green"})
+          closeNotification()
           //update the session
           tmpItems.menu.itemList.$values = items
           sessionStorage.setItem("card",JSON.stringify(tmpItems))
         break;
         default:
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
         break;
       } 
     } catch (error) {
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
       console.log(error)
     }
   }

@@ -10,6 +10,15 @@
   --warning-hover-color:#b62020;	/*(182,32,32)*/
   --notification-hover-color:#00b300;	/*(0,179,0)*/
   --safety-color:#efcc00;
+  /*--follow this --*/
+  --success:#339900;
+  --success-hover:#00b300;
+  --info:#0080ff;
+  --info-hover:#003f9a;
+  --warning:#efcc00;
+  --warning-hover:#efcc00;
+  --error:#CC3300;
+  --error-hover:#b62020;
 }
 *,*::before,*::after{
   padding: 0;

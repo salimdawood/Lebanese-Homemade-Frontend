@@ -6,12 +6,6 @@ import {Close,CheckCircle,ErrorCircle} from '../components/Svg'
 const NotificationModel = () => {
   const {notification,setNotification} = useContext(notificationContext)
 
-  useEffect(()=>{
-    setTimeout(function() {
-      setNotification({...notification,isShown:false})
-    }, 1500)
-  },[notification.isShown])
-
   return (
     notification.isShown && reactDom.createPortal(
       <div className="notification-model">

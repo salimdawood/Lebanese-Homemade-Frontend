@@ -8,7 +8,7 @@ import {notificationContext} from '../context/notificationContext'
 const SignIn = () => {
 
   const {userProfile,dispatch} = useAuth()
-  const {setNotification} = useContext(notificationContext)
+  const {setNotification,closeNotification} = useContext(notificationContext)
   const [warningMessage, setWarningMessage] = useState("")
   const[userInfo,setUserInfo] = useState({
     name:"",
@@ -47,6 +47,7 @@ const SignIn = () => {
     },(error)=>{
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
     });
   }
   const handleChange =(e)=>{

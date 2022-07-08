@@ -13,7 +13,7 @@ import * as Axios from 'axios'
 const PhotoModel = () => {
 
   const {photoModel,setPhotoModel,dispatch,cardProfile} = useContext(cardContext)
-  const {setNotification} = useContext(notificationContext)
+  const {setNotification,closeNotification} = useContext(notificationContext)
   //assign photos according to add or update card state
   //pass it to photobox
   const [photos,setPhotos] = useState([])
@@ -104,6 +104,7 @@ const PhotoModel = () => {
         case -1:
           console.log("something went wrong")
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
         default:
           console.log("photos updated successfully")
@@ -111,11 +112,13 @@ const PhotoModel = () => {
           card.photoList.$values = [...result.data.$values]
           sessionStorage.setItem("card",JSON.stringify(card))
           setNotification({isShown:true,message:"Card added successfully",color:"green"})
+          closeNotification()
           break;
         }
     } catch (error) {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
     }
     setPhotoModel(false)
   }
@@ -128,17 +131,20 @@ const PhotoModel = () => {
       switch (result.data) {
         case 1:
           setNotification({isShown:true,message:"Photos were deleted successfully",color:'green'})
+          closeNotification()
           //update card session
           card.photoList.$values = []
           sessionStorage.setItem("card",JSON.stringify(card))
           break;
         default:
           setNotification({isShown:true,message:"Something went wrong",color:'red'})
+          closeNotification()
           break;
       }
     } catch (error) {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:'red'})
+      closeNotification()
     }
     setPhotoModel(false)
   }

@@ -13,7 +13,7 @@ const AddCardPage = () => {
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
   const {typesArray,setMenuModel,setPhotoModel,cardProfile} = useContext(cardContext)
-  const {setNotification} = useContext(notificationContext)
+  const {setNotification,closeNotification} = useContext(notificationContext)
 
   const[cardInfo,setCardInfo] = useState({
     title:"",
@@ -95,10 +95,12 @@ const AddCardPage = () => {
         case -1:
           console.log("something went wrong")
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
         default:
           console.log("card added successfully")
           setNotification({isShown:true,message:"Card added successfully",color:"green"})
+          closeNotification()
           navigate(`/user/${userProfile.id}`)
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
             ...userProfile,
@@ -116,6 +118,7 @@ const AddCardPage = () => {
     },(error)=>{
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
     }); 
   }
 

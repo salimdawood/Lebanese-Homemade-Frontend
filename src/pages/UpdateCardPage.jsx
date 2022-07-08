@@ -13,7 +13,7 @@ const UpdateCardPage = () => {
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
   const {typesArray,setPhotoModel,setMenuModel} = useContext(cardContext)
-  const {setNotification} = useContext(notificationContext)
+  const {setNotification,closeNotification} = useContext(notificationContext)
 
    //put inside use effect
   const cardProfile = sessionStorage.getItem("card")?
@@ -76,12 +76,14 @@ const UpdateCardPage = () => {
         case -1:
           console.log("something went wrong")
           setNotification({isShown:true,message:"Unable to delete the card",color:"red"})
+          closeNotification()
           break;
         default:
           console.log("card added successfully")
           cardInfo.type = typesArray.filter(type=>type.id == cardInfo.typeId)[0].name
           dispatch({type:'UPDATE_USER_CARD',cardInfo})
           setNotification({isShown:true,message:"Card was updated successfully",color:"green"})
+          closeNotification()
           navigate(`/user/${userProfile.id}`)
           break;
         }
@@ -98,10 +100,12 @@ const UpdateCardPage = () => {
         case -1:
           console.log("something went wrong")
           setNotification({isShown:true,message:"Unable to delete the card",color:"red"})
+          closeNotification()
           break;
         case 1:
           console.log("card deleted successfully")
           setNotification({isShown:true,message:"Card was deleted successfully",color:"green"})
+          closeNotification()
           navigate(`/user/${userProfile.id}`)
           dispatch({type:'DELETE_CARD',id:cardInfo.id})
           break;
