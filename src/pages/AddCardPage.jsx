@@ -8,11 +8,11 @@ import { cardContext } from '../context/cardContext'
 import {notificationContext} from '../context/notificationContext'
 import SelectType from '../components/SelectType'
 
-const AddCardPage = () => {
+const AddCardPage = ({types}) => {
   
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
-  const {typesArray,setMenuModel,setPhotoModel,cardProfile} = useContext(cardContext)
+  const {setMenuModel,setPhotoModel,cardProfile} = useContext(cardContext)
   const {setNotification,closeNotification} = useContext(notificationContext)
 
   const[cardInfo,setCardInfo] = useState({
@@ -108,7 +108,7 @@ const AddCardPage = () => {
               id:result.data,
               title:cardInfo.title,
               //better way???better solution
-              type:typesArray.filter(type=>type.id == cardInfo.typeId)[0].name,
+              type:types.filter(type=>type.id == cardInfo.typeId)[0].name,
               //better date format
               dateCreated: Date()
             }]}
@@ -148,7 +148,7 @@ const AddCardPage = () => {
             ))
           }
           <label>Card type *</label>
-          <SelectType defaultValue="" handleChange={handleChange} typesArray={typesArray}/>
+          <SelectType defaultValue="" handleChange={handleChange} typesArray={types}/>
           <input type="submit" value="Create" />
         </form>
         <input type="submit" onClick={openMenuModel} value="Manage menu" />

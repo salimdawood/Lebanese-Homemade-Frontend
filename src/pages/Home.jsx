@@ -6,9 +6,8 @@ import {Close} from '../components/Svg'
 import Card from '../components/Card.jsx'
 import CardPopUp from '../components/CardPopUp'
 
-const Home = () => {
+const Home = ({types}) => {
 
-  const [typesArray,setTypesArray] = useState([])
   const [isLoading,setIsLoading] = useState(false)
   const [paginate,setPaginate] = useState({
     perPage:10,
@@ -20,16 +19,6 @@ const Home = () => {
   const[card,setCard] = useState({
     //add the information of a card
   })
-
-  useEffect(async() => {
-    try {
-      const result = await Axios.get(URL_PATH+'Types/')
-      console.log(result)
-      setTypesArray([...result.data.$values])
-    } catch (error) {
-      console.log(error) 
-    }
-  },[])
 
 
   const closeCardPopUp = ()=>{
@@ -63,7 +52,7 @@ const Home = () => {
           <>Loading......</>
             :
           <>
-            <SelectType defaultValue="" handleChange={handleChange} typesArray={typesArray}/>
+            <SelectType defaultValue="" handleChange={handleChange} typesArray={types}/>
             <div className="card-container">
               {
                 cards.map(card=>(

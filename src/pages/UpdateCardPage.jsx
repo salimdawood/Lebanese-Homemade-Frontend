@@ -8,7 +8,7 @@ import { cardContext } from '../context/cardContext'
 import {notificationContext} from '../context/notificationContext'
 
 
-const UpdateCardPage = () => {
+const UpdateCardPage = ({types}) => {
 
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
@@ -80,7 +80,7 @@ const UpdateCardPage = () => {
           break;
         default:
           console.log("card added successfully")
-          cardInfo.type = typesArray.filter(type=>type.id == cardInfo.typeId)[0].name
+          cardInfo.type = types.filter(type=>type.id == cardInfo.typeId)[0].name
           dispatch({type:'UPDATE_USER_CARD',cardInfo})
           setNotification({isShown:true,message:"Card was updated successfully",color:"green"})
           closeNotification()
@@ -145,7 +145,7 @@ const UpdateCardPage = () => {
           >
             <option value="" disabled >Card Type *</option>
             {
-              typesArray.map((type)=>(
+              types.map((type)=>(
                 <option key={type.id} value={type.id}>{type.name}</option>
               ))
             }
