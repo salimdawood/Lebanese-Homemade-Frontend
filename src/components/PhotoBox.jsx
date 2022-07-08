@@ -1,18 +1,28 @@
 import React,{useState,useEffect,useContext} from 'react'
+//components
 import { Close } from './Svg'
+//context
 import { notificationContext } from '../context/notificationContext'
+//path
 import {IMAGE_PATH} from '../path'
 
 
 const PhotoBox = (props) => {
 
   const{id,photo,photos,setPhotos} = props
-  const [fileDataURL, setFileDataURL] = useState(null)
-  const [file, setFile] = useState(photo);
-  let newPhotos = [...photos]
-  const imageTypeRegex = /image\/(png|jpg|jpeg)/gm
   const {setNotification} = useContext(notificationContext)
 
+  const [fileDataURL, setFileDataURL] = useState(null)
+  const [file, setFile] = useState(photo);
+
+  let newPhotos = [...photos]
+
+  const imageTypeRegex = /image\/(png|jpg|jpeg)/gm
+
+  //check if file is of proper image type
+  //check if photo less than 2 mb
+  //add it to photos that is passed from parent photo model
+  //add it to file to preview it
   const handleFileChange = (e) =>{
     if (e.target.files[0].type.match(imageTypeRegex)) {
       //	2,097,152 b == 2mb
@@ -32,24 +42,31 @@ const PhotoBox = (props) => {
     }
   }
 
+  //remove photo if file or string
   const removePhoto = () =>{
     newPhotos[id]=null 
     setPhotos([...newPhotos])
     setFile(null)
   }
 
+
+  //props passed to useState won't update the state
+  //must update it using useeffect
   useEffect(() => {
     setFile(photo)
   }, [photo])
 
 
+  //when passed all validation preview it in the placeholder
   useEffect(() => {
     let fileReader, isCancel = false;
-    //check type of file if file continue else assign dataurl to IMAGE_PATH+photoname passed
+    //check type if string or file
+    //if string show it from server
     if( file != null && !('size' in file)){
       setFileDataURL(IMAGE_PATH+file.name)
       return
     }
+    //if file then preview it
     if (file) {
       fileReader = new FileReader();
       fileReader.onload = (e) => {

@@ -103,7 +103,7 @@ const MenuModel = () => {
   }
 
   //for card update
-  const deleteItems = () =>{
+  const deleteItems = async() =>{
     //delete all menu items from database
     let tmpItems = JSON.parse(sessionStorage.getItem("card"))
     if(tmpItems.menu !== null){
