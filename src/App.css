@@ -9,6 +9,7 @@
   --confirm-hover-color:#003f9a;	/*(0,63,154)*/
   --warning-hover-color:#b62020;	/*(182,32,32)*/
   --notification-hover-color:#00b300;	/*(0,179,0)*/
+  --safety-color:#efcc00;
 }
 *,*::before,*::after{
   padding: 0;
@@ -423,7 +424,7 @@ footer .footer-media-container svg:hover{
 .model .table-form{
   width: 100%;
 }
-.model input[class*='delete-btn'],.model input[class*='confirm-btn']{
+.model input[class*='delete-btn'],.model input[class*='confirm-btn'],.model input[class*='safety-btn']{
   padding: 10px;
   border-radius: 5px;
   color: var(--primary-color);
@@ -750,4 +751,7 @@ main .home-page .card-box .info-card:hover{
   .photo-gallery{
     max-height: 350px;
   }
+}
+input[class*='safety-btn']{
+  background-color: var(--safety-color);
 }

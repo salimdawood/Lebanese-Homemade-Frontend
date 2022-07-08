@@ -1,23 +1,23 @@
 import React,{useContext,useState,useEffect} from 'react'
+import { useLocation } from 'react-router-dom'
 import reactDom from 'react-dom'
-import {Close} from '../components/Svg'
+//context
+import { notificationContext } from '../context/notificationContext'
 import { cardContext } from '../context/cardContext'
+//components
 import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
-import { nanoid } from 'nanoid'
-import { notificationContext } from '../context/notificationContext'
-import { useLocation } from 'react-router-dom'
+//api
 import * as Axios from 'axios'
 import { URL_PATH } from '../path'
+//unique id
+import { nanoid } from 'nanoid'
 
 const MenuModel = () => {
 
   const {setNotification} = useContext(notificationContext)
   const {menuModel,setMenuModel,dispatch,cardProfile} = useContext(cardContext)
   
-  //detect whether we are in a update or create state 
-  const location = useLocation()
-  let inExistingCard = location.pathname.includes('/cards')? true :false 
   
   //local state
   const [itemInput,setItemInput] = useState({
@@ -31,18 +31,23 @@ const MenuModel = () => {
   const [editTarget,setEditTarget] = useState(null)
   const [items,setItems] = useState([])
 
+
+  //detect whether we are in a update or create state 
+  const location = useLocation()
+  let inExistingCard = location.pathname.includes('/cards')? true :false 
   //change the displaying items depending on our current card state
   useEffect(() => {
     console.log("menu model rendered.....")
     if(inExistingCard){
       let tmpItems = JSON.parse(sessionStorage.getItem("card"))
-      if(tmpItems.menu !== null){
-        setItems(tmpItems.menu.itemList.$values)
-      }
+      try {
+        if(tmpItems.menu !== null){
+          setItems(tmpItems.menu.itemList.$values)
+        }
+        return
+      }catch(Exception){}
     }
-    else{
-      setItems(cardProfile.itemList)
-    } 
+    setItems(cardProfile.itemList)
   },[location])
 
   //handle the local state
@@ -53,6 +58,7 @@ const MenuModel = () => {
     setEditItemInput({...editItemInput,[e.target.name]:e.target.value})
   }
 
+  //add to local state
   const addItem = (e)=>{
     e.preventDefault()
     const newItem ={
@@ -64,8 +70,8 @@ const MenuModel = () => {
     setItemInput({name:"",price:0})
   }
 
+  //remove item from local state
   const removeItem = (itemId) =>{
-    //remove item from local state
     setItems([...items.filter(item=>item.id !== itemId)])
   }
 
@@ -101,8 +107,8 @@ const MenuModel = () => {
     //delete all menu items from database
     let tmpItems = JSON.parse(sessionStorage.getItem("card"))
     if(tmpItems.menu !== null){
-      Axios.delete(URL_PATH+`menus/${tmpItems.menu.id}`)
-      .then(result=>{
+      try {
+        const result = await Axios.delete(URL_PATH+`menus/${tmpItems.menu.id}`)
         switch (result.data) {
           case 1:
             setNotification({isShown:true,message:"All items were deleted successfully",color:"green"})
@@ -111,7 +117,6 @@ const MenuModel = () => {
             //check if need to update session storage
             //update the session
             tmpItems.menu.itemList.$values = []
-            console.log(tmpItems)
             sessionStorage.setItem("card",JSON.stringify(tmpItems))
             break;
           default:
@@ -119,40 +124,54 @@ const MenuModel = () => {
             break;
         }
         console.log(result)
-      }
-      ,error=>{
+      }catch (error) {
         console.log(error)
-        setNotification({isShown:true,message:"Something went wrong",color:"red"})
-      })
+        setNotification({isShown:true,message:"Something went wrong",color:"red"}) 
+      }
     }
   }
-  const updateItems = () =>{
+
+  const updateItems = async() =>{
     //update the menu items from the database
     let tmpItems = JSON.parse(sessionStorage.getItem("card"))
-    Axios.put(URL_PATH+`menus/${tmpItems.id}`,items)
-      .then(result=>{
-        console.log(result)
-        switch (result.data) {
-          case 1:
-            setNotification({isShown:true,message:"Menu updated successfully",color:"green"})
-            //update the session
-            tmpItems.menu.itemList.$values = items
-            sessionStorage.setItem("card",JSON.stringify(tmpItems))
-            break;
-          default:
-            setNotification({isShown:true,message:"Something went wrong",color:"red"})
-            break;
-        }
-      }
-      ,error=>{
-        setNotification({isShown:true,message:"Something went wrong",color:"red"})
-        console.log(error)
-      })
+    try {
+      const result = await Axios.put(URL_PATH+`menus/${tmpItems.id}`,items)
+      console.log(result)
+      switch (result.data) {
+        case 1:
+          setNotification({isShown:true,message:"Menu updated successfully",color:"green"})
+          //update the session
+          tmpItems.menu.itemList.$values = items
+          sessionStorage.setItem("card",JSON.stringify(tmpItems))
+        break;
+        default:
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+        break;
+      } 
+    } catch (error) {
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      console.log(error)
+    }
   }
+
   //for card create
+  //add items to card information context from local state to global
   const confirmItems = () =>{
-    //add items to card information context
     dispatch({type:'ADD_MENU',items})
+    setMenuModel(false)
+  }
+
+  //cancel all changes 
+  const cancelChanges = () =>{
+    if(inExistingCard){
+      let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+      if(tmpItems.menu !== null){
+        setItems(tmpItems.menu.itemList.$values)
+      }
+    }
+    else{
+      setItems(cardProfile.itemList)
+    } 
     setMenuModel(false)
   }
 
@@ -160,7 +179,6 @@ const MenuModel = () => {
     menuModel && reactDom.createPortal(
       <div className="model">
         <div className="model-container">
-          <Close onClick={()=>setMenuModel(false)}/>
           <form className="table-form">
             <table>
               <thead>
@@ -217,6 +235,7 @@ const MenuModel = () => {
             <input type="submit" onClick={confirmItems} className="confirm-btn" value="Confirm"/>
           </>
           }
+          <input type="submit" onClick={cancelChanges} className="safety-btn" value="Cancel"/>
         </div>
       </div>
     ,document.getElementById('model')

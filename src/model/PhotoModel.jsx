@@ -2,7 +2,6 @@ import React,{useContext,useState,useEffect} from 'react'
 import { useLocation } from 'react-router-dom'
 import reactDom from 'react-dom'
 //components
-import {Close} from '../components/Svg'
 import PhotoBox from '../components/PhotoBox'
 //context
 import { cardContext } from '../context/cardContext'
@@ -28,10 +27,12 @@ const PhotoModel = () => {
     console.log("photo model rendered.....")
     if(inExistingCard){
       let tmpItems = JSON.parse(sessionStorage.getItem("card"))
-      if(tmpItems.photoList !== null){
-        setPhotos(tmpItems.photoList.$values)
-        return
-      }
+      try{
+        if(tmpItems.photoList !== null){
+          setPhotos(tmpItems.photoList.$values)
+          return
+        }
+      }catch(Exception){}
     }
     setPhotos(cardProfile.photoList)
   },[location])
@@ -57,8 +58,21 @@ const PhotoModel = () => {
     setPhotoModel(false)
   }
 
+  //cancel all changes 
+  const cancelChanges = () =>{
+    if(inExistingCard){
+      let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+      if(tmpItems.photoList !== null){
+        setPhotos(tmpItems.photoList.$values)
+        return
+      }
+    }
+    setPhotos(cardProfile.photoList)
+    setPhotoModel(false)
+  }
+
   //api calls
-  const updatePhotos = () =>{
+  const updatePhotos = async() =>{
     let card = JSON.parse(sessionStorage.getItem("card"))
     //update photos using api call
     let formData = new FormData()
@@ -78,13 +92,13 @@ const PhotoModel = () => {
       console.log(pair[0]+ ', ' + pair[1]); 
     }
 
-    Axios({
-      method: "put",
-      url: URL_PATH+`Photos/${card.id}`,
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-    .then((result)=>{
+    try {
+      const result = Axios({
+        method: "put",
+        url: URL_PATH+`Photos/${card.id}`,
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       console.log(result)
       switch (result.data) {
         case -1:
@@ -94,22 +108,23 @@ const PhotoModel = () => {
         default:
           console.log("photos updated successfully")
            //update card session
-           card.photoList.$values = [...result.data.$values]
-           sessionStorage.setItem("card",JSON.stringify(card))
+          card.photoList.$values = [...result.data.$values]
+          sessionStorage.setItem("card",JSON.stringify(card))
           setNotification({isShown:true,message:"Card added successfully",color:"green"})
           break;
         }
-    },(error)=>{
+    } catch (error) {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
-    });
+    }
+    setPhotoModel(false)
   }
-  const deletePhotos = () =>{
+
+  const deletePhotos = async () =>{
     //delete all photos using api call
     let card = JSON.parse(sessionStorage.getItem("card"))
-    Axios.delete(URL_PATH+`Photos/${card.id}`)
-    .then((result)=>{
-      console.log(result)
+    try {
+      const result = await Axios.delete(URL_PATH+`Photos/${card.id}`)
       switch (result.data) {
         case 1:
           setNotification({isShown:true,message:"Photos were deleted successfully",color:'green'})
@@ -117,33 +132,33 @@ const PhotoModel = () => {
           card.photoList.$values = []
           sessionStorage.setItem("card",JSON.stringify(card))
           break;
-      
         default:
           setNotification({isShown:true,message:"Something went wrong",color:'red'})
           break;
       }
-    },(error)=>{
+    } catch (error) {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:'red'})
-    });
+    }
+    setPhotoModel(false)
   }
 
   return (
     photoModel && reactDom.createPortal(
       <div className="model">
         <div className="model-container">
-          <Close onClick={()=>setPhotoModel(false)}/>
           {arr}
           {inExistingCard ? 
           <>
-            <input type="submit" onClick={updatePhotos} className="confirm-btn" value="Update"/>
+            <input type="submit" onClick={updatePhotos} className="confirm-btn" value="Update photos"/>
             <input type="submit" onClick={deletePhotos} className="delete-btn" value="Delete all photos"/>
           </>
           :
           <>
-            <input type="submit" onClick={confirmPhotos} className="confirm-btn" value="Confirm"/>
+            <input type="submit" onClick={confirmPhotos} className="confirm-btn" value="Save"/>
           </>
           }
+          <input type="submit" onClick={cancelChanges} className="safety-btn" value="Cancel"/>
         </div>
       </div>
     ,document.getElementById('model'))

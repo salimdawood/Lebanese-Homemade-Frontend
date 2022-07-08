@@ -21,14 +21,14 @@ const Home = () => {
     //add the information of a card
   })
 
-  useEffect(() => {
-    Axios.get(URL_PATH+'Types/')
-    .then((result)=>{
+  useEffect(async() => {
+    try {
+      const result = await Axios.get(URL_PATH+'Types/')
       console.log(result)
       setTypesArray([...result.data.$values])
-    },(error)=>{
-      console.log(error)
-  });
+    } catch (error) {
+      console.log(error) 
+    }
   },[])
 
 
@@ -43,15 +43,15 @@ const Home = () => {
   }
   
 
-  const handleChange =(e)=>{
+  const handleChange =async (e)=>{
     setIsLoading(true)
-    Axios.get(URL_PATH+`Cards/GetCards?typeId=${e.target.value}`)
-    .then(result=>{
+    try {
+      const result = await Axios.get(URL_PATH+`Cards/GetCards?typeId=${e.target.value}`) 
       console.log(result)
       setCards(result.data.$values)
-    },error=>{
+    } catch (error) {
       console.log(error)
-    })
+    }
     setIsLoading(false)
   }
 
