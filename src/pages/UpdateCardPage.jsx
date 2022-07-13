@@ -34,10 +34,10 @@ const UpdateCardPage = ({types}) => {
       name:"title",
       type:"text",
       placeholder:"Enter your card title",
-      errorMessage:"Title should be between 5-30 characters, and should include only letters and numbers.",
+      errorMessage:"Title should be between 3-30 characters, and should include only letters,numbers,',and spaces",
       required:true,
       label:"Title *",
-      pattern:"^[a-zA-Z0-9]{5,30}$"
+      pattern:"^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ']{3,30}$"
     },
     {
       id:2,
