@@ -110,7 +110,7 @@ const AddCardPage = ({types}) => {
               //better way???better solution
               type:types.filter(type=>type.id == cardInfo.typeId)[0].name,
               //better date format
-              dateCreated: Date()
+              dateCreated: new Date()
             }]}
           })
           break;

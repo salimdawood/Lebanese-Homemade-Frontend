@@ -11,6 +11,11 @@ const UserCard = (props) => {
   const {cardProfile,dispatch} = useContext(cardContext)
   const navigate = useNavigate()
 
+  let dateDB = new Date(props.dateCreated)
+  let dateNow = new Date()
+  var diff = (dateNow - dateDB);
+  console.log(dateDB,dateNow,diff)
+  //86400000 === 24 hours
   
   const updateCard = () =>{
     Axios.get(URL_PATH+`Cards/${props.id}`)
@@ -34,7 +39,7 @@ const UserCard = (props) => {
     <div onClick={updateCard} className="card-space">
       <h3>{props.title}</h3>
       <h4>{props.type}</h4>
-      <h6>{props.dateCreated}</h6>
+      <h6>{diff>=86400000?dateDB.toLocaleString('ar-EG'):dateDB.toLocaleTimeString('ar-EG')}</h6>
     </div>
     :
     <div onClick={addCard} className="card-space card-add">
