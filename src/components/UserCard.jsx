@@ -13,8 +13,7 @@ const UserCard = (props) => {
 
   let dateDB = new Date(props.dateCreated)
   let dateNow = new Date()
-  var diff = (dateNow - dateDB);
-  console.log(dateDB,dateNow,diff)
+  var diff = (dateNow - dateDB)
   //86400000 === 24 hours
   
   const updateCard = () =>{

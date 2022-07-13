@@ -15,6 +15,11 @@ const CardPopUp = (props) => {
       navigate(`${user.name}/cards`)
   }
 
+  let dateDB = new Date(dateCreated)
+  let dateNow = new Date()
+  var diff = (dateNow - dateDB);
+  //86400000 === 24 hours
+
   return (
     <div className="card-info">
       <div className="top-container">
@@ -44,7 +49,7 @@ const CardPopUp = (props) => {
           </div>
           <div className="flex-box">
             <h3>Created on :</h3>
-            <h2>{dateCreated}</h2>
+            <h2>{diff>=86400000?dateDB.toLocaleString('ar-EG'):dateDB.toLocaleTimeString('ar-EG')}</h2>
           </div>
         </div>
       </div>

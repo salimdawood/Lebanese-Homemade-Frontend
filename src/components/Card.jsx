@@ -1,6 +1,5 @@
-import React,{useState} from 'react'
-import {IMAGE_PATH,URL_PATH} from '../path'
-import * as Axios from 'axios'
+import React from 'react'
+import {IMAGE_PATH} from '../path'
 import ImageSlider from './ImageSlider'
 
 
@@ -9,8 +8,7 @@ const Card = (props) => {
 
   let dateDB = new Date(card.dateCreated)
   let dateNow = new Date()
-  var diff = (dateNow - dateDB);
-  console.log(dateDB,dateNow,diff)
+  var diff = (dateNow - dateDB)
   //86400000 === 24 hours
 
   return (
