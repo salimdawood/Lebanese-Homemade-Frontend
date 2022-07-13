@@ -3,22 +3,15 @@
   --secondary-1-color:#E2D784;/*rgb(226, 215, 132)*/
   --secondary-2-color:#05595B;/*rgb(5, 89, 91)*/
   --secondary-3-color:#062C30;/*rgb(6, 44, 48)*/
-  --warning-color:#CC3300;/*rgb(204,51,0)*/
-  --notification-color:#339900;	/*(51,153,0)*/
-  --confirm-color:#0080ff;
-  --confirm-hover-color:#003f9a;	/*(0,63,154)*/
-  --warning-hover-color:#b62020;	/*(182,32,32)*/
-  --notification-hover-color:#00b300;	/*(0,179,0)*/
-  --safety-color:#efcc00;
-  /*--follow this --*/
-  --success:#339900;
-  --success-hover:#00b300;
+
+  --success:#339900;	/*(51,153,0)*/
+  --success-hover:#00b300;	/*(0,179,0)*/
   --info:#0080ff;
-  --info-hover:#003f9a;
+  --info-hover:#003f9a;	/*(0,63,154)*/
   --warning:#efcc00;
   --warning-hover:#efcc00;
-  --error:#CC3300;
-  --error-hover:#b62020;
+  --error:#CC3300;/*rgb(204,51,0)*/
+  --error-hover:#b62020;	/*(182,32,32)*/
 }
 *,*::before,*::after{
   padding: 0;
@@ -184,7 +177,7 @@ main .sign-up-form input[type='submit']:hover{
   background-color: var(--secondary-3-color);
 }
 main .sign-up-form input[class*='delete-btn']:hover{
-  background-color:var(--warning-color);
+  background-color:var(--error);
 }
 main .sign-up-form select,
 main .sign-up-form textarea,
@@ -442,16 +435,16 @@ footer .footer-media-container svg:hover{
   width: 100%;
 }
 .model input[class*='confirm-btn']{
-  background-color: var(--confirm-color);
+  background-color: var(--info);
 }
 .model input[class*='confirm-btn']:hover{
-  background-color:var(--confirm-hover-color);
+  background-color:var(--info-hover);
 }
 .model input[class*='delete-btn']{
-  background-color: var(--warning-color);
+  background-color: var(--error);
 }
 .model input[class*='delete-btn']:hover{
-  background-color: var(--warning-hover-color);
+  background-color: var(--error-hover);
 }
 .model .table-form td[class*='action-cell']{
   display: flex;
@@ -461,7 +454,7 @@ footer .footer-media-container svg:hover{
   gap: 10px;
 }
 .model .table-form td[class*='action-cell'] svg{
-  fill: var(--warning-color);
+  fill: var(--error);
 }
 .model .table-form tbody input{
   width: 100px;
@@ -475,10 +468,10 @@ footer .footer-media-container svg:hover{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   padding: 10px;
   border-radius: 5px;
-  position: absolute;
+  position: fixed;
   left: 50%;
-  z-index: 10;
   transform: translateX(-50%);
+  z-index: 10;
   animation-name: simple;
   animation-duration:1.5s;
   animation-fill-mode: forwards;
@@ -509,18 +502,18 @@ footer .footer-media-container svg:hover{
   cursor: unset;
 }
 .green{
-  color: var(--notification-color);
-  border-left: 6px solid var(--notification-color);
+  color: var(--success);
+  border-left: 6px solid var(--success);
 }
 .red{
-  color: var(--warning-color);
-  border-left: 6px solid var(--warning-color);
+  color: var(--error);
+  border-left: 6px solid var(--error);
 }
 .red svg{
-  fill: var(--warning-color);
+  fill: var(--error);
 }
 .green svg{
-  fill: var(--notification-color);
+  fill: var(--success);
 }
 /*home*/
 main .home-page{
@@ -762,5 +755,5 @@ main .home-page .card-box .info-card:hover{
   }
 }
 input[class*='safety-btn']{
-  background-color: var(--safety-color);
+  background-color: var(--warning);
 }

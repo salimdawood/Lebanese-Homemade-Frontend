@@ -5,9 +5,6 @@ const FormInput = (props) => {
   const [focus,setFocus] = useState(false)
   const {label,errorMessage,onChange,id,...inputInfo} = props
 
-  const handleFocus = ()=>{
-    setFocus(true)
-  }
 
   return (
     <div className="form-input">
@@ -15,7 +12,7 @@ const FormInput = (props) => {
       <input
        {...inputInfo}
        onChange={onChange}
-       onBlur={handleFocus}
+       onBlur={()=>setFocus(true)}
        onFocus={()=>inputInfo.name==="confirmPassword" && setFocus(true)}
        focused={focus.toString()}
        />
