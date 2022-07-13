@@ -52,9 +52,9 @@ const AddCardPage = ({types}) => {
     {
       id:4,
       name:"whatsappLink",
-      type:"text",
-      placeholder:"Link to your shop's whatsapp page",
-      label:"Whatsapp link"
+      type:"number",
+      placeholder:"Shop whatsapp number",
+      label:"Whatsapp number"
     }
   ]
     

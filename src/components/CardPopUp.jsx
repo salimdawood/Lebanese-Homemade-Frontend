@@ -16,6 +16,7 @@ const CardPopUp = (props) => {
   }
 
 
+  let number =  '76340160'
   return (
     <div className="card-info">
       <div className="top-container">
@@ -34,7 +35,10 @@ const CardPopUp = (props) => {
             <h3>Social media :</h3>
             <div className="media-link">
               {faceBookLink !== null ? <a href={faceBookLink}><Facebook/></a> : <></>}
-              {whatsAppLink !== null? <a href={whatsAppLink}><WhatsApp/></a> : <></>}
+              {
+                //whatsAppLink !== null? <a href={`wa.me//961${number}`}><WhatsApp/></a> : <></>
+                <a href={`https://wa.me//961${number}`} target="_blank"><WhatsApp/></a> 
+              }
               {instagramLink !== null? <a href={`//${instagramLink}`} target="_blank"><Instagram/></a> : <></>}
             </div>
           </div>
