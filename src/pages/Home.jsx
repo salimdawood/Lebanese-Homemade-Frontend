@@ -19,7 +19,7 @@ const Home = ({types}) => {
   const[card,setCard] = useState({
     //add the information of a card
   })
-
+  const [typeId,setTypeId] = useState("")
 
   const closeCardPopUp = ()=>{
     setCardModel(false)
@@ -33,6 +33,7 @@ const Home = ({types}) => {
   
 
   const handleChange =async (e)=>{
+    setTypeId(e.target.value)
     setIsLoading(true)
     try {
       const result = await Axios.get(URL_PATH+`Cards/GetCards?typeId=${e.target.value}`) 
@@ -52,7 +53,7 @@ const Home = ({types}) => {
           <>Loading......</>
             :
           <>
-            <SelectType defaultValue="" handleChange={handleChange} typesArray={types}/>
+            <SelectType defaultValue={typeId} handleChange={handleChange} typesArray={types}/>
             <div className="card-container">
               {
                 cards.map(card=>(

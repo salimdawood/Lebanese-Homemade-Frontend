@@ -18,15 +18,15 @@ const UserCards = () => {
   })
 
   const {username} = useParams()
-  useEffect(() => {
+  useEffect(async() => {
     setIsLoading(true)
-    Axios.get(URL_PATH+`Cards/GetCards/${username}`)
-    .then(result=>{
+    try {
+      const result = await  Axios.get(URL_PATH+`Cards/GetCards/${username}`)
       console.log(result)
       setCards(result.data.$values)
-    },error=>{
+    } catch (error) {
       console.log(error)
-    })
+    }
     setIsLoading(false)
   },[])
 

@@ -148,7 +148,7 @@ const AddCardPage = ({types}) => {
             ))
           }
           <label>Card type *</label>
-          <SelectType defaultValue="" handleChange={handleChange} typesArray={types}/>
+          <SelectType defaultValue={cardInfo.typeId} handleChange={handleChange} typesArray={types}/>
           <input type="submit" value="Create" />
         </form>
         <input type="submit" onClick={openMenuModel} value="Manage menu" />
