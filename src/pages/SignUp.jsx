@@ -23,10 +23,10 @@ const SignUp = () => {
       name:"name",
       type:"text",
       placeholder:"Enter your name",
-      errorMessage:"User name should be between 3-16 characters, and should include only letters,numbers and spaces.",
+      errorMessage:"User name should be between 3-16 characters, and should include only letters,numbers,' and spaces.",
       required:true,
       label:"Username *",
-      pattern:"^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ]{3,16}$"
+      pattern:"^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ']{3,16}$"
     },
     {
       id:2,
