@@ -56,7 +56,9 @@ const UpdateCardPage = ({types}) => {
     {
       id:4,
       name:"whatsappLink",
-      type:"number",
+      type:"tel",
+      pattern:"[0-9]{8}",
+      errorMessage:"Numbers only allowed(ex:81123456)",
       placeholder:"Shop whatsapp number",
       label:"Whatsapp number"
     }

@@ -15,8 +15,6 @@ const CardPopUp = (props) => {
       navigate(`${user.name}/cards`)
   }
 
-
-  let number =  '76340160'
   return (
     <div className="card-info">
       <div className="top-container">
@@ -36,8 +34,10 @@ const CardPopUp = (props) => {
             <div className="media-link">
               {faceBookLink !== null ? <a href={faceBookLink}><Facebook/></a> : <></>}
               {
-                //whatsAppLink !== null? <a href={`wa.me//961${number}`}><WhatsApp/></a> : <></>
-                <a href={`https://wa.me//961${number}`} target="_blank"><WhatsApp/></a> 
+                whatsAppLink !== null ?
+                 <a href={`https://wa.me//961${whatsAppLink}`} target="_blank"><WhatsApp/></a>
+                  :
+                 <></> 
               }
               {instagramLink !== null? <a href={`//${instagramLink}`} target="_blank"><Instagram/></a> : <></>}
             </div>
