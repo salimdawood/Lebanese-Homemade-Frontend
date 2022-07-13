@@ -34,7 +34,7 @@ const PhotoModel = () => {
         }
       }catch(Exception){}
     }
-    setPhotos(cardProfile.photoList)
+    setPhotos(new Array(5).fill(null))
   },[location])
 
 

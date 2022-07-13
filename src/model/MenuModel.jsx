@@ -47,7 +47,7 @@ const MenuModel = () => {
         return
       }catch(Exception){}
     }
-    setItems(cardProfile.itemList)
+    setItems([])
   },[location])
 
   //handle the local state
