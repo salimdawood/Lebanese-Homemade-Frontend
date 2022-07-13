@@ -9,8 +9,8 @@ const Footer = () => {
     <>
       <span>Developed By <a href="/#">Salim Dawood</a></span>
       <div className="footer-media-container">
-        <LinkedIn/>
-        <GitHub/>
+        <a href='https://github.com/salimdawood' target='_blank'><GitHub/></a>
+        <a href='https://linkedin.com/in/salim-dawood-0618a8241' target='_blank'><LinkedIn/></a>
       </div>
       <span>&copy;copyright 2022</span>
     </>
