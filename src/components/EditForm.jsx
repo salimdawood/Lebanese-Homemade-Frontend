@@ -1,13 +1,20 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
+//components
 import FormInput from './FormInput'
+//api
 import * as Axios from 'axios'
 import {URL_PATH} from '../path'
+//custom hooks
 import useAuth from '../hooks/useAuth'
+//context
+import {notificationContext} from '../context/notificationContext'
+//input for form
+import userInfoInput from '../userInfoInput'
 
 const UserDashboard = () => {
 
   const {userProfile,dispatch,toggleCardsGallery} = useAuth()
- 
+  const {setNotification,closeNotification} = useContext(notificationContext)
 
   const[nameIsUnique,setNameIsUnique] = useState(true)
 
@@ -19,58 +26,6 @@ const UserDashboard = () => {
     confirmPassword:userProfile.password,
     location:userProfile.location
   })
-
-  const userInfoInput = [
-    {
-      id:1,
-      name:"name",
-      type:"text",
-      placeholder:"Enter your name",
-      errorMessage:"User name should be between 3-16 characters, and should include only letters,numbers,' and spaces.",
-      required:true,
-      label:"Username *",
-      pattern:"^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ']{3,16}$"
-    },
-    {
-      id:2,
-      name:"email",
-      type:"email",
-      placeholder:"Enter your email",
-      errorMessage:"You didn't enter a valid email.",
-      required:true,
-      label:"Email *"
-    },
-    {
-      id:3,
-      name:"password",
-      type:"password",
-      placeholder:"Enter your password",
-      errorMessage:"Password should be between 8-20 characters, and must include at least: one letter,one number, and one special character.",
-      required:true,
-      label:"Password *",
-      pattern:`^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`
-    },
-    {
-      id:4,
-      name:"confirmPassword",
-      type:"password",
-      placeholder:"Confirm your password",
-      errorMessage:"Passwords doesn't match.",
-      required:true,
-      label:"Confirm Password *", 
-      pattern:userInfo.password
-    },
-    {
-      id:5,
-      name:"location",
-      type:"text",
-      placeholder:"Enter your shop location",
-      errorMessage:"Shop location should be 3-20 characters",
-      required:false,
-      label:"Shop Location",
-      pattern:"^[a-zA-Z\u0621-\u064A ]{3,20}$"
-    }
-  ]
   
   const handleSubmit = (e)=>{
     const {name,email,password,location} = userInfo
@@ -91,6 +46,8 @@ const UserDashboard = () => {
           console.log("updated successfully")
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{...userInfo,cardList:userProfile.cardList}})
           setNameIsUnique(true)
+          setNotification({isShown:true,message:'Successfully updated your profile information',color:'green'})
+          closeNotification()
           break;
         default:
           console.log("success code not founded")
