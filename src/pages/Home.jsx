@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import * as Axios from 'axios'
 import SelectType from '../components/SelectType'
-import {URL_PATH} from '../path'
+import {URL_PATH} from '../constantVariables/path'
 import {Close} from '../components/Svg'
 import Card from '../components/Card.jsx'
 import CardPopUp from '../components/CardPopUp'

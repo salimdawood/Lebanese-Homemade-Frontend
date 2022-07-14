@@ -1,5 +1,4 @@
 import React from 'react'
-import { IMAGE_PATH } from '../path'
 import ImageSlider from './ImageSlider'
 import { Facebook,Instagram,WhatsApp } from './Svg'
 import { useNavigate,useLocation } from 'react-router-dom'

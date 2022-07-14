@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { userContext } from '../context/userContext'
 import { cardContext } from '../context/cardContext'
 import * as Axios from 'axios'
-import {URL_PATH} from '../path'
+import {URL_PATH} from '../constantVariables/path'
 
 const UserCard = (props) => {
 

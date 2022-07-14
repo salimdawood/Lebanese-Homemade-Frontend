@@ -26,7 +26,7 @@ import PhotoModel from './model/PhotoModel'
 import NotificationModel from './model/NotificationModel'
 //api
 import * as Axios from 'axios'
-import {URL_PATH} from './path.js'
+import {URL_PATH} from './constantVariables/path'
 
 function App() {
 

@@ -7,7 +7,7 @@ import PhotoBox from '../components/PhotoBox'
 import { cardContext } from '../context/cardContext'
 import { notificationContext } from '../context/notificationContext'
 //api
-import { URL_PATH } from '../path'
+import { URL_PATH } from '../constantVariables/path'
 import * as Axios from 'axios'
 
 const PhotoModel = () => {

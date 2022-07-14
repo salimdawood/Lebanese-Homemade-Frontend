@@ -1,13 +1,18 @@
 import React,{useState,useContext} from 'react'
-import FormInput from '../components/FormInput'
-import * as Axios from 'axios'
-import {URL_PATH} from '../path'
-import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
+//components
+import FormInput from '../components/FormInput'
+import SelectType from '../components/SelectType'
+//api
+import * as Axios from 'axios'
+import {URL_PATH} from '../constantVariables/path'
+//input for form
+import {cardInfoInput} from '../constantVariables/cardInfoInput'
+//custom hooks
+import useAuth from '../hooks/useAuth'
+//context
 import { cardContext } from '../context/cardContext'
 import {notificationContext} from '../context/notificationContext'
-import SelectType from '../components/SelectType'
-import cardInfoInput from '../cardInfoInput'
 
 const AddCardPage = ({types}) => {
   
@@ -24,7 +29,6 @@ const AddCardPage = ({types}) => {
     typeId:"",
     userId:userProfile.id
   })
-
     
   const addCard = (e)=>{
     e.preventDefault()

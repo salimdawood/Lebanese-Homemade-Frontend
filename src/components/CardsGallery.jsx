@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import UserCard from './UserCard'
 import { nanoid } from 'nanoid'
 import {Close} from './Svg'

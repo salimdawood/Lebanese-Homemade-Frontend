@@ -1,4 +1,4 @@
-const cardInfoInput = [
+export const cardInfoInput = [
   {
     id:1,
     name:"title",

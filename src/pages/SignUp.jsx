@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import FormInput from '../components/FormInput'
 import * as Axios  from 'axios'
-import userInfoInput from '../userInfoInput'
+import userInfoInput from '../constantVariables/userInfoInput'
 
 
 const SignUp = () => {
@@ -17,6 +17,7 @@ const SignUp = () => {
     confirmPassword:"",
     location:""
   })
+
 
   const handleSubmit = (e)=>{
     console.log("clicked")
@@ -64,7 +65,7 @@ const SignUp = () => {
         <div className="form-container">
           {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
           {
-            userInfoInput.map((input)=>(
+            userInfoInput(userInfo.password).map((input)=>(
               <FormInput
               key={input.id}
               {...input}

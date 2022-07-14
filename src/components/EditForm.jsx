@@ -3,13 +3,13 @@ import React,{useState,useContext} from 'react'
 import FormInput from './FormInput'
 //api
 import * as Axios from 'axios'
-import {URL_PATH} from '../path'
+import {URL_PATH} from '../constantVariables/path'
 //custom hooks
 import useAuth from '../hooks/useAuth'
 //context
 import {notificationContext} from '../context/notificationContext'
 //input for form
-import userInfoInput from '../userInfoInput'
+import userInfoInput from '../constantVariables/userInfoInput'
 
 const UserDashboard = () => {
 
@@ -68,7 +68,7 @@ const UserDashboard = () => {
         <form onSubmit={handleSubmit} className="form-container">
           {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
           {
-            userInfoInput.map((input)=>(
+            userInfoInput(userInfo.password).map((input)=>(
               <FormInput
               key={input.id}
               {...input}

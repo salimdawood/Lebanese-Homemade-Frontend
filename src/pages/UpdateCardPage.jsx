@@ -5,14 +5,14 @@ import FormInput from '../components/FormInput'
 import SelectType from '../components/SelectType'
 //api
 import * as Axios from 'axios'
-import {URL_PATH} from '../path'
+import {URL_PATH} from '../constantVariables/path'
 //custom hooks
 import useAuth from '../hooks/useAuth'
 //context
 import { cardContext } from '../context/cardContext'
 import {notificationContext} from '../context/notificationContext'
 //input form
-import cardInfoInput from '../cardInfoInput'
+import {cardInfoInput} from '../constantVariables/cardInfoInput'
 
 
 const UpdateCardPage = ({types}) => {

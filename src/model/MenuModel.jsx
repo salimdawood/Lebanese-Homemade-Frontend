@@ -9,7 +9,7 @@ import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
 //api
 import * as Axios from 'axios'
-import { URL_PATH } from '../path'
+import { URL_PATH } from '../constantVariables/path'
 //unique id
 import { nanoid } from 'nanoid'
 

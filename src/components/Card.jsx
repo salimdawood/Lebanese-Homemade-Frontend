@@ -1,5 +1,5 @@
 import React from 'react'
-import {IMAGE_PATH} from '../path'
+import {IMAGE_PATH} from '../constantVariables/path'
 import ImageSlider from './ImageSlider'
 
 

@@ -4,7 +4,7 @@ import { Close } from './Svg'
 //context
 import { notificationContext } from '../context/notificationContext'
 //path
-import {IMAGE_PATH} from '../path'
+import {IMAGE_PATH} from '../constantVariables/path'
 
 
 const PhotoBox = (props) => {

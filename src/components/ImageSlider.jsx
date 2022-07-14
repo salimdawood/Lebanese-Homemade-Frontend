@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { LeftCircle,RightCircle } from './Svg'
-import { IMAGE_PATH } from '../path'
+import { IMAGE_PATH } from '../constantVariables/path'
 
 
 const ImageSlider = ({photoList}) => {

@@ -1,10 +1,10 @@
 import React,{useEffect,useState} from 'react'
 import * as Axios from 'axios'
-import {URL_PATH} from '../path'
+import {URL_PATH} from '../constantVariables/path'
 import {Close} from '../components/Svg'
 import Card from '../components/Card.jsx'
 import CardPopUp from '../components/CardPopUp' 
-import { useHistory, useParams } from 'react-router-dom'
+import {useParams } from 'react-router-dom'
 
 
 const UserCards = () => {
