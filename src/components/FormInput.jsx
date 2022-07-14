@@ -5,7 +5,6 @@ const FormInput = (props) => {
   const [focus,setFocus] = useState(false)
   const {label,errorMessage,onChange,id,...inputInfo} = props
 
-
   return (
     <div className="form-input">
       <label>{label}</label>
