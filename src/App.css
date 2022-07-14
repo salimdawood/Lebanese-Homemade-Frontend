@@ -200,6 +200,18 @@ main form .form-input{
   align-items: stretch;
   gap: 5px;
 }
+main form .form-input{
+  position: relative;
+}
+main form .form-input svg{
+  opacity: .6;
+  position: absolute;
+  right: 8px;
+  top: 28px;
+}
+main form .form-input svg:hover{
+  opacity: 1;
+}
 main form .form-input label{
   font-size: 14px;
 }

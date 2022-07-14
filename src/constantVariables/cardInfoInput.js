@@ -13,14 +13,14 @@ export const cardInfoInput = [
     id:2,
     name:"facebookLink",
     type:"text",
-    placeholder:"Link to your shop's facebook page",
+    placeholder:"Shop facebook page name",
     label:"Facebook link"
   },
   {
     id:3,
     name:"instagramLink",
     type:"text",
-    placeholder:"Link to your shop's instagram page",
+    placeholder:"Shop instagram page name",
     label:"Instagram link"
   },
   {
