@@ -64,11 +64,13 @@ const PhotoModel = () => {
       let tmpItems = JSON.parse(sessionStorage.getItem("card"))
       if(tmpItems.photoList !== null){
         setPhotos(tmpItems.photoList.$values)
-        return
       }
     }
-    setPhotos(cardProfile.photoList)
+    else{
+      setPhotos(cardProfile.photoList)
+    }
     setPhotoModel(false)
+
   }
 
   //api calls

@@ -765,3 +765,9 @@ main .home-page .card-box .info-card:hover{
 input[class*='safety-btn']{
   background-color: var(--warning);
 }
+font{
+  width: 100%;
+}
+font input{
+  width: 100%;
+}
