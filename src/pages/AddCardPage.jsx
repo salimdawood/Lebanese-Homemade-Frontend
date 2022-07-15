@@ -38,7 +38,12 @@ const AddCardPage = ({types}) => {
     //search for better solution,way of send and recieve
     //card basic info
     for ( var info in cardInfo ) {
-      formData.append(info, cardInfo[info]);
+      if(info.length === 0){
+        formData.append(info, null);  
+      }
+      else{
+        formData.append(info, cardInfo[info]);
+      }
     }
     //card photos
     for(let i=0;i<cardProfile.photoList.length;i++){
