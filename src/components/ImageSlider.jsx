@@ -29,26 +29,34 @@ const ImageSlider = ({photoList}) => {
 
   return (
     <div className="photo-gallery">
-      <img 
-        src={IMAGE_PATH+photoList.$values[currIndex].name}
-        key={photoList.$values[currIndex].id}
-        loading="lazy"
-      />
-      <LeftCircle onClick={movePrev}/>
-      <RightCircle onClick={moveNext}/>
-      <div className="dots-container">
-        {
-        Array.from({length:photoList.$values.length}).map((item,index) =>(
-          <div
-            key={index}
-            className={currIndex == index ? 'dot active' : 'dot'}
-            onClick={()=>dotIndex(index)}
-          ></div>
-        ))
-        }
-      </div>
+      {
+        photoList.$values.length>0 ?
+        <>
+          <img 
+          src={IMAGE_PATH+photoList.$values[currIndex].name}
+          key={photoList.$values[currIndex].id}
+          loading="lazy"
+          />
+          <LeftCircle onClick={movePrev}/>
+          <RightCircle onClick={moveNext}/>
+          <div className="dots-container">
+            {
+              Array.from({length:photoList.$values.length}).map((item,index) =>(
+                <div
+                  key={index}
+                  className={currIndex == index ? 'dot active' : 'dot'}
+                  onClick={()=>dotIndex(index)}
+                >
+                </div>
+              ))
+            }
+          </div>
+        </>
+          :
+        <img src={IMAGE_PATH+"default.jpg"} loading="lazy" />
+      }
     </div>
-  )
+      )
 }
 
 export default ImageSlider
