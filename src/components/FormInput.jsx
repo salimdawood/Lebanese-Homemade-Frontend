@@ -7,14 +7,12 @@ const FormInput = (props) => {
   const {label,errorMessage,onChange,id,type,...inputInfo} = props
   let pswrd = false
   const [visible,setVisible] = useState(false)
-  console.log(label,type)
 
 
   if(inputInfo.name==='confirmPassword' || inputInfo.name==='password'){
     pswrd = true
   }
   const toggleVisible = () =>{
-    console.log("clicked")
     if(visible){
       setVisible(false)
       return

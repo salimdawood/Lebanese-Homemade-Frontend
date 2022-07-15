@@ -30,7 +30,7 @@ export const cardInfoInput = [
   {
     id:4,
     name:"whatsappLink",
-    type:"tel",
+    type:"text",
     pattern:"[0-9]{8}",
     errorMessage:"Numbers only allowed(ex:81123456)",
     placeholder:"Shop whatsapp number",
