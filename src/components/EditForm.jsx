@@ -63,7 +63,7 @@ const UserDashboard = () => {
   }
 
   return (
-      <div className="sign-up-form">
+      <div className="form">
         <h1>Edit your profile</h1>
         <form onSubmit={handleSubmit} className="form-container">
           {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
@@ -76,7 +76,7 @@ const UserDashboard = () => {
               onChange={handleChange} />
             ))
           }
-          <input type="submit" value="Edit" />
+          <input type="submit" value="Edit Information" />
         </form>
         <input type="submit" value="Manage cards" onClick={toggleCardsGallery}/>
       </div>

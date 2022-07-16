@@ -83,7 +83,7 @@ const SignIn = () => {
   ]
 
   return (
-    <form onSubmit={handleSubmit} className="sign-up-form">
+    <form onSubmit={handleSubmit} className="form">
       <h1>Sign in</h1>
       <div className="form-container">
         <span className="db-warning">{warningMessage}</span>

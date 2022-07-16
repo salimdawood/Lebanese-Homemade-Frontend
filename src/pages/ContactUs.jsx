@@ -32,7 +32,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="sign-up-form">
+      <form onSubmit={handleSubmit} className="form">
         <h1>Contact us</h1>
         <div className="form-container">
           <select
@@ -54,7 +54,7 @@ const ContactUs = () => {
             maxLength="300"
             required
           />
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Send"/>
         </div>
       </form>
     </>

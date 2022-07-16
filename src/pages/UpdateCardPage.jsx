@@ -103,7 +103,7 @@ const UpdateCardPage = ({types}) => {
   }
 
   return (
-      <div className="sign-up-form">
+      <div className="form">
         <h1>Update your card</h1>
         <form onSubmit={updateCard} className="form-container">
           {

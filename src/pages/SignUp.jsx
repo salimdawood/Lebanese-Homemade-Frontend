@@ -63,7 +63,7 @@ const SignUp = () => {
   }
 
   return (
-      <form onSubmit={handleSubmit} className="sign-up-form">
+      <form onSubmit={handleSubmit} className="form">
         <h1>Register</h1>
         <div className="form-container">
           {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
