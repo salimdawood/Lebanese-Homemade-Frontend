@@ -30,15 +30,14 @@ const AddCardPage = ({types}) => {
     userId:userProfile.id
   })
     
-  const addCard = (e)=>{
+  const addCard = async (e)=>{
     e.preventDefault()
 
     let formData = new FormData()
 
-    //search for better solution,way of send and recieve
     //card basic info
     for ( var info in cardInfo ) {
-      if(info.length === 0){
+      if(cardInfo[info].length === 0){
         formData.append(info, null);  
       }
       else{
@@ -59,14 +58,14 @@ const AddCardPage = ({types}) => {
     for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 
     }
-    
-    Axios({
-      method: "post",
-      url: URL_PATH+'Cards',
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-    .then((result)=>{
+
+    try {
+      const result = await Axios({
+        method: "post",
+        url: URL_PATH+'Cards',
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      }) 
       console.log(result)
       switch (result.data) {
         case -1:
@@ -86,29 +85,20 @@ const AddCardPage = ({types}) => {
               title:cardInfo.title,
               //better way???better solution
               type:types.filter(type=>type.id == cardInfo.typeId)[0].name,
-              //better date format
               dateCreated: new Date()
             }]}
           })
           break;
-        }
-    },(error)=>{
+        } 
+    } catch (error) {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
-    }); 
+    }
   }
 
   const handleChange =(e)=>{
     setCardInfo({ ...cardInfo, [e.target.name]: e.target.value });
-  }
-
-  const openMenuModel = () =>{
-    setMenuModel(true)
-  }
-
-  const openPhotoModel = () =>{
-    setPhotoModel(true)
   }
 
   return (
@@ -128,8 +118,8 @@ const AddCardPage = ({types}) => {
           <SelectType defaultValue={cardInfo.typeId} handleChange={handleChange} typesArray={types}/>
           <input type="submit" value="Create" />
         </form>
-        <input type="submit" onClick={openMenuModel} value="Manage menu" />
-        <input type="submit" onClick={openPhotoModel} value="Add photos" />
+        <input type="submit" onClick={()=>setMenuModel(true)} value="Manage menu" />
+        <input type="submit" onClick={()=>setPhotoModel(true)} value="Manage photos" />
       </div>
   )
 }

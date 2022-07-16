@@ -19,7 +19,7 @@ const UpdateCardPage = ({types}) => {
 
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
-  const {typesArray,setPhotoModel,setMenuModel} = useContext(cardContext)
+  const {setPhotoModel,setMenuModel} = useContext(cardContext)
   const {setNotification,closeNotification} = useContext(notificationContext)
 
    //put inside use effect
@@ -40,15 +40,24 @@ const UpdateCardPage = ({types}) => {
   }
     
   //change from add to update
-  const updateCard = (e)=>{
+  const updateCard = async(e)=>{
+
     e.preventDefault()
-    Axios.put(URL_PATH+`Cards/${cardInfo.id}`,cardInfo)
-    .then((result)=>{
+
+    const cardInfoCopy = {...cardInfo}
+    for(var info in cardInfoCopy){
+      if(cardInfoCopy[info].length===0){
+        cardInfoCopy[info] = null
+      }
+    }
+
+    try {
+      const result = await Axios.put(URL_PATH+`Cards/${cardInfo.id}`,cardInfoCopy)
       console.log(result)
       switch (result.data) {
         case -1:
           console.log("something went wrong")
-          setNotification({isShown:true,message:"Unable to delete the card",color:"red"})
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
           break;
         default:
@@ -60,12 +69,14 @@ const UpdateCardPage = ({types}) => {
           navigate(`/user/${userProfile.id}`)
           break;
         }
-    },(error)=>{
+    } catch (error) {
       console.log(error)
-    }); 
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
+    }
   }
 
-  const deleteCard = ()=>{
+  const deleteCard = async ()=>{
     Axios.delete(URL_PATH+'Cards/'+cardInfo.id)
     .then((result)=>{
       console.log(result)
@@ -90,12 +101,6 @@ const UpdateCardPage = ({types}) => {
       console.log(error)
     });
   }
-  const updatePhotos = () =>{
-    setPhotoModel(true)
-  }
-  const updateMenu = () =>{
-    setMenuModel(true)
-  }
 
   return (
       <div className="sign-up-form">
@@ -113,8 +118,8 @@ const UpdateCardPage = ({types}) => {
           <SelectType defaultValue={cardInfo.typeId} handleChange={handleChange} typesArray={types}/>
           <input type="submit" value="Update" />
         </form>
-        <input type="submit" value="Manage photos" onClick={updatePhotos}/>
-        <input type="submit" value="Manage menu" onClick={updateMenu}/>
+        <input type="submit" value="Manage photos" onClick={()=>setPhotoModel(true)}/>
+        <input type="submit" value="Manage menu" onClick={()=>setMenuModel(true)}/>
         <input type="submit" value="Delete card" className="delete-btn" onClick={deleteCard}/>
       </div>
   )
