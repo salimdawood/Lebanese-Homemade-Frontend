@@ -14,8 +14,8 @@ const Navbar = () => {
       <div className={isOpen?"nav-link":"nav-link nav-mobile"}>
         <ul>
           <li><Link to="/signup">Sign up</Link></li>
-          <li><Link to="/mysheets">About us</Link></li>
           <li><Link to="/contactus">Contact us</Link></li>
+          <li><Link to="/aboutus">About us</Link></li>
           <li><Link to="/signin">Log in</Link></li>
         </ul>
       </div>

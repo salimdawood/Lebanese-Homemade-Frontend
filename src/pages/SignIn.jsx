@@ -1,8 +1,11 @@
 import React,{useState,useContext} from 'react'
+import {useNavigate,Link} from 'react-router-dom'
+//api
 import * as Axios  from 'axios'
-import {useNavigate} from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
 import {URL_PATH} from '../constantVariables/path'
+//custom hooks
+import useAuth from '../hooks/useAuth'
+//context
 import {notificationContext} from '../context/notificationContext'
 
 const SignIn = () => {
@@ -72,6 +75,7 @@ const SignIn = () => {
           <label>Remember me</label>
         </div>
         <input type="submit" value="Sign in" />
+        <p>Not a user?<Link to="/signup"> Create an account</Link></p>
       </div>
     </form>
   )

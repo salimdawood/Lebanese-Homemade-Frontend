@@ -168,7 +168,13 @@ main .sign-up-form input[type='submit']{
   border: none;
   border-radius: 5px;
   font-size: 20px;
-  margin-top: 10px;
+  margin: 10px 0;
+}
+main .sign-up-form .form-container p{
+  text-align: center;
+}
+main .sign-up-form .form-container p a{
+  text-decoration: underline;
 }
 main .sign-up-form input[class*='delete-btn']{
   background-color: rgb(255, 65, 60);

@@ -1,7 +1,10 @@
 import React,{useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
+//components
 import FormInput from '../components/FormInput'
+//api
 import * as Axios  from 'axios'
+//input for form
 import userInfoInput from '../constantVariables/userInfoInput'
 
 
@@ -74,6 +77,7 @@ const SignUp = () => {
             ))
           }
           <input onClick={checkPassword} type="submit" value="Sign up" />
+          <p>Already have account?<Link to="/signin"> Log in</Link></p>
         </div>
       </form>
   )
