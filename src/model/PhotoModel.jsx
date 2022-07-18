@@ -95,7 +95,7 @@ const PhotoModel = () => {
     }
 
     try {
-      const result = Axios({
+      const result = await Axios({
         method: "put",
         url: URL_PATH+`Photos/${card.id}`,
         data: formData,
