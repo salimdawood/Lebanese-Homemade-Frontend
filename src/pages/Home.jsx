@@ -1,10 +1,15 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState} from 'react'
+//api
+
 import * as Axios from 'axios'
+//component
 import SelectType from '../components/SelectType'
-import {URL_PATH} from '../constantVariables/path'
 import {Close} from '../components/Svg'
 import Card from '../components/Card.jsx'
 import CardPopUp from '../components/CardPopUp'
+import SkeletonCard from '../components/SkeletonCard'
+//input for form
+import {URL_PATH} from '../constantVariables/path'
 
 const Home = ({types}) => {
 
@@ -48,12 +53,12 @@ const Home = ({types}) => {
 
   return (
     <div className="home-page">
+      <SelectType defaultValue={typeId} handleChange={handleChange} typesArray={types}/>
       {
         isLoading ?
-          <>Loading......</>
+          <SkeletonCard/>
             :
           <>
-            <SelectType defaultValue={typeId} handleChange={handleChange} typesArray={types}/>
             <div className="card-container">
               {
                 cards.map(card=>(

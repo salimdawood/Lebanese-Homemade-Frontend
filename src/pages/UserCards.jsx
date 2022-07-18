@@ -1,10 +1,13 @@
 import React,{useEffect,useState} from 'react'
+import {useParams } from 'react-router-dom'
+//api
 import * as Axios from 'axios'
 import {URL_PATH} from '../constantVariables/path'
+//components
+import SkeletonCard from '../components/SkeletonCard'
 import {Close} from '../components/Svg'
 import Card from '../components/Card.jsx'
 import CardPopUp from '../components/CardPopUp' 
-import {useParams } from 'react-router-dom'
 
 
 const UserCards = () => {
@@ -46,7 +49,7 @@ const UserCards = () => {
     <div className="home-page">
       {
         isLoading ?
-          <>Loading......</>
+          <SkeletonCard/>
             :
           <>
             <h1>Owner : {username}</h1>
