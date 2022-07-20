@@ -1,4 +1,5 @@
 import React,{useState,useContext} from 'react'
+import {useNavigate} from 'react-router-dom'
 //components
 import FormInput from './FormInput'
 //api
@@ -17,6 +18,8 @@ const UserDashboard = () => {
   const {setNotification,closeNotification} = useContext(notificationContext)
 
   const[nameIsUnique,setNameIsUnique] = useState(true)
+
+  const navigate =  useNavigate()
 
   const[userInfo,setUserInfo] = useState({
     id:userProfile.id,
@@ -62,6 +65,12 @@ const UserDashboard = () => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
+  const logUserOut = ()=>{
+    sessionStorage.removeItem('userProfile')
+    sessionStorage.removeItem('card')
+    navigate('/signin')
+  }
+
   return (
       <div className="form">
         <h1>Edit your profile</h1>
@@ -79,6 +88,7 @@ const UserDashboard = () => {
           <input type="submit" value="Edit Information" />
         </form>
         <input type="submit" value="Manage cards" onClick={toggleCardsGallery}/>
+        <input type="submit" value="Log out" className="delete-btn" onClick={logUserOut}/>
       </div>
   )
 }
