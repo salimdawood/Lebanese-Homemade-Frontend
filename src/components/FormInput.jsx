@@ -10,6 +10,7 @@ const FormInput = (props) => {
   let pswrd = false
   let link = false
   let base_url = ''
+  const linkTypeRegex = /(facebookLink|instagramLink|whatsappLink)/gm
 
   if(inputInfo.name==='confirmPassword' || inputInfo.name==='password'){
     pswrd = true
@@ -25,7 +26,7 @@ const FormInput = (props) => {
     }
   }
   //use regex
-  if(inputInfo.name==='facebookLink' || inputInfo.name==='instagramLink' || inputInfo.name==='whatsappLink'){
+  if(inputInfo.name.match(linkTypeRegex)){
     link = true
     switch (inputInfo.name) {
       case 'facebookLink':
