@@ -4,14 +4,19 @@ import { Facebook,Instagram,WhatsApp } from './Svg'
 import { useNavigate,useLocation } from 'react-router-dom'
 
 const CardPopUp = (props) => {
-  const {title,type,photoList,menu,instagramLink,faceBookLink,whatsAppLink,dateCreated,user} = props
+  const {title,type,photoList,menu,instagramLink,faceBookLink,whatsAppLink,dateCreated,user,setCardModel} = props
 
   const navigate = useNavigate()
   const location = useLocation()
 
   //get userId of the card and allow visitor to see all cards of this user in a different page
   const getCardsOfUser = ()=>{
-      navigate(`${user.name}/cards`)
+      if(location.pathname.includes(`${user.name}/cards`)){
+        setCardModel(false)
+      }else{
+        navigate(`${user.name}/cards`)
+      }
+
   }
 
   let dateDB = new Date(dateCreated)

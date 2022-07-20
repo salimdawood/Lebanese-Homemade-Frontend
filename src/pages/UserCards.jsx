@@ -64,7 +64,7 @@ const UserCards = () => {
         cardModel &&
         <div className="card-popup">
           <Close onClick={closeCardPopUp}/>
-          <CardPopUp {...card}/>
+          <CardPopUp {...card} setCardModel={setCardModel}/>
         </div>
       }
           </>
