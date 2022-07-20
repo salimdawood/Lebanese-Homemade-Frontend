@@ -54,7 +54,8 @@ const CardPopUp = (props) => {
               {instagramLink !== null?
                 <a href={`https://instagram.com/${instagramLink}`} target="_blank"><Instagram/></a>
                   :
-                <></>}
+                <></>
+              }
             </div>
           </div>
           <div className="flex-box">

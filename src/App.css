@@ -273,6 +273,17 @@ main form .form-input{
   align-items: stretch;
   gap: 5px;
 }
+main form .form-input a{
+  width: 100%;
+  padding: 10px;
+  background-color: var(--success);
+  color: var(--primary-color);
+  text-align: center;
+  border-radius: 5px;
+}
+main form .form-input a:hover{
+  background-color: var(--success-hover);
+}
 main form .form-input{
   position: relative;
 }
