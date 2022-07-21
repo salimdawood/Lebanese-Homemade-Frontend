@@ -94,12 +94,13 @@ const MenuModel = () => {
         break;
       //save the edit
       case 1:
-        if(editItemInput.price >= 0 && editItemInput.price <= 99000000 ){
+        if(editItemInput.name.match(/^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ']{3,50}$/g)
+         && editItemInput.price >= 0 && editItemInput.price <= 20000000 ){
           setItems([...items.filter(item=>item.id !== itemId),editItemInput])
           setEditTarget(null)  
         }
         else{
-          setNotification({isShown:true,message:"Price must range between 0 - 99,000,000",color:"red"})
+          setNotification({isShown:true,message:"Name should be between 3-50 characters and can only contain letters, numbers, ' , and spaces, price must range between 0 - 99,000,000",color:"red"})
           closeNotification()
         }
         break;
@@ -125,6 +126,7 @@ const MenuModel = () => {
             //update the session
             tmpItems.menu.itemList.$values = []
             sessionStorage.setItem("card",JSON.stringify(tmpItems))
+            setMenuModel(false)
             break;
           default:
             setNotification({isShown:true,message:"Something went wrong",color:"red"})
@@ -153,11 +155,12 @@ const MenuModel = () => {
           //update the session
           tmpItems.menu.itemList.$values = items
           sessionStorage.setItem("card",JSON.stringify(tmpItems))
-        break;
+          setMenuModel(false)
+          break;
         default:
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
-        break;
+          break;
       } 
     } catch (error) {
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
