@@ -7,6 +7,8 @@ const Navbar = () => {
   
   const [isOpen,setIsOpen] = useState(false)
   const location = useLocation()
+  const user = JSON.parse(sessionStorage.getItem('userProfile'))
+  console.log(user)
 
   return (
     <>
@@ -25,7 +27,14 @@ const Navbar = () => {
             <Link className={location.pathname.includes('/aboutus')?"active":""} to="/aboutus">About us</Link>
           </li>
           <li>
-            <Link className={location.pathname.includes('signin')?"active":""} to="/signin">Log in</Link>
+            {
+              user===null?
+                <Link className={location.pathname.includes('signin')?"active":""} to="/signin">Log in</Link>
+                  :
+                <Link className={location.pathname.includes(`/user/${user.id}`)?"active":""} to={`/user/${user.id}`}>
+                  {user.name}
+                </Link>
+            }
           </li>
         </ul>
       </div>
