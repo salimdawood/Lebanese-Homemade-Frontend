@@ -24,18 +24,20 @@ const PhotoModel = () => {
   //change the displaying items depending on our current card state
   //find better way than location too much render
   useEffect(() => {
-    console.log("photo model rendered.....")
-    if(inExistingCard){
-      let tmpItems = JSON.parse(sessionStorage.getItem("card"))
-      try{
-        if(tmpItems.photoList !== null){
-          setPhotos(tmpItems.photoList.$values)
-          return
-        }
-      }catch(Exception){}
+    if(photoModel){
+      console.log("photo model rendered.....")
+      if(inExistingCard){
+        let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+        try{
+          if(tmpItems.photoList !== null){
+            setPhotos(tmpItems.photoList.$values)
+            return
+          }
+        }catch(Exception){}
+      }
+      setPhotos(new Array(5).fill(null))  
     }
-    setPhotos(new Array(5).fill(null))
-  },[location])
+    },[photoModel])
 
 
   const arr = []

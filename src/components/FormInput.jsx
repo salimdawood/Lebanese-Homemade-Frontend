@@ -1,4 +1,3 @@
-import { toBeValid } from '@testing-library/jest-dom/dist/matchers'
 import React,{useState} from 'react'
 import { VisibilityOff,VisibilityOn } from './Svg'
 
@@ -11,8 +10,9 @@ const FormInput = (props) => {
   let link = false
   let base_url = ''
   const linkTypeRegex = /(facebookLink|instagramLink|whatsappLink)/gm
+  const passwordTypeRegex = /(confirmPassword|password)/gm
 
-  if(inputInfo.name==='confirmPassword' || inputInfo.name==='password'){
+  if(inputInfo.name.match(passwordTypeRegex)){
     pswrd = true
   }
   const toggleVisible = () =>{

@@ -299,16 +299,16 @@ main form .form-input svg:hover{
 main form .form-input label{
   font-size: 14px;
 }
-main form .form-input span{
+form .form-input span{
   font-size: 12px;
   padding: 3px;
   color: red;
   display: none;
 }
-main form .form-input input:invalid[focused="true"]{
+form .form-input input:invalid[focused="true"]{
   border-color: red;
 }
-main form .form-input input:invalid[focused="true"] ~ span{
+form .form-input input:invalid[focused="true"] ~ span{
   display: block;
 }
 main form .db-warning{

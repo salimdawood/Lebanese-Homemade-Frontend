@@ -7,11 +7,14 @@ import { cardContext } from '../context/cardContext'
 //components
 import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
+import FormInput from '../components/FormInput'
 //api
 import * as Axios from 'axios'
 import { URL_PATH } from '../constantVariables/path'
 //unique id
 import { nanoid } from 'nanoid'
+//input for form
+import { itemInfoInput } from '../constantVariables/itemInfoInput'
 
 const MenuModel = () => {
 
@@ -37,18 +40,20 @@ const MenuModel = () => {
   let inExistingCard = location.pathname.includes('/cards')? true :false 
   //change the displaying items depending on our current card state
   useEffect(() => {
-    console.log("menu model rendered.....")
-    if(inExistingCard){
-      let tmpItems = JSON.parse(sessionStorage.getItem("card"))
-      try {
-        if(tmpItems.menu !== null){
-          setItems(tmpItems.menu.itemList.$values)
-        }
-        return
-      }catch(Exception){}
+    if(menuModel){
+      console.log("menu model rendered.....")
+      if(inExistingCard){
+        let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+        try {
+          if(tmpItems.menu !== null){
+            setItems(tmpItems.menu.itemList.$values)
+          }
+          return
+        }catch(Exception){}
+      }
+      setItems([])  
     }
-    setItems([])
-  },[location])
+    },[menuModel])
 
   //handle the local state
   const handleChange = (e) =>{
@@ -219,15 +224,15 @@ const MenuModel = () => {
           <form onSubmit={addItem} className="add-item-form">
             <div className="form-input">
               <div className="input-container">
-                <label>Name *</label>
-                <input type="text" placeholder="Enter item name"
-                 value={itemInput.name} onChange={handleChange} name="name" required/>
-              </div>
-              <div className="input-container">
-                <label>Price</label>
-                <input type="number" placeholder="Enter item price"
-                 value={itemInput.price} onChange={handleChange} name="price" min="0"
-                 max="99000000"/>
+                {
+                  itemInfoInput.map((input)=>(
+                    <FormInput
+                    key={input.id}
+                    {...input}
+                    value={itemInput[input.name]}
+                    onChange={handleChange} />
+                  ))
+                }
               </div>
             </div>
             <input type="submit" value="Add to menu"/>
