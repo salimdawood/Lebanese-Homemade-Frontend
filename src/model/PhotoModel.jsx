@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import reactDom from 'react-dom'
 //components
 import PhotoBox from '../components/PhotoBox'
+import Loading from '../components/Loading'
 //context
 import { cardContext } from '../context/cardContext'
 import { notificationContext } from '../context/notificationContext'
@@ -14,6 +15,7 @@ const PhotoModel = () => {
 
   const {photoModel,setPhotoModel,dispatch,cardProfile} = useContext(cardContext)
   const {setNotification,closeNotification} = useContext(notificationContext)
+  const [loading, setLoading] = useState(false)
   //assign photos according to add or update card state
   //pass it to photobox
   const [photos,setPhotos] = useState([])
@@ -77,6 +79,7 @@ const PhotoModel = () => {
 
   //api calls
   const updatePhotos = async() =>{
+    setLoading(true)
     let card = JSON.parse(sessionStorage.getItem("card"))
     //update photos using api call
     let formData = new FormData()
@@ -130,9 +133,11 @@ const PhotoModel = () => {
       closeNotification()
     }
     setPhotoModel(false)
+    setLoading(false)
   }
 
   const deletePhotos = async () =>{
+    setLoading(true)
     //delete all photos using api call
     let card = JSON.parse(sessionStorage.getItem("card"))
     try {
@@ -156,11 +161,13 @@ const PhotoModel = () => {
       closeNotification()
     }
     setPhotoModel(false)
+    setLoading(false)
   }
 
   return (
     photoModel && reactDom.createPortal(
       <div className="model">
+        {loading && <Loading/>}
         <div className="model-container">
           {arr}
           {inExistingCard ? 
