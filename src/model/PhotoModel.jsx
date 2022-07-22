@@ -105,17 +105,22 @@ const PhotoModel = () => {
       })
       console.log(result)
       switch (result.data) {
-        case -1:
-          console.log("something went wrong")
-          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+        case "":
+          console.log("photos updated successfully")
+          setNotification({isShown:true,message:"Photos updated successfully",color:"green"})
           closeNotification()
           break;
         default:
+          if(result.data.$values.length===0){
+            setNotification({isShown:true,message:"Something went wrong",color:"red"})
+            closeNotification()
+            break;
+          }
           console.log("photos updated successfully")
            //update card session
           card.photoList.$values = [...result.data.$values]
           sessionStorage.setItem("card",JSON.stringify(card))
-          setNotification({isShown:true,message:"Card added successfully",color:"green"})
+          setNotification({isShown:true,message:"Photos updated successfully",color:"green"})
           closeNotification()
           break;
         }
