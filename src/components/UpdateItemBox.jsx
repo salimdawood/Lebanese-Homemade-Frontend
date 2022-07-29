@@ -1,9 +1,6 @@
 import React from 'react'
 //component
 import { Check,Close } from './Svg'
-import FormInput from './FormInput'
-//input for form
-import { itemInfoInput } from '../constantVariables/itemInfoInput'
 
 const UpdateItemBox = ({item,onChange,editItem}) => {
   return (

@@ -9,9 +9,11 @@ import useAuth from '../hooks/useAuth'
 import {notificationContext} from '../context/notificationContext'
 //components
 import FormInput from '../components/FormInput'
+import PasswordReset from '../components/PasswordReset'
 
 const SignIn = () => {
 
+  const [passwordReset,setPasswordReset] = useState(false)
   const {userProfile,dispatch} = useAuth()
   const {setNotification,closeNotification} = useContext(notificationContext)
   const [warningMessage, setWarningMessage] = useState("")
@@ -59,6 +61,7 @@ const SignIn = () => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
+
   const userInput = [
     {
       id:1,
@@ -83,7 +86,9 @@ const SignIn = () => {
   ]
 
   return (
-    <form onSubmit={handleSubmit} className="form">
+    <>
+      {passwordReset && <PasswordReset popUpState={setPasswordReset}/>}
+      <form onSubmit={handleSubmit} className="form">
       <h1>Sign in</h1>
       <div className="form-container">
         <span className="db-warning">{warningMessage}</span>
@@ -98,13 +103,15 @@ const SignIn = () => {
         }
         <div className="form-checkbox">
           <input type="checkbox" value="remember-me" />
-          <label>Remember me</label>
+          <label>Keep me logged in</label>
+          <h3 onClick={()=>setPasswordReset(true)}>Reset password</h3>
         </div>
         <input type="submit" value="Sign in" />
         <p>Not a user?<Link to="/signup"> Create an account</Link></p>
       </div>
-    </form>
-  )
+      </form>
+    </>
+    )
 }
 
 export default SignIn

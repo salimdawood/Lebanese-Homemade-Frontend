@@ -16,8 +16,6 @@ export const itemInfoInput =
     label:"Price",
     type:"text",
     placeholder:"Enter item price",
-    min:"0",
-    max:"20000000",
     pattern:"[lL0-9\u0660-\u0669,$.]{0,20}",
     errorMessage:"Price should be between 0-20 characters and can only contain numbers, and ($ | , | L.L)"
   }

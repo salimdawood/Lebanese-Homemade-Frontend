@@ -79,7 +79,6 @@ select{
   animation: grow 1s linear infinite;
 }
 .circle:nth-child(2){
-  background-color: var(--secondary-3-color);
   animation-delay: 0.5s;
 }
 @keyframes rotate {
@@ -346,7 +345,7 @@ form .form-input span{
   display: none;
 }
 form .form-input input:invalid[focused="true"]{
-  border-color: red;
+  border-color: var(--error);
 }
 form .form-input input:invalid[focused="true"] ~ span{
   display: block;
@@ -360,6 +359,15 @@ main form .form-checkbox{
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+  position: relative;
+}
+main form .form-checkbox h3{
+  position: absolute;
+  right: 0;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: underline;
 }
 /*user dashboard*/
 /*--------------*/
@@ -965,4 +973,77 @@ footer .footer-media-container svg:hover{
 }
 .green svg{
   fill: var(--success);
+}
+/*Password popup*/
+/*--------------*/
+.password-popup{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, .4);
+}
+.password-popup .container{
+  position: relative;
+  width: 550px;
+  max-width: 550px;
+  min-height: 350px;
+  padding: 20px;
+  background-color: var(--secondary-3-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  gap: 20px;
+  color: var(--primary-color);
+  border-radius: 10px;
+}
+.password-popup .container svg{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  fill:var(--primary-color)
+}
+.password-popup .container .email-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  gap: 15px;
+}
+.password-popup .container input{
+  border-radius: 10px;
+  color: var(--primary-color);
+}
+.password-popup .container .email-form input[type='submit']{
+  padding: 10px 20px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--secondary-3-color);
+}
+.password-popup .container button{
+  color: var(--secondary-3-color);
+  background-color: var(--primary-color);
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  position: absolute;
+  bottom:20px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.password-popup .container button:disabled{
+  opacity: .6;
+}
+.prev-btn{
+  left:20px;
+}
+.next-btn{
+  right:20px;
 }
