@@ -14,10 +14,11 @@ export const itemInfoInput =
     id:2,
     name:"price",
     label:"Price",
-    type:"number",
+    type:"text",
     placeholder:"Enter item price",
     min:"0",
     max:"20000000",
-    errorMessage:"Price should range between 0-20,000,000"
+    pattern:"[lL0-9\u0660-\u0669,$.]{0,20}",
+    errorMessage:"Price should be between 0-20 characters and can only contain numbers, and ($ | , | L.L)"
   }
 ]

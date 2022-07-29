@@ -25,11 +25,11 @@ const MenuModel = () => {
   //local state
   const [itemInput,setItemInput] = useState({
     name:"",
-    price:0
+    price:""
   })
   const [editItemInput,setEditItemInput] = useState({
     name:"",
-    price:0
+    price:""
   })
   const [editTarget,setEditTarget] = useState(null)
   const [items,setItems] = useState([])
@@ -69,10 +69,10 @@ const MenuModel = () => {
     const newItem ={
       id:nanoid(),
       name:itemInput.name,
-      price:itemInput.price
+      price:itemInput.price.length===0?null:itemInput.price
     }
     setItems([...items,newItem])
-    setItemInput({name:"",price:0})
+    setItemInput({name:"",price:""})
   }
 
   //remove item from local state
@@ -89,13 +89,13 @@ const MenuModel = () => {
         break;
       //cancel the edit
       case -1:
-        setEditItemInput({name:"",price:0})
+        setEditItemInput({name:"",price:""})
         setEditTarget(null)
         break;
       //save the edit
       case 1:
         if(editItemInput.name.match(/^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ']{3,50}$/g)
-         && editItemInput.price >= 0 && editItemInput.price <= 20000000 ){
+         && editItemInput.price.match(/^[lL0-9\u0660-\u0669,$.]{0,20}$/g)){
           setItems([...items.filter(item=>item.id !== itemId),editItemInput])
           setEditTarget(null)  
         }
@@ -145,6 +145,7 @@ const MenuModel = () => {
   const updateItems = async() =>{
     //update the menu items from the database
     let tmpItems = JSON.parse(sessionStorage.getItem("card"))
+    console.log(items)
     try {
       const result = await Axios.put(URL_PATH+`menus/${tmpItems.id}`,items)
       console.log(result)
