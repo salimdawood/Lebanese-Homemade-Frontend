@@ -38,7 +38,8 @@ const AddCardPage = ({types}) => {
     //card basic info
     for ( var info in cardInfo ) {
       if(cardInfo[info].length === 0){
-        formData.append(info, null);  
+        console.log("null appended")
+        formData.append(info, "");  
       }
       else{
         formData.append(info, cardInfo[info]);
@@ -56,7 +57,7 @@ const AddCardPage = ({types}) => {
     }
     //print the form
     for (var pair of formData.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0]+ ', ' + typeof(pair[1])); 
     }
 
     try {
