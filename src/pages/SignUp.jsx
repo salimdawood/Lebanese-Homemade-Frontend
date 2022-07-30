@@ -56,12 +56,6 @@ const SignUp = () => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
-  const checkPassword = ()=>{
-    console.log(userInfo.password,userInfo.password.length)
-    console.log(userInfo.confirmPassword,userInfo.confirmPassword.length)
-    console.log(userInfo.password===userInfo.confirmPassword)
-  }
-
   return (
       <form onSubmit={handleSubmit} className="form">
         <h1>Register</h1>
@@ -76,7 +70,7 @@ const SignUp = () => {
               onChange={handleChange} />
             ))
           }
-          <input onClick={checkPassword} type="submit" value="Sign up" />
+          <input type="submit" value="Sign up" />
           <p>Already have account?<Link to="/signin"> Log in</Link></p>
         </div>
       </form>

@@ -1,9 +1,5 @@
-import React,{useState,useEffect,useRef} from 'react'
+import React,{useRef} from 'react'
 import reactDom from 'react-dom'
-//unique id
-import { nanoid } from 'nanoid'
-//components
-import {Close} from './Svg'
 //api
 import { URL_PATH } from '../constantVariables/path'
 import axios, * as Axios from 'axios'
@@ -13,6 +9,7 @@ import emailjs from 'emailjs-com'
 const EmailFragment = (props) => {
 
   const {form,setForm,setPage,setLoading,setCodeSent} = props
+
   const formRef  = useRef()
 
   const sendVerification = async(e)=>{
@@ -21,7 +18,7 @@ const EmailFragment = (props) => {
     setLoading(true)
 
     try {
-      const result_api = await axios.get(URL_PATH+`Users/${form.email}`)
+      const result_api = await axios.get(URL_PATH+`Users/${form.name}`)
       console.log(result_api)
       if(result_api.data !== null){
         let form_copy = formRef.current.cloneNode(true)
@@ -49,7 +46,7 @@ const EmailFragment = (props) => {
       <p>We will send a verification code to your email</p>
       <form ref={formRef} className='email-form' onSubmit={sendVerification}>
         <label>Name *</label>
-        <input type="text" name="email" value={form.email}
+        <input type="text" name="name" value={form.name}
         onChange={(e)=>setForm({...form,[e.target.name]:e.target.value})}
         placeholder="Enter profile name"  required/>
         <input type="submit" value="Send"/>

@@ -1,16 +1,18 @@
 import React,{useState} from 'react'
 
-const VerificationFragment = ({form}) => {
+const VerificationFragment = (props) => {
+
+  const {form,setPage,setCodeMatch} = props
 
   const [code,setCode] = useState('')
 
   const checkVerification = (e)=>{
     e.preventDefault()
     if(code===form.message){
-      console.log("verified")
+      setPage(3)
+      setCodeMatch(true)
     }
   }
-
 
   return (
     <>

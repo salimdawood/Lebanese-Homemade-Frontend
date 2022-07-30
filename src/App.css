@@ -994,20 +994,23 @@ footer .footer-media-container svg:hover{
   max-width: 550px;
   min-height: 350px;
   padding: 20px;
-  background-color: var(--secondary-3-color);
+  padding-bottom: 100px;
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   align-items: stretch;
   gap: 20px;
-  color: var(--primary-color);
+  color: var(--secondary-3-color);
   border-radius: 10px;
 }
-.password-popup .container svg{
+.password-popup .container  svg{
+  fill: var(--secondary-3-color);
+}
+.password-popup .container > svg{
   position: absolute;
   top: 10px;
   right: 10px;
-  fill:var(--primary-color)
 }
 .password-popup .container .email-form{
   display: flex;
@@ -1018,17 +1021,18 @@ footer .footer-media-container svg:hover{
 }
 .password-popup .container input{
   border-radius: 10px;
-  color: var(--primary-color);
+  color: var(--secondary-3-color);
 }
 .password-popup .container .email-form input[type='submit']{
   padding: 10px 20px;
   font-size: 17px;
   font-weight: 500;
-  color: var(--secondary-3-color);
+  color: var(--primary-color);
+  background-color: var(--secondary-3-color);
 }
 .password-popup .container button{
-  color: var(--secondary-3-color);
-  background-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: var(--secondary-3-color);
   width: 100px;
   height: 40px;
   border: none;
@@ -1039,7 +1043,7 @@ footer .footer-media-container svg:hover{
   font-weight: 500;
 }
 .password-popup .container button:disabled{
-  opacity: .6;
+  opacity: .7;
 }
 .prev-btn{
   left:20px;
