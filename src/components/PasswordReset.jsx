@@ -10,6 +10,7 @@ import Loading from './Loading'
 const PasswordReset = ({popUpState}) => {
 
   const [loading,setLoading] = useState(false)
+  const [codeSent,setCodeSent] = useState(false) 
 
   const [form,setForm] = useState({
     email:"",
@@ -31,12 +32,14 @@ const PasswordReset = ({popUpState}) => {
         <Close onClick={()=>popUpState(false)}/>
         {
           page===1?
-          <EmailFragment form={form} setForm={setForm} setPage={setPage} setLoading={setLoading}/>
+          <EmailFragment form={form} setForm={setForm} setPage={setPage} setLoading={setLoading}
+          setCodeSent={setCodeSent}
+          />
             :
           <VerificationFragment form={form}/>
         }
         <button className='prev-btn' disabled={page===1?true:false} onClick={prevFragment}>Previous</button>
-        <button className='next-btn' disabled={page===2?true:false} onClick={nextFragment}>Next</button>
+        <button className='next-btn' disabled={page===1 && codeSent?false:true} onClick={nextFragment}>Next</button>
       </div>
     </div>
   )
