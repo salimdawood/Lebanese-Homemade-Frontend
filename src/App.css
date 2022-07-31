@@ -483,6 +483,9 @@ main .home-page .card-box .info-card:hover{
   justify-content: space-between;
   align-items: center;
 }
+.info-card h3{
+  text-transform: capitalize;
+}
 .card-box .info-box h4{
   opacity: .6;
 }
@@ -614,6 +617,9 @@ main .home-page .card-box .info-card:hover{
 .card-popup .info-gallery .flex-box:first-of-type :nth-child(2){
   cursor: pointer;
   text-decoration: underline;
+}
+.card-popup .info-gallery .flex-box:nth-of-type(2) :nth-child(2){
+  text-transform: capitalize;
 }
 .card-popup .info-gallery .flex-box > *:nth-child(2){
   transform: translateX(20px);
