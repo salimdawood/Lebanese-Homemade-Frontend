@@ -10,7 +10,7 @@ const ImageSlider = ({photoList}) => {
     setCurrentIndex(index)
   }
   const moveNext = ()=>{
-    if(currIndex == photoList.$values.length-1){
+    if(currIndex == photoList.length-1){
       setCurrentIndex(0)
     }
     else{
@@ -20,7 +20,7 @@ const ImageSlider = ({photoList}) => {
 
   const movePrev = ()=>{
     if(currIndex == 0){
-      setCurrentIndex(photoList.$values.length-1)
+      setCurrentIndex(photoList.length-1)
     }
     else{
       setCurrentIndex(currIndex-1)
@@ -30,18 +30,18 @@ const ImageSlider = ({photoList}) => {
   return (
     <div className="photo-gallery">
       {
-        photoList.$values.length>0 ?
+        photoList.length>0 ?
         <>
           <img 
-          src={IMAGE_PATH+photoList.$values[currIndex].name}
-          key={photoList.$values[currIndex].id}
+          src={IMAGE_PATH+photoList[currIndex].name}
+          key={photoList[currIndex].id}
           loading="lazy"
           />
           <LeftCircle onClick={movePrev}/>
           <RightCircle onClick={moveNext}/>
           <div className="dots-container">
             {
-              Array.from({length:photoList.$values.length}).map((item,index) =>(
+              Array.from({length:photoList.length}).map((item,index) =>(
                 <div
                   key={index}
                   className={currIndex == index ? 'dot active' : 'dot'}

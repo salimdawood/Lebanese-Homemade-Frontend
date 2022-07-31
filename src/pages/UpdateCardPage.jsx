@@ -32,7 +32,7 @@ const UpdateCardPage = ({types}) => {
     facebookLink:cardProfile.faceBookLink || "",
     instagramLink:cardProfile.instagramLink || "",
     whatsappLink:cardProfile.whatsAppLink || "",
-    typeId:cardProfile.typeId || ""
+    typeId:cardProfile.type.id || ""
   })
 
   const handleChange =(e)=>{
@@ -62,7 +62,7 @@ const UpdateCardPage = ({types}) => {
           break;
         default:
           console.log("card added successfully")
-          cardInfo.type = types.filter(type=>type.id == cardInfo.typeId)[0].name
+          cardInfo.type = cardProfile.type.name
           dispatch({type:'UPDATE_USER_CARD',cardInfo})
           setNotification({isShown:true,message:"Card was updated successfully",color:"green"})
           closeNotification()

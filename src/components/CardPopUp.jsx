@@ -36,7 +36,7 @@ const CardPopUp = (props) => {
           </div>
           <div className="flex-box">
             <h3>Type :</h3>
-            <h2>{type}</h2>
+            <h2>{type.name}</h2>
           </div>
           <div className="flex-box">
             <h3>Social media :</h3>
@@ -74,7 +74,7 @@ const CardPopUp = (props) => {
           </thead>
           <tbody>
           {
-            menu.itemList.$values
+            menu.itemList
             .sort(function(a, b){
               var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
               if (nameA < nameB)
