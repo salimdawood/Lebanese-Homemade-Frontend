@@ -46,7 +46,7 @@ const MenuModel = () => {
         let tmpItems = JSON.parse(sessionStorage.getItem("card"))
         try {
           if(tmpItems.menu !== null){
-            setItems(tmpItems.menu.itemList.$values)
+            setItems(tmpItems.menu.itemList)
           }
           return
         }catch(Exception){}
@@ -182,7 +182,7 @@ const MenuModel = () => {
     if(inExistingCard){
       let tmpItems = JSON.parse(sessionStorage.getItem("card"))
       if(tmpItems.menu !== null){
-        setItems(tmpItems.menu.itemList.$values)
+        setItems(tmpItems.menu.itemList)
       }
     }
     else{

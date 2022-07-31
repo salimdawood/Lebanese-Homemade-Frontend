@@ -43,7 +43,7 @@ const Home = ({types}) => {
     try {
       const result = await Axios.get(URL_PATH+`Cards/GetCards?typeId=${e.target.value}`) 
       console.log(result)
-      setCards(result.data.$values)
+      setCards(result.data)
     } catch (error) {
       console.log(error)
     }

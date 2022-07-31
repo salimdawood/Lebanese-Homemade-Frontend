@@ -2,7 +2,7 @@ import React,{useRef} from 'react'
 import reactDom from 'react-dom'
 //api
 import { URL_PATH } from '../constantVariables/path'
-import axios, * as Axios from 'axios'
+import * as Axios from 'axios'
 //email verification
 import emailjs from 'emailjs-com'
 
@@ -18,7 +18,7 @@ const EmailFragment = (props) => {
     setLoading(true)
 
     try {
-      const result_api = await axios.get(URL_PATH+`Users/${form.name}`)
+      const result_api = await Axios.get(URL_PATH+`Users/${form.name}`)
       console.log(result_api)
       if(result_api.data !== null){
         let form_copy = formRef.current.cloneNode(true)

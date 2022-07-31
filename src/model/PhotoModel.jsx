@@ -32,7 +32,7 @@ const PhotoModel = () => {
         let tmpItems = JSON.parse(sessionStorage.getItem("card"))
         try{
           if(tmpItems.photoList !== null){
-            setPhotos(tmpItems.photoList.$values)
+            setPhotos(tmpItems.photoList)
             return
           }
         }catch(Exception){}
@@ -67,7 +67,7 @@ const PhotoModel = () => {
     if(inExistingCard){
       let tmpItems = JSON.parse(sessionStorage.getItem("card"))
       if(tmpItems.photoList !== null){
-        setPhotos(tmpItems.photoList.$values)
+        setPhotos(tmpItems.photoList)
       }
     }
     else{
@@ -114,14 +114,14 @@ const PhotoModel = () => {
           closeNotification()
           break;
         default:
-          if(result.data.$values.length===0){
+          if(result.data.length===0){
             setNotification({isShown:true,message:"Something went wrong",color:"red"})
             closeNotification()
             break;
           }
           console.log("photos updated successfully")
            //update card session
-          card.photoList.$values = [...result.data.$values]
+          card.photoList = [...result.data]
           sessionStorage.setItem("card",JSON.stringify(card))
           setNotification({isShown:true,message:"Photos updated successfully",color:"green"})
           closeNotification()

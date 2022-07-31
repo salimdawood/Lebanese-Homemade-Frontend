@@ -26,7 +26,7 @@ const UserCards = () => {
     try {
       const result = await  Axios.get(URL_PATH+`Cards/GetCards/${username}`)
       console.log(result)
-      setCards(result.data.$values)
+      setCards(result.data)
     } catch (error) {
       console.log(error)
     }
