@@ -17,10 +17,17 @@ const SignIn = () => {
   const {userProfile,dispatch} = useAuth()
   const {setNotification,closeNotification} = useContext(notificationContext)
   const [warningMessage, setWarningMessage] = useState("")
-  const[userInfo,setUserInfo] = useState({
+  const user = JSON.parse(localStorage.getItem("userProfile"))
+  const[userInfo,setUserInfo] = useState(
+    user !== null?
+    user
+      :
+    {
     name:"",
     password:""
-  })
+    }
+  )
+  const [checked, setChecked] = useState(user !== null?true:false);
   const navigate = useNavigate()
   /*
   const location = useLocation()
@@ -41,7 +48,9 @@ const SignIn = () => {
         case 200:
           setWarningMessage("")
           const {id,name,email,password,cardList,location} = result.data
-          dispatch({type:'UPDATE_USER_PROFILE',userProfile:{id,name,email,password,cardList,location}})
+          dispatch({type:'ADD_USER_PROFILE',
+          payload:{userProfile:{id,name,email,password,cardList,location},checked:checked}
+          })
           navigate(`/user/${id}`)
           break;
         case 204:
@@ -102,8 +111,8 @@ const SignIn = () => {
           ))
         }
         <div className="form-checkbox">
-          <input type="checkbox" value="remember-me" />
-          <label>Keep me logged in</label>
+          <input type="checkbox" defaultChecked={checked} onChange={() => setChecked(!checked)}  />
+          <label htmlFor="remember-me">Remember me</label>
           <h3 onClick={()=>setPasswordReset(true)}>Reset password</h3>
         </div>
         <input type="submit" value="Sign in" />

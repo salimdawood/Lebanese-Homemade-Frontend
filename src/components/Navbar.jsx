@@ -8,7 +8,6 @@ const Navbar = () => {
   const [isOpen,setIsOpen] = useState(false)
   const location = useLocation()
   const user = JSON.parse(sessionStorage.getItem('userProfile'))
-  console.log(user)
 
   return (
     <>

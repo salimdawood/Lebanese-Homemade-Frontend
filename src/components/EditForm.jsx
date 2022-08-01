@@ -67,6 +67,7 @@ const UserDashboard = () => {
 
   const logUserOut = ()=>{
     sessionStorage.clear()
+    localStorage.removeItem("userProfile")
     navigate('/signin',{replace:true})
   }
 

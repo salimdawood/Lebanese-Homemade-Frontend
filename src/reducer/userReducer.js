@@ -1,7 +1,27 @@
 const userReducer = (state,action)=>{
   switch (action.type) {
+    case 'ADD_USER_PROFILE':
+      sessionStorage.setItem("userProfile",JSON.stringify(action.payload.userProfile))
+      if(action.payload.checked){
+        let user ={
+          name:action.payload.userProfile.name,
+          password:action.payload.userProfile.password
+        }
+        localStorage.setItem("userProfile",JSON.stringify(user))
+      }else{
+        localStorage.removeItem("userProfile")
+      }
+      return action.payload.userProfile
     case 'UPDATE_USER_PROFILE':
       sessionStorage.setItem("userProfile",JSON.stringify(action.userProfile))
+      let checked = JSON.parse(localStorage.getItem("userProfile"))
+        if(checked != null){
+          let user ={
+            name:action.userProfile.name,
+            password:action.userProfile.password
+          }
+          localStorage.setItem("userProfile",JSON.stringify(user))
+        }
       return action.userProfile
     case 'DELETE_CARD':
       const newCards = state.cardList.filter(card=>card.id != action.id)
