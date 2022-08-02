@@ -9,7 +9,7 @@ const SelectType = ({defaultValue,typesArray,handleChange}) => {
       onChange={handleChange}
       required
       >
-      <option value="" disabled >Choose a card type</option>
+      <option value="-1" disabled >Choose a card type</option>
       {
         typesArray
         .sort(function(a, b){
