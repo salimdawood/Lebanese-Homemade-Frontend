@@ -8,6 +8,8 @@ import { cardContext } from '../context/cardContext'
 import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
 import FormInput from '../components/FormInput'
+import Loading from '../components/Loading'
+import ModelFunctionality from '../components/ModelFunctionality'
 //api
 import * as Axios from 'axios'
 import { URL_PATH } from '../constantVariables/path'
@@ -18,7 +20,10 @@ import { itemInfoInput } from '../constantVariables/itemInfoInput'
 
 const MenuModel = () => {
 
+  //notification for better ui
+  const [isLoading,setIsLoading] = useState(false)
   const {setNotification,closeNotification} = useContext(notificationContext)
+
   const {menuModel,setMenuModel,dispatch,cardProfile} = useContext(cardContext)
   
   
@@ -41,7 +46,7 @@ const MenuModel = () => {
   //change the displaying items depending on our current card state
   useEffect(() => {
     if(menuModel){
-      console.log("menu model rendered.....")
+      //console.log("menu model rendered.....")
       if(inExistingCard){
         let tmpItems = JSON.parse(sessionStorage.getItem("card"))
         try {
@@ -112,6 +117,7 @@ const MenuModel = () => {
   //for card update
   const deleteItems = async() =>{
     //delete all menu items from database
+    isLoading(true)
     let tmpItems = JSON.parse(sessionStorage.getItem("card"))
     if(tmpItems.menu !== null){
       try {
@@ -133,22 +139,24 @@ const MenuModel = () => {
             closeNotification()
             break;
         }
-        console.log(result)
+        //console.log(result)
       }catch (error) {
-        console.log(error)
+        //console.log(error)
         setNotification({isShown:true,message:"Something went wrong",color:"red"})
         closeNotification() 
       }
+      setIsLoading(true)
     }
   }
 
   const updateItems = async() =>{
     //update the menu items from the database
+    setIsLoading(true)
     let tmpItems = JSON.parse(sessionStorage.getItem("card"))
-    console.log(items)
+    //console.log(items)
     try {
       const result = await Axios.put(URL_PATH+`menus/${tmpItems.id}`,items)
-      console.log(result)
+      //console.log(result)
       switch (result.data) {
         case 1:
           setNotification({isShown:true,message:"Menu updated successfully",color:"green"})
@@ -166,8 +174,9 @@ const MenuModel = () => {
     } catch (error) {
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
-      console.log(error)
+      //console.log(error)
     }
+    setIsLoading(false)
   }
 
   //for card create
@@ -191,8 +200,18 @@ const MenuModel = () => {
     setMenuModel(false)
   }
 
+  let model_functionality_props = {
+    inExistingCard,
+    updateItems,
+    deleteItems,
+    cancelChanges,
+    confirmItems
+  }
+
   return (
     menuModel && reactDom.createPortal(
+      <>
+      {isLoading && <Loading/>}
       <div className="model">
         <div className="model-container">
           <form className="table-form">
@@ -241,7 +260,19 @@ const MenuModel = () => {
             </div>
             <input type="submit" value="Add to menu"/>
           </form>
-          {inExistingCard ? 
+          <ModelFunctionality {...model_functionality_props}/>
+          </div>
+      </div>
+    
+      </>
+      ,document.getElementById('model')
+    )
+  )
+}
+
+export default MenuModel
+/*
+{inExistingCard ? 
           <>
             <input type="submit" onClick={updateItems} className="confirm-btn" value="Update"/>
             <input type="submit" onClick={deleteItems} className="delete-btn" value="Delete all items"/>
@@ -251,12 +282,5 @@ const MenuModel = () => {
             <input type="submit" onClick={confirmItems} className="confirm-btn" value="Confirm"/>
           </>
           }
-          <input type="submit" onClick={cancelChanges} className="safety-btn" value="Cancel"/>
-        </div>
-      </div>
-    ,document.getElementById('model')
-    )
-  )
-}
-
-export default MenuModel
+          <input type="submit" onClick={cancelChanges} className="safety-btn" value="Cancel"/> 
+*/

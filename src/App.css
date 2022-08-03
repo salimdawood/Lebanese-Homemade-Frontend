@@ -412,6 +412,9 @@ main .cards-gallery .card-space{
   justify-content: center;
   align-items: center;
 }
+main .cards-gallery .card-space h4{
+  text-transform: capitalize;
+}
 main .cards-gallery .card-space:hover{
   background-color:var(--secondary-1-color);
   color: var(--secondary-2-color);
@@ -773,7 +776,6 @@ footer .footer-media-container svg:hover{
   justify-content: center;
   align-items: center;
   padding: 20px 0;
-  overflow-y: scroll;
 }
 .model-container{
   position: relative;
@@ -919,7 +921,7 @@ footer .footer-media-container svg:hover{
   gap: 10px;
 }
 .model .table-form td[class*='action-cell'] svg{
-  fill: var(--error);
+  fill: var(--secondary-3-color);
 }
 .model .table-form tbody input{
   width: 100px;
@@ -1098,4 +1100,35 @@ footer .footer-media-container svg:hover{
 .pagination ul li.active{
   background-color: var(--secondary-3-color);
   color: var(--secondary-1-color);
+}
+/* model svg functionality*/
+/*------------------------*/
+.model-svg{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.model-svg li{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary-color);
+  background-color: var(--secondary-2-color);
+  padding:10px;
+  border-radius: 10px;
+  flex: 1;
+}
+.model-svg li:hover{
+  cursor: pointer;
+  background-color: var(--secondary-3-color);
+}
+.model-svg li svg{
+  fill: var(--primary-color);
 }

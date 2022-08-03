@@ -4,6 +4,7 @@ import reactDom from 'react-dom'
 //components
 import PhotoBox from '../components/PhotoBox'
 import Loading from '../components/Loading'
+import ModelFunctionality from '../components/ModelFunctionality'
 //context
 import { cardContext } from '../context/cardContext'
 import { notificationContext } from '../context/notificationContext'
@@ -13,9 +14,12 @@ import * as Axios from 'axios'
 
 const PhotoModel = () => {
 
-  const {photoModel,setPhotoModel,dispatch,cardProfile} = useContext(cardContext)
+  //notification for better ui
   const {setNotification,closeNotification} = useContext(notificationContext)
   const [loading, setLoading] = useState(false)
+
+  const {photoModel,setPhotoModel,dispatch,cardProfile} = useContext(cardContext)
+ 
   //assign photos according to add or update card state
   //pass it to photobox
   const [photos,setPhotos] = useState([])
@@ -27,7 +31,7 @@ const PhotoModel = () => {
   //find better way than location too much render
   useEffect(() => {
     if(photoModel){
-      console.log("photo model rendered.....")
+      //console.log("photo model rendered.....")
       if(inExistingCard){
         let tmpItems = JSON.parse(sessionStorage.getItem("card"))
         try{
@@ -42,16 +46,16 @@ const PhotoModel = () => {
     },[photoModel])
 
 
-  const arr = []
+  const photos_array = []
   for(let i =0;i<5;i++){
     //five photo placeholders
     //if file is entered pass it to the placeholder
     //else pass null
     if(photos[i] != null){
-      arr.push(PhotoBox({id:i,photo:photos[i],setPhotos,photos}))
+      photos_array.push(PhotoBox({id:i,photo:photos[i],setPhotos,photos}))
     }
     else{
-      arr.push(PhotoBox({id:i,photo:null,setPhotos,photos}))
+      photos_array.push(PhotoBox({id:i,photo:null,setPhotos,photos}))
     }
   }
 
@@ -96,7 +100,7 @@ const PhotoModel = () => {
     }
      //print the form
      for (var pair of formData.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      //.log(pair[0]+ ', ' + pair[1]); 
     }
 
     try {
@@ -106,10 +110,10 @@ const PhotoModel = () => {
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
-      console.log(result)
+      //console.log(result)
       switch (result.data) {
         case "":
-          console.log("photos updated successfully")
+          //console.log("photos updated successfully")
           setNotification({isShown:true,message:"Photos updated successfully",color:"green"})
           closeNotification()
           break;
@@ -119,7 +123,7 @@ const PhotoModel = () => {
             closeNotification()
             break;
           }
-          console.log("photos updated successfully")
+          //console.log("photos updated successfully")
            //update card session
           card.photoList = [...result.data]
           sessionStorage.setItem("card",JSON.stringify(card))
@@ -128,7 +132,7 @@ const PhotoModel = () => {
           break;
         }
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
     }
@@ -164,23 +168,22 @@ const PhotoModel = () => {
     setLoading(false)
   }
 
+  let model_functionality_props = {
+    inExistingCard,
+    updatePhotos,
+    deletePhotos,
+    cancelChanges,
+    confirmPhotos
+  }
+
+
   return (
     photoModel && reactDom.createPortal(
       <div className="model">
         {loading && <Loading/>}
         <div className="model-container">
-          {arr}
-          {inExistingCard ? 
-          <>
-            <input type="submit" onClick={updatePhotos} className="confirm-btn" value="Update photos"/>
-            <input type="submit" onClick={deletePhotos} className="delete-btn" value="Delete all photos"/>
-          </>
-          :
-          <>
-            <input type="submit" onClick={confirmPhotos} className="confirm-btn" value="Save"/>
-          </>
-          }
-          <input type="submit" onClick={cancelChanges} className="safety-btn" value="Cancel"/>
+          {photos_array}
+          <ModelFunctionality {...model_functionality_props}/>
         </div>
       </div>
     ,document.getElementById('model'))
