@@ -1096,6 +1096,7 @@ footer .footer-media-container svg:hover{
   background-color: var(--secondary-2-color);
   color: var(--primary-color);
   font-size: 1rem;
+  cursor: pointer;
 }
 .pagination ul li.active{
   background-color: var(--secondary-3-color);

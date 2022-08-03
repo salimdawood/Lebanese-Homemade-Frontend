@@ -11,7 +11,7 @@ const CardPopUp = (props) => {
 
   //get userId of the card and allow visitor to see all cards of this user in a different page
   const getCardsOfUser = ()=>{
-      if(location.pathname.includes(`${user.name}/cards`)){
+      if(location.pathname.includes('/cards')){
         setCardModel(false)
       }else{
         navigate(`${user.name}/cards`)
