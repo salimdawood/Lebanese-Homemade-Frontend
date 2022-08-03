@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 //api
-
 import * as Axios from 'axios'
+import {URL_PATH} from '../constantVariables/path'
 //component
 import SelectType from '../components/SelectType'
 import {Close} from '../components/Svg'
@@ -9,8 +9,6 @@ import Card from '../components/Card.jsx'
 import CardPopUp from '../components/CardPopUp'
 import SkeletonCard from '../components/SkeletonCard'
 import Pagination from '../components/Pagination'
-//input for form
-import {URL_PATH} from '../constantVariables/path'
 
 const Home = ({types}) => {
 
@@ -43,20 +41,27 @@ const Home = ({types}) => {
   useEffect(async() => {
     setIsLoading(true)
     try {
-      const result = await Axios.get(URL_PATH+`Cards/${typeId}?PageNumber=${paginate.currentPage}&PageSize=${paginate.perPage}`)
-      const count = await Axios.get(URL_PATH+`Cards/GetCardsCount/${typeId}`)  
-      console.log(result)
-      console.log(count)
+      const result = await Axios.get(URL_PATH+`Cards/GetCardsById/${typeId}?PageNumber=${paginate.currentPage}&PageSize=${paginate.perPage}`)
       setCards(result.data)
-      setCardsCount(count.data)
     } catch (error) {
       console.log(error)
     }
     setIsLoading(false)
   }, [paginate,typeId])
+
+  useEffect(async() => {
+    setIsLoading(true)
+    try {
+      const count = await Axios.get(URL_PATH+`Cards/GetCardsCount/${typeId}`)
+      setCardsCount(count.data)
+    } catch (error) {
+      console.log(error)
+    }
+    setIsLoading(false)
+  }, [typeId])
   
 
-  const handleChange =async (e)=>{
+  const handleChange = (e)=>{
     setTypeId(e.target.value)
     setPaginate({perPage:10,currentPage:1})
   }
@@ -83,9 +88,12 @@ const Home = ({types}) => {
           <>
             <div className="card-container">
               {
+                cards.length>0?
                 cards.map(card=>(
                   <Card key={card.id} {...card} openCardPopUp={openCardPopUp} />
                 ))
+                :
+                <p>No items found</p>
               }
             </div>
             {

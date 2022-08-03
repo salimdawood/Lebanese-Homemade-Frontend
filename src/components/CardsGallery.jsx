@@ -1,20 +1,21 @@
 import React from 'react'
+//components
 import UserCard from './UserCard'
-import { nanoid } from 'nanoid'
 import {Close} from './Svg'
+//context
 import useAuth from '../hooks/useAuth'
 
 const CardsGallery = () => {
 
   const{showCardsGallery,toggleCardsGallery,userProfile:{cardList}} = useAuth()
-  const arr = []
+  const cards_array = []
 
   for(let i=0;i<10;i++){
     if(cardList[i] != null){
-      arr.push(cardList[i])
+      cards_array.push(cardList[i])
     }
     else{
-      arr.push(null)
+      cards_array.push(null)
     }
   }
 
@@ -23,8 +24,8 @@ const CardsGallery = () => {
       <div className="cards-gallery">
           <Close onClick={toggleCardsGallery} />
           <div className="cards-container">
-            {arr.map(card=>(
-              <UserCard key={nanoid()} {...card}/>
+            {cards_array.slice(0,10).map((card,index)=>(
+              <UserCard key={index} {...card}/>
             ))}
           </div>
       </div>

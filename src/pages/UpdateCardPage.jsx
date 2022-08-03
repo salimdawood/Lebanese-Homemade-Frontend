@@ -32,7 +32,7 @@ const UpdateCardPage = ({types}) => {
     facebookLink:cardProfile.faceBookLink || "",
     instagramLink:cardProfile.instagramLink || "",
     whatsappLink:cardProfile.whatsAppLink || "",
-    typeId:cardProfile.type.id || ""
+    typeId:cardProfile.type.id || "-1"
   })
 
   const handleChange =(e)=>{
@@ -56,12 +56,12 @@ const UpdateCardPage = ({types}) => {
       console.log(result)
       switch (result.data) {
         case -1:
-          console.log("something went wrong")
+          //console.log("something went wrong")
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
           break;
         default:
-          console.log("card added successfully")
+          //console.log("card added successfully")
           cardInfo.type = cardProfile.type.name
           dispatch({type:'UPDATE_USER_CARD',cardInfo})
           setNotification({isShown:true,message:"Card was updated successfully",color:"green"})
@@ -70,7 +70,7 @@ const UpdateCardPage = ({types}) => {
           break;
         }
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
     }

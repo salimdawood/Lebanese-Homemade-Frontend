@@ -62,7 +62,7 @@ select{
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, .4);
-  z-index: 3;
+  z-index: 100;
 }
 .loading{
   height: 50px;
@@ -215,7 +215,7 @@ nav .nav-burger svg{
     right: 0;
     left: 0;
     top: 50px;
-    z-index: 1;
+    z-index: 5;
     background-color: var(--secondary-3-color);
     animation: nav .2s ;
   }
@@ -267,6 +267,9 @@ main .form h1{
   text-align: center;
   color: var(--secondary-2-color);
   font-weight: 500;
+}
+main .form > svg{
+  transform: translateX();
 }
 main .form input[type='submit']{
   padding: 10px;
@@ -394,7 +397,6 @@ main .cards-gallery .cards-container{
   align-content:center ;
   gap: 20px;
   flex-wrap: wrap;
-  overflow-y: scroll;
 }
 main .cards-gallery .card-space{
   background-color: var(--secondary-2-color);
@@ -507,6 +509,7 @@ main .home-page .card-box .info-card:hover{
   background-color: var(--secondary-3-color);
   color: var(--secondary-1-color);
   overflow-y: scroll;
+  z-index: 2;
 }
 .card-popup .card-info{
   display: flex;
@@ -520,7 +523,7 @@ main .home-page .card-box .info-card:hover{
   position: absolute;
   right: 10px;
   top: 10px;
-  z-index: 2;
+  z-index: 3;
   fill: white;
 }
 .card-popup .top-container{
@@ -730,9 +733,6 @@ main .error-page,main .about-page{
   background-color: var(--primary-color);
   color: var(--secondary-2-color);
 }
-.error-page a:hover,.about-page a:hover{
-  letter-spacing: 1px;
-}
 /*footer section*/
 /*--------------*/
 footer{
@@ -938,7 +938,7 @@ footer .footer-media-container svg:hover{
   transform: translateX(-50%);
   z-index: 10;
   animation-name: simple;
-  animation-duration:1.5s;
+  animation-duration:3s;
   animation-fill-mode: forwards;
 }
 @keyframes simple {
@@ -991,7 +991,7 @@ footer .footer-media-container svg:hover{
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 3;
+  z-index: 10;
   background-color: rgba(0, 0, 0, .4);
 }
 .password-popup .container{

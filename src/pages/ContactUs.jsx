@@ -1,7 +1,15 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
+//email
 import emailjs from 'emailjs-com'
+//component
+import Loading from '../components/Loading'
+//context
+import {notificationContext} from '../context/notificationContext'
 
 const ContactUs = () => {
+  //notification for better ui
+  const [isLoading,setIsLoading] = useState(false)
+  const {setNotification,closeNotification} = useContext(notificationContext)
   //form inputs state
   const[contactInfo,setContactInfo] = useState({
     type:"",
@@ -12,27 +20,31 @@ const ContactUs = () => {
     setContactInfo({ ...contactInfo, [event.target.name]: event.target.value });
   };
 
-  //controlled vs uncontrolled?????
   //handle submit
-  const handleSubmit = (e) => {
+  const sendMessage = async(e) => {
     e.preventDefault()
-    emailjs.sendForm('service_zce6oq2','template_xs0rc8q',e.target,'pREPpjkuU35zUe2vI')
-    .then((result)=>{
-      console.log(result)
+    setIsLoading(true)
+    try {
+      const result = await emailjs.sendForm('service_zce6oq2','template_xs0rc8q',e.target,'pREPpjkuU35zUe2vI')
+      //console.log(result)
+      setNotification({isShown:true,message:"Message was sent successfully",color:"green"})
+      closeNotification()
+    } catch (error) {
+      //console.log(error)
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
     }
-    ,(error)=>{
-      console.log(error)
-    });
-    e.target.reset()
     setContactInfo({
       type:"",
       message:""
     })
+    setIsLoading(false)
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="form">
+      {isLoading && <Loading/>}
+      <form onSubmit={sendMessage} className="form">
         <h1>Contact us</h1>
         <div className="form-container">
           <select
@@ -41,10 +53,10 @@ const ContactUs = () => {
             onChange={handleChange}
             required
           >
-            <option value="" disabled >Message Type</option>
-            <option value="suggestion">Suggestion</option>
-            <option value="problem">Problem</option>
-            <option value="bug">Bug</option>
+            <option value="" disabled >Message Type *</option>
+            <option value="Suggestion">Suggestion</option>
+            <option value="Problem">Problem</option>
+            <option value="Bug">Bug</option>
           </select>
           <textarea
             placeholder="Your message"

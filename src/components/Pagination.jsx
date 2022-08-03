@@ -25,7 +25,10 @@ const Pagination = (props) => {
       <ul>
         {
           pages_array.map((element)=>(
-            <li className={element===currentPage?'active':''} key={element} >{element}</li>
+            <li key={element} 
+             className={element===currentPage?'active':''}
+             onClick={()=>setPaginate({perPage,currentPage:element})} 
+            >{element}</li>
           ))
         }
       </ul>

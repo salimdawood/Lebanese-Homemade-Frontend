@@ -2,6 +2,7 @@ import React,{useState,useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
 //components
 import FormInput from './FormInput'
+import Loading from './Loading'
 //api
 import * as Axios from 'axios'
 import {URL_PATH} from '../constantVariables/path'
@@ -14,8 +15,12 @@ import userInfoInput from '../constantVariables/userInfoInput'
 
 const UserDashboard = () => {
 
-  const {userProfile,dispatch,toggleCardsGallery} = useAuth()
+
+  //notification for better ui
   const {setNotification,closeNotification} = useContext(notificationContext)
+  const [isLoading,setIsLoading] = useState(false)
+
+  const {userProfile,dispatch,toggleCardsGallery} = useAuth()
 
   const[nameIsUnique,setNameIsUnique] = useState(true)
 
@@ -30,51 +35,55 @@ const UserDashboard = () => {
     location:userProfile.location
   })
   
-  const handleSubmit = (e)=>{
+  const editProfile = async(e)=>{
     const {name,email,password,location} = userInfo
     e.preventDefault()
-    Axios.put(URL_PATH+'Users/'+userProfile.id,{name,email,password,location})
-    .then((result)=>{
-      console.log(result)
+    setIsLoading(true)
+    try {
+      const result = await Axios.put(URL_PATH+'Users/'+userProfile.id,{name,email,password,location});console.log(result)
       switch (result.data) {
         case -1:
-          console.log("name is not unique")
+          //console.log("name is not unique")
           setNameIsUnique(false)
           break;
         case 0:
-          console.log("couldn't add try agian later")
+          //console.log("couldn't add try agian later")
           setNameIsUnique(true)
           break;
         case 1:
-          console.log("updated successfully")
+          //console.log("updated successfully")
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{...userInfo,cardList:userProfile.cardList}})
           setNameIsUnique(true)
           setNotification({isShown:true,message:'Successfully updated your profile information',color:'green'})
           closeNotification()
           break;
         default:
-          console.log("success code not founded")
+          //console.log("success code not founded")
           break;
       }
-    },(error)=>{
+    } catch (error) {
       console.log(error)
-    }); 
+    }
+    setIsLoading(false)
   }
 
   const handleChange =(e)=>{
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
-  const logUserOut = ()=>{
-    sessionStorage.clear()
+  const logOut = ()=>{
+    sessionStorage.removeItem("userProfile")
+    sessionStorage.removeItem("card")  
     localStorage.removeItem("userProfile")
     navigate('/signin',{replace:true})
   }
 
   return (
+    <>
+      {isLoading && <Loading/>}
       <div className="form">
         <h1>Edit your profile</h1>
-        <form onSubmit={handleSubmit} className="form-container">
+        <form onSubmit={editProfile} className="form-container">
           {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
           {
             userInfoInput(userInfo.password).map((input)=>(
@@ -87,11 +96,11 @@ const UserDashboard = () => {
           }
           <input type="submit" value="Edit Information" />
         </form>
-        <input type="submit" value="Manage cards" onClick={toggleCardsGallery}/>
-        <input type="submit" value="Log out" className="delete-btn" onClick={logUserOut}/>
+        <input type="submit" value="Manage cards &rsaquo;&rsaquo;" onClick={toggleCardsGallery}/>
+        <input type="submit" value="Log out" className="delete-btn" onClick={logOut}/>
       </div>
+    </>
   )
 }
 
 export default UserDashboard
-//add icon(arrow) to input manage cards to inform user on  cards gallery toggle action

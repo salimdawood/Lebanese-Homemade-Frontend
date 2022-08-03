@@ -34,7 +34,6 @@ function App() {
   useEffect(async() => {
     try {
       const result = await Axios.get(URL_PATH+'Types/')
-      //console.log(result)
       setTypes([...result.data])
     } catch (error) {
       console.log(error)

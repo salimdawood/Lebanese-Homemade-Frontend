@@ -1,16 +1,24 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { useNavigate,Link } from 'react-router-dom'
 //components
 import FormInput from '../components/FormInput'
+import Loading from '../components/Loading'
 //api
 import * as Axios  from 'axios'
 //input for form
 import userInfoInput from '../constantVariables/userInfoInput'
+//context
+import {notificationContext} from '../context/notificationContext'
 
 
 const SignUp = () => {
 
+  //notificatin for better ui
+  const [isLoading,setIsLoading] = useState(false)
+  const {setNotification,closeNotification} = useContext(notificationContext)
+
   const[nameIsUnique,setNameIsUnique] = useState(true)
+  
   const navigate = useNavigate()
 
   const[userInfo,setUserInfo] = useState({
@@ -22,34 +30,43 @@ const SignUp = () => {
   })
 
 
-  const handleSubmit = (e)=>{
-    console.log("clicked")
+  const signUp = async (e)=>{
     const {name,email,password,location} = userInfo
     e.preventDefault()
-    Axios.post('http://localhost:17733/api/Users',{name,email,password,location})
-    .then((result)=>{
+    setIsLoading(true)
+    try {
+      const result = await Axios.post('http://localhost:17733/api/Users',{name,email,password,location});
       console.log(result)
       switch (result.data) {
         case -1:
-          console.log("name is not unique")
+          //console.log("name is not unique")
           setNameIsUnique(false)
           break;
         case 0:
-          console.log("couldn't add try agian later")
+          //console.log("couldn't add try agian later")
           setNameIsUnique(true)
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
         case 1:
-          console.log("added successfully")
+          //console.log("added successfully")
+          setNotification({isShown:true,message:"Profile was created successfully",color:"red"})
+          closeNotification()
           setNameIsUnique(true)
           navigate("/signin")
           break;
         default:
-          console.log("success code not founded")
+          //console.log("success code not founded")
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
       }
-    },(error)=>{
-      console.log(error)
-    }); 
+    } catch (error) {
+      //console.log(error)
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification() 
+    }
+    setIsLoading(false)
   }
 
   const handleChange =(e)=>{
@@ -57,7 +74,9 @@ const SignUp = () => {
   }
 
   return (
-      <form onSubmit={handleSubmit} className="form">
+    <>
+      {isLoading && <Loading/>}
+      <form onSubmit={signUp} className="form">
         <h1>Register</h1>
         <div className="form-container">
           {!nameIsUnique && <span className="db-warning">Username must be unique *.</span>}
@@ -74,6 +93,7 @@ const SignUp = () => {
           <p>Already have account?<Link to="/signin"> Log in</Link></p>
         </div>
       </form>
+    </>
   )
 }
 

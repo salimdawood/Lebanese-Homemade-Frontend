@@ -26,7 +26,7 @@ const AddCardPage = ({types}) => {
     facebookLink:"",
     instagramLink:"",
     whatsappLink:"",
-    typeId:"",
+    typeId:"-1",
     userId:userProfile.id
   })
     
@@ -70,12 +70,12 @@ const AddCardPage = ({types}) => {
       console.log(result)
       switch (result.data) {
         case -1:
-          console.log("something went wrong")
+          //console.log("something went wrong")
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
           break;
         default:
-          console.log("card added successfully")
+          //console.log("card added successfully")
           setNotification({isShown:true,message:"Card added successfully",color:"green"})
           closeNotification()
           navigate(`/user/${userProfile.id}`)
@@ -84,7 +84,6 @@ const AddCardPage = ({types}) => {
             cardList:[...userProfile.cardList,{
               id:result.data,
               title:cardInfo.title,
-              //better way???better solution
               type:types.filter(type=>type.id == cardInfo.typeId)[0].name,
               dateCreated: new Date()
             }]}
@@ -92,7 +91,7 @@ const AddCardPage = ({types}) => {
           break;
         } 
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
     }

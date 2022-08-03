@@ -10,14 +10,23 @@ import {notificationContext} from '../context/notificationContext'
 //components
 import FormInput from '../components/FormInput'
 import PasswordReset from '../components/PasswordReset'
+import Loading from '../components/Loading'
 
 const SignIn = () => {
 
-  const [passwordReset,setPasswordReset] = useState(false)
-  const {userProfile,dispatch} = useAuth()
+  //notification for better ux
+  const [isLoading,setIsLoading] = useState(false)
   const {setNotification,closeNotification} = useContext(notificationContext)
   const [warningMessage, setWarningMessage] = useState("")
+
+  const [passwordReset,setPasswordReset] = useState(false)
+
+  //user login auth
+  const {dispatch} = useAuth()
+
+  //remember me functionality
   const user = JSON.parse(localStorage.getItem("userProfile"))
+  const [checked, setChecked] = useState(user !== null?true:false)
   const[userInfo,setUserInfo] = useState(
     user !== null?
     user
@@ -27,22 +36,21 @@ const SignIn = () => {
     password:""
     }
   )
-  const [checked, setChecked] = useState(user !== null?true:false);
+
   const navigate = useNavigate()
-  /*
-  const location = useLocation()
-  const from = location.state?.from?.pathname || "/"
-  */
-  const handleSubmit = (e) =>{
+  
+
+  const signIn = async(e) =>{
     const {name,password} = userInfo
     e.preventDefault()
-    Axios.get(URL_PATH+'Users',{
-      params : {
-        name: name,
-        password : password
-      }
-    })
-    .then((result)=>{
+    setIsLoading(true)
+    try {
+      const result = await Axios.get(URL_PATH+'Users',{
+        params : {
+          name: name,
+          password : password
+        }
+      });
       console.log(result)
       switch (result.status) {
         case 200:
@@ -60,12 +68,15 @@ const SignIn = () => {
           setWarningMessage("Something went wrong.Try again later.")
           break;
       }
-    },(error)=>{
+    } catch (error) {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
-    });
+    }
+    setIsLoading(false)
   }
+
+
   const handleChange =(e)=>{
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
@@ -96,8 +107,9 @@ const SignIn = () => {
 
   return (
     <>
+      {isLoading && <Loading/>}
       {passwordReset && <PasswordReset popUpState={setPasswordReset}/>}
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={signIn} className="form">
       <h1>Sign in</h1>
       <div className="form-container">
         <span className="db-warning">{warningMessage}</span>
