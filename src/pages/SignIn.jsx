@@ -125,7 +125,14 @@ const SignIn = () => {
         <div className="form-checkbox">
           <input type="checkbox" defaultChecked={checked} onChange={() => setChecked(!checked)}  />
           <label htmlFor="remember-me">Remember me</label>
-          <h3 onClick={()=>setPasswordReset(true)}>Reset password</h3>
+          <h3
+           onClick={()=>{
+            const user = JSON.parse(sessionStorage.getItem("userProfile"));
+            user !== null?
+            navigate(`/user/${user.id}`)
+            :
+            setPasswordReset(true)
+           }}>Reset password</h3>
         </div>
         <input type="submit" value="Sign in" />
         <p>Not a user?<Link to="/signup"> Create an account</Link></p>

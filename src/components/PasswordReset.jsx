@@ -13,7 +13,7 @@ const PasswordReset = ({popUpState}) => {
   const [loading,setLoading] = useState(false)
   const [codeSent,setCodeSent] = useState(false)
   const [codeMatch,setCodeMatch] = useState(false)  
-  const[page,setPage] = useState(3)
+  const[page,setPage] = useState(1)
 
   const [form,setForm] = useState({
     name:"",
