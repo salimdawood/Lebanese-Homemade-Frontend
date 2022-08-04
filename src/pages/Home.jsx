@@ -18,7 +18,7 @@ const Home = ({types}) => {
     perPage:10,
     currentPage:1
   })
-  const [cardsCount,setCardsCount] = useState(0)
+  const [cardsCount,setCardsCount] = useState(300)
   //cards shown 
   const[cards,setCards] = useState([])
   //popup model
@@ -37,7 +37,7 @@ const Home = ({types}) => {
     //fill the card state with the info passed
     setCard(card)
   }
-  
+
   useEffect(async() => {
     setIsLoading(true)
     try {
@@ -59,11 +59,24 @@ const Home = ({types}) => {
     }
     setIsLoading(false)
   }, [typeId])
-  
 
   const handleChange = (e)=>{
     setTypeId(e.target.value)
     setPaginate({perPage:10,currentPage:1})
+  }
+
+  const loadPerPage = () =>{
+    if(paginate.perPage === 10){
+      //if only one page no need to load  more
+      let pageNumber = Math.ceil(cardsCount/paginate.perPage)
+      if(pageNumber===1) return
+      pageNumber = Math.ceil(pageNumber/2)
+      setPaginate({perPage:20,
+      currentPage:paginate.currentPage > pageNumber ? pageNumber:paginate.currentPage})
+      return
+    }
+    setPaginate({perPage:10,currentPage:paginate.currentPage})
+    return
   }
 
   let pagination_props = {
@@ -86,26 +99,31 @@ const Home = ({types}) => {
           <SkeletonCard/>
             :
           <>
+          {
+            cards.length>0?
+            <>
             <div className="card-container">
               {
-                cards.length>0?
                 cards.map(card=>(
                   <Card key={card.id} {...card} openCardPopUp={openCardPopUp} />
                 ))
-                :
-                <p>No items found</p>
               }
             </div>
             {
-        cardModel &&
-        <div className="card-popup">
-          <Close onClick={closeCardPopUp}/>
-          <CardPopUp {...card}/>
-        </div>
-      }
+            cardModel &&
+            <div className="card-popup">
+              <Close onClick={closeCardPopUp}/>
+              <CardPopUp {...card}/>
+            </div>
+            }
+            <button className="load-more" onClick={loadPerPage}>{paginate.perPage===10?'Load more' : 'Load less'}</button>
+            <Pagination {...pagination_props} />
+            </>
+            :
+            <p>No items found</p> 
+          }
           </>
       }
-      <Pagination {...pagination_props} />
     </div>
   )
 }

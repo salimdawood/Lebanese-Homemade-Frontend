@@ -443,6 +443,10 @@ main .home-page select{
 }
 /*cardshowing on home screen*/
 /*-----*/
+main .home-page > p
+{
+  padding: 40px 0;
+}
 main .home-page .card-container{
   padding: 40px 0;
   flex: 1;
@@ -1097,10 +1101,23 @@ footer .footer-media-container svg:hover{
   color: var(--primary-color);
   font-size: 1rem;
   cursor: pointer;
+  border-radius: 5px;
 }
 .pagination ul li.active{
+  background-color: var(--secondary-1-color);
+  color: var(--secondary-3-color);
+}
+.home-page .load-more{
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--secondary-2-color);
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+.home-page .load-more:hover{
   background-color: var(--secondary-3-color);
-  color: var(--secondary-1-color);
 }
 /* model svg functionality*/
 /*------------------------*/
