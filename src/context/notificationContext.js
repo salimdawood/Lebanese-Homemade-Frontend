@@ -12,7 +12,7 @@ export const NotificationContextProvider = ({children}) => {
   })
 
   const closeNotification = ()=>{
-    console.log("notification will disappear in 3 sec....")
+    //console.log("notification will disappear in 3 sec....")
     setTimeout(function() {
       setNotification({...notification,isShown:false})
     }, 3000)

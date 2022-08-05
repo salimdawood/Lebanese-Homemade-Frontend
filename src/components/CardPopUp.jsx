@@ -90,7 +90,9 @@ const CardPopUp = (props) => {
               </tr>
             ))
             :
-            <td>No items found</td>
+            <tr>
+              <td>No items found</td>
+            </tr>
           }
           </tbody>
         </table>

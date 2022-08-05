@@ -51,7 +51,7 @@ const PhotoModel = () => {
     //five photo placeholders
     //if file is entered pass it to the placeholder
     //else pass null
-    if(photos[i] != null){
+    if(photos[i]){
       photos_array.push(PhotoBox({id:i,photo:photos[i],setPhotos,photos}))
     }
     else{
@@ -89,7 +89,7 @@ const PhotoModel = () => {
     let formData = new FormData()
     console.log(photos)
     for(let i=0;i<photos.length;i++){
-      if(photos[i] !== null){
+      if(photos[i]){
         if(!('size' in photos[i])){
           formData.append('stringPhotoList', photos[i].name)  
         }
@@ -100,7 +100,7 @@ const PhotoModel = () => {
     }
      //print the form
      for (var pair of formData.entries()) {
-      //.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0]+ ', ' + pair[1]); 
     }
 
     try {
@@ -110,10 +110,10 @@ const PhotoModel = () => {
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
-      //console.log(result)
+      console.log(result)
       switch (result.data) {
         case "":
-          //console.log("photos updated successfully")
+          console.log("photos updated successfully")
           setNotification({isShown:true,message:"Photos updated successfully",color:"green"})
           closeNotification()
           break;
@@ -123,8 +123,8 @@ const PhotoModel = () => {
             closeNotification()
             break;
           }
-          //console.log("photos updated successfully")
-           //update card session
+          console.log("photos updated successfully")
+          //update card session
           card.photoList = [...result.data]
           sessionStorage.setItem("card",JSON.stringify(card))
           setNotification({isShown:true,message:"Photos updated successfully",color:"green"})
@@ -132,7 +132,7 @@ const PhotoModel = () => {
           break;
         }
     } catch (error) {
-      //console.log(error)
+      console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
     }
@@ -151,7 +151,7 @@ const PhotoModel = () => {
           setNotification({isShown:true,message:"Photos were deleted successfully",color:'green'})
           closeNotification()
           //update card session
-          card.photoList.$values = []
+          card.photoList = []
           sessionStorage.setItem("card",JSON.stringify(card))
           break;
         default:
@@ -170,10 +170,10 @@ const PhotoModel = () => {
 
   let model_functionality_props = {
     inExistingCard,
-    updatePhotos,
-    deletePhotos,
-    cancelChanges,
-    confirmPhotos
+    updateFunc:updatePhotos,
+    deleteFunc:deletePhotos,
+    cancelFunc:cancelChanges,
+    confirmFunc:confirmPhotos
   }
 
 

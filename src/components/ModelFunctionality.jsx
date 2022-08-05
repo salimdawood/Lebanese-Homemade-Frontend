@@ -3,30 +3,30 @@ import React from 'react'
 import {Delete,Close,Sync,Check} from './Svg'
 
 const ModelFunctionality = (props) => {
-  const {inExistingCard,updateItems,deleteItems,cancelChanges,confirmItems} = props
+  const {inExistingCard,updateFunc,deleteFunc,cancelFunc,confirmFunc} = props
 
   return (
     <ul className='model-svg'>
       {inExistingCard ? 
           <>
-            <li onClick={updateItems}>
+            <li onClick={updateFunc}>
               <Sync/>
               Update
             </li>
-            <li  onClick={deleteItems}>
+            <li  onClick={deleteFunc}>
               <Delete/>
               Delete
             </li>
           </>
           :
           <>
-            <li onClick={confirmItems}>
+            <li onClick={confirmFunc}>
               <Check/>
               Save
             </li>
           </>
           }
-          <li onClick={cancelChanges}>
+          <li onClick={cancelFunc}>
             <Close/>
             Cancel
           </li>

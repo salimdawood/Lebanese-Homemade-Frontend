@@ -202,10 +202,10 @@ const MenuModel = () => {
 
   let model_functionality_props = {
     inExistingCard,
-    updateItems,
-    deleteItems,
-    cancelChanges,
-    confirmItems
+    updateFunc:updateItems,
+    deleteFunc:deleteItems,
+    cancelFunc:cancelChanges,
+    confirmFunc:confirmItems
   }
 
   return (
