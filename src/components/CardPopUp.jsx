@@ -74,8 +74,8 @@ const CardPopUp = (props) => {
           </thead>
           <tbody>
           {
-            menu.itemList
-            .sort(function(a, b){
+            menu.itemList.length > 0?
+            menu.itemList.sort(function(a, b){
               var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
               if (nameA < nameB)
                 return -1;
@@ -89,6 +89,8 @@ const CardPopUp = (props) => {
                 <td>{item.price}</td>
               </tr>
             ))
+            :
+            <td>No items found</td>
           }
           </tbody>
         </table>

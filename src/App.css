@@ -442,7 +442,7 @@ main .home-page select{
   background-color: transparent;
 }
 /*cardshowing on home screen*/
-/*-----*/
+/*--------------------------*/
 main .home-page > p
 {
   padding: 40px 0;
@@ -515,7 +515,7 @@ main .home-page .card-box .info-card:hover{
   left: 0;
   background-color: var(--secondary-3-color);
   color: var(--secondary-1-color);
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 2;
 }
 .card-popup .card-info{
@@ -653,12 +653,13 @@ main .home-page .card-box .info-card:hover{
   border-collapse: collapse;
   width: 100%;
 }
-.card-popup th,.model td {
+.card-popup th,.card-popup td {
   text-align: left;
   padding: 8px;
 }
 .card-popup tr:nth-of-type(even){
-  background-color: var(--secondary-1-color)
+  background-color: var(--secondary-1-color);
+  color: var(--secondary-3-color);
 }
 .card-popup th{
   background-color: var(--secondary-2-color);
@@ -888,7 +889,7 @@ footer .footer-media-container svg:hover{
   padding: 8px;
 }
 .model tr:nth-of-type(even){
-  background-color: var(--secondary-1-color)
+  background-color: var(--secondary-1-color);
 }
 .model th{
   background-color: var(--secondary-2-color);
