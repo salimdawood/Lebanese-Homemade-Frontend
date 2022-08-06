@@ -2,8 +2,7 @@ import React,{createContext,useReducer,useState} from 'react'
 import cardReducer  from '../reducer/cardReducer'
 
 
-const card = sessionStorage.getItem("cardProfile")? JSON.parse(sessionStorage.getItem("cardProfile")) :
- {
+const card = {
   id:null,
   title:"",
   type:"",

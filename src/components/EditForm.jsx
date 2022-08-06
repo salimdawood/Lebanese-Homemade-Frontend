@@ -32,7 +32,7 @@ const UserDashboard = () => {
     email:userProfile.email,
     password:userProfile.password,
     confirmPassword:userProfile.password,
-    location:userProfile.location
+    location:userProfile.location || ""
   })
   
   const editProfile = async(e)=>{

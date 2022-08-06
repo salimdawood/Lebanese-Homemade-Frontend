@@ -50,7 +50,7 @@ const SignUp = () => {
           break;
         case 1:
           //console.log("added successfully")
-          setNotification({isShown:true,message:"Profile was created successfully",color:"red"})
+          setNotification({isShown:true,message:"Profile was created successfully",color:"green"})
           closeNotification()
           setNameIsUnique(true)
           navigate("/signin")

@@ -37,7 +37,7 @@ const MenuModel = () => {
     price:""
   })
   const [editTarget,setEditTarget] = useState(null)
-  const [items,setItems] = useState([])
+  const [items,setItems] = useState(cardProfile.itemList)
 
 
   //detect whether we are in a update or create state 
@@ -56,11 +56,14 @@ const MenuModel = () => {
           return
         }catch(Exception){}
       }
-      setItems([])  
     }
     },[menuModel])
 
-  //handle the local state
+    useEffect(() => {
+      setItems(cardProfile.itemList)
+    }, [cardProfile.itemList])
+
+    //handle the local state
   const handleChange = (e) =>{
     setItemInput({...itemInput,[e.target.name]:e.target.value})
   }

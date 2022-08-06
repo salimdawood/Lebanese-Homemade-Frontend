@@ -18,7 +18,7 @@ const AddCardPage = ({types}) => {
   
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
-  const {setMenuModel,setPhotoModel,cardProfile} = useContext(cardContext)
+  const {setMenuModel,setPhotoModel,cardProfile,dispatch:cardDispatch} = useContext(cardContext)
   const {setNotification,closeNotification} = useContext(notificationContext)
 
   const[cardInfo,setCardInfo] = useState({
@@ -79,6 +79,7 @@ const AddCardPage = ({types}) => {
           setNotification({isShown:true,message:"Card added successfully",color:"green"})
           closeNotification()
           navigate(`/user/${userProfile.id}`)
+          cardDispatch({type:'RESET_CARD_PROFILE'})
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
             ...userProfile,
             cardList:[...userProfile.cardList,{

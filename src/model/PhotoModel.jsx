@@ -22,7 +22,7 @@ const PhotoModel = () => {
  
   //assign photos according to add or update card state
   //pass it to photobox
-  const [photos,setPhotos] = useState([])
+  const [photos,setPhotos] = useState(cardProfile.photoList)
 
   //detect whether we are in a update or create state 
   const location = useLocation()
@@ -41,10 +41,13 @@ const PhotoModel = () => {
           }
         }catch(Exception){}
       }
-      setPhotos(new Array(5).fill(null))  
     }
     },[photoModel])
 
+    useEffect(() => {
+      setPhotos(cardProfile.photoList)
+    }, [cardProfile.photoList])
+    
 
   const photos_array = []
   for(let i =0;i<5;i++){
