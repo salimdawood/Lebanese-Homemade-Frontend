@@ -18,7 +18,7 @@ const Home = ({types}) => {
     perPage:10,
     currentPage:1
   })
-  const [cardsCount,setCardsCount] = useState(300)
+  const [cardsCount,setCardsCount] = useState()
   //cards shown 
   const[cards,setCards] = useState([])
   //popup model

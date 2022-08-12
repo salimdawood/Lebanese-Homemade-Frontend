@@ -56,6 +56,7 @@ const MenuModel = () => {
           return
         }catch(Exception){}
       }
+      setItems(cardProfile.itemList)
     }
     },[menuModel])
 

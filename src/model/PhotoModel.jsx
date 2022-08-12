@@ -41,12 +41,13 @@ const PhotoModel = () => {
           }
         }catch(Exception){}
       }
-    }
-    },[photoModel])
-
-    useEffect(() => {
       setPhotos(cardProfile.photoList)
-    }, [cardProfile.photoList])
+    }
+  },[photoModel])
+
+  useEffect(() => {
+    setPhotos(cardProfile.photoList)
+  }, [cardProfile.photoList])
     
 
   const photos_array = []

@@ -410,6 +410,8 @@ main .cards-gallery .card-space{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  gap: 5px;
 }
 main .cards-gallery .card-space h4{
   text-transform: capitalize;
