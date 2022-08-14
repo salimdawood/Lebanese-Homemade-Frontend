@@ -50,6 +50,34 @@ select{
   text-transform: capitalize;
   font-size: 15px;
 }
+/*full-screen-container*/
+/*--------------------*/
+.full-screen-container{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:black;
+  z-index: 99;
+}
+.full-screen-container svg{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  fill:var(--primary-color);
+  z-index:100;
+  background-color: rgba(0, 0, 0, .4);
+  border-radius: 50%;
+}
+.full-screen-container img{
+  border-radius: 0px !important;
+  object-fit: contain !important;
+}
 /*loading screen*/
 /*--------------*/
 .loading-container{
