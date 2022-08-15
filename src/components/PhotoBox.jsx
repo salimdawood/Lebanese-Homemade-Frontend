@@ -33,7 +33,7 @@ const PhotoBox = (props) => {
       }
       else{
         e.target.value = null
-        setNotification({isShown:true,message:"You can't upload image bigger than 2MB",color:"red"})
+        setNotification({isShown:true,message:"You can't upload image larger than 2MB",color:"red"})
       }
     }
     else{

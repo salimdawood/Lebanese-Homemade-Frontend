@@ -46,10 +46,10 @@ export default function userInfoInput (inputPassword){
         name:"location",
         type:"text",
         placeholder:"Enter your shop location",
-        errorMessage:"Shop location should be 3-20 characters",
+        errorMessage:"Shop location should be 3-70 characters,and should include only letters and (,-'),and spaces.",
         required:false,
         label:"Shop Location",
-        pattern:"^[a-zA-Z\u0621-\u064A ]{3,20}$"
+        pattern:"^[a-zA-Z\u0621-\u064A,-' ]{3,70}$"
       }
     ]
   } catch (error) {
