@@ -59,8 +59,8 @@ const SignIn = () => {
           dispatch({type:'ADD_USER_PROFILE',
           payload:{userProfile:{id,name,email,password,cardList,location},checked:checked}
           })
-          navigate(`/user/${id}`)
           setIsLoading(false)
+          navigate(`/user/${id}`)
           break;
         case 204:
           setWarningMessage("Username or password data are wrong *.")

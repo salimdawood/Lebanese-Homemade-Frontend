@@ -8,7 +8,7 @@ export const cardInfoInput =
     errorMessage:"Title should be between 3-30 characters and can only contain letters, numbers,('.-), and spaces",
     required:true,
     label:"Title *",
-    pattern:"[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 '-.]{3,30}"
+    pattern:"[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 .'-]{3,30}"
   },
   {
     id:2,
