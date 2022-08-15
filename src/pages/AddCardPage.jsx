@@ -69,7 +69,7 @@ const AddCardPage = ({types}) => {
       }) 
       console.log(result)
       switch (result.data) {
-        case -1:
+        case 0:
           //console.log("something went wrong")
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()

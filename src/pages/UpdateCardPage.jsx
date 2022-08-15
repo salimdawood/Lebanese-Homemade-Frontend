@@ -55,7 +55,7 @@ const UpdateCardPage = ({types}) => {
       const result = await Axios.put(URL_PATH+`Cards/${cardInfo.id}`,cardInfoCopy)
       console.log(result)
       switch (result.data) {
-        case -1:
+        case 0:
           //console.log("something went wrong")
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
@@ -81,7 +81,7 @@ const UpdateCardPage = ({types}) => {
     .then((result)=>{
       console.log(result)
       switch (result.data) {
-        case -1:
+        case 0:
           console.log("something went wrong")
           setNotification({isShown:true,message:"Unable to delete the card",color:"red"})
           closeNotification()
@@ -115,6 +115,7 @@ const UpdateCardPage = ({types}) => {
               onChange={handleChange} />
             ))
           }
+          <label>Card type *</label>
           <SelectType defaultValue={cardInfo.typeId} handleChange={handleChange} typesArray={types}/>
           <input type="submit" value="Update" />
         </form>

@@ -9,24 +9,24 @@ const ModelFunctionality = (props) => {
     <ul className='model-svg'>
       {inExistingCard ? 
           <>
-            <li onClick={updateFunc} data-tooltip='sync changes to database' className='succ-btn'>
+            <li onClick={updateFunc} data-tooltip='Sync changes' className='succ-btn'>
               <Sync/>
               Update
             </li>
-            <li  onClick={deleteFunc} data-tooltip='delete all ' className='warn-btn'>
+            <li  onClick={deleteFunc} data-tooltip='Delete all ' className='warn-btn'>
               <Delete/>
               Delete
             </li>
           </>
           :
           <>
-            <li onClick={confirmFunc} data-tooltip='save to card' className='succ-btn'>
+            <li onClick={confirmFunc} data-tooltip='Save to card' className='succ-btn'>
               <Check/>
               Save
             </li>
           </>
           }
-          <li onClick={cancelFunc} data-tooltip='cancel all changes' className='cancel-btn'>
+          <li onClick={cancelFunc} data-tooltip='Cancel all changes' className='cancel-btn'>
             <Close/>
             Cancel
           </li>
