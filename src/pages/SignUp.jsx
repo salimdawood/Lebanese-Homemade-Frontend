@@ -41,32 +41,36 @@ const SignUp = () => {
         case -1:
           //console.log("name is not unique")
           setNameIsUnique(false)
+          setIsLoading(false)
           break;
         case 0:
           //console.log("couldn't add try agian later")
           setNameIsUnique(true)
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
+          setIsLoading(false)
           break;
         case 1:
           //console.log("added successfully")
           setNotification({isShown:true,message:"Profile was created successfully",color:"green"})
           closeNotification()
           setNameIsUnique(true)
+          setIsLoading(false)
           navigate("/signin")
           break;
         default:
           //console.log("success code not founded")
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
+          setIsLoading(false)
           break;
       }
     } catch (error) {
       //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
-      closeNotification() 
+      closeNotification()
+      setIsLoading(false) 
     }
-    setIsLoading(false)
   }
 
   const handleChange =(e)=>{

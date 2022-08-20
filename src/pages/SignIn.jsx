@@ -51,7 +51,7 @@ const SignIn = () => {
           password : password
         }
       });
-      console.log(result)
+      //console.log(result)
       switch (result.status) {
         case 200:
           setWarningMessage("")
@@ -64,17 +64,19 @@ const SignIn = () => {
           break;
         case 204:
           setWarningMessage("Username or password data are wrong *.")
+          setIsLoading(false)
           break;
         default:
           setWarningMessage("Something went wrong.Try again later.")
+          setIsLoading(false)
           break;
       }
     } catch (error) {
       console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
 

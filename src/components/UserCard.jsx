@@ -29,8 +29,8 @@ const UserCard = (props) => {
       navigate(`/user/${id}/cards?card=${props.id}`)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const addCard = () =>{
