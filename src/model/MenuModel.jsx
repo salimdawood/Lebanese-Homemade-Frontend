@@ -7,16 +7,14 @@ import { cardContext } from '../context/cardContext'
 //components
 import ReadOnlyItemBox from '../components/ReadOnlyItemBox'
 import UpdateItemBox from '../components/UpdateItemBox'
-import FormInput from '../components/FormInput'
 import Loading from '../components/Loading'
 import ModelFunctionality from '../components/ModelFunctionality'
+import MenuForm from '../components/MenuForm'
 //api
 import * as Axios from 'axios'
 import { URL_PATH } from '../constantVariables/path'
 //unique id
 import { nanoid } from 'nanoid'
-//input for form
-import { itemInfoInput } from '../constantVariables/itemInfoInput'
 
 const MenuModel = () => {
 
@@ -26,12 +24,7 @@ const MenuModel = () => {
 
   const {menuModel,setMenuModel,dispatch,cardProfile} = useContext(cardContext)
   
-  
   //local state
-  const [itemInput,setItemInput] = useState({
-    name:"",
-    price:""
-  })
   const [editItemInput,setEditItemInput] = useState({
     name:"",
     price:""
@@ -64,25 +57,11 @@ const MenuModel = () => {
       setItems(cardProfile.itemList)
     }, [cardProfile.itemList])
 
-    //handle the local state
-  const handleChange = (e) =>{
-    setItemInput({...itemInput,[e.target.name]:e.target.value})
-  }
+
   const handleEditChange = (e) =>{
     setEditItemInput({...editItemInput,[e.target.name]:e.target.value})
   }
 
-  //add to local state
-  const addItem = (e)=>{
-    e.preventDefault()
-    const newItem ={
-      id:nanoid(),
-      name:itemInput.name,
-      price:itemInput.price.length===0?null:itemInput.price
-    }
-    setItems([...items,newItem])
-    setItemInput({name:"",price:""})
-  }
 
   //remove item from local state
   const removeItem = (itemId) =>{
@@ -212,6 +191,11 @@ const MenuModel = () => {
     confirmFunc:confirmItems
   }
 
+  let menu_form_props = {
+    items,
+    setItems
+  }
+
   return (
     menuModel && reactDom.createPortal(
       <>
@@ -248,22 +232,7 @@ const MenuModel = () => {
               </tbody>
             </table>
           </form>
-          <form onSubmit={addItem} className="add-item-form">
-            <div className="form-input">
-              <div className="input-container">
-                {
-                  itemInfoInput.map((input)=>(
-                    <FormInput
-                    key={input.id}
-                    {...input}
-                    value={itemInput[input.name]}
-                    onChange={handleChange} />
-                  ))
-                }
-              </div>
-            </div>
-            <input type="submit" value="Add to menu"/>
-          </form>
+          <MenuForm {...menu_form_props}/>
           <ModelFunctionality {...model_functionality_props}/>
           </div>
       </div>
@@ -275,16 +244,3 @@ const MenuModel = () => {
 }
 
 export default MenuModel
-/*
-{inExistingCard ? 
-          <>
-            <input type="submit" onClick={updateItems} className="confirm-btn" value="Update"/>
-            <input type="submit" onClick={deleteItems} className="delete-btn" value="Delete all items"/>
-          </>
-          :
-          <>
-            <input type="submit" onClick={confirmItems} className="confirm-btn" value="Confirm"/>
-          </>
-          }
-          <input type="submit" onClick={cancelChanges} className="safety-btn" value="Cancel"/> 
-*/

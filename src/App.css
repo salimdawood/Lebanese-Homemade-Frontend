@@ -201,6 +201,11 @@ nav .nav-link ul li:last-of-type{
   color: var(--secondary-3-color);
   border-radius: 10px;
 }
+nav .nav-link ul li:last-of-type a{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 nav .nav-link ul li:last-of-type a:hover,nav .active{
   background-color: var(--secondary-3-color);
 }
@@ -510,6 +515,11 @@ main .home-page .card-box .info-card{
   background-color: var(--secondary-2-color);
   color: var(--secondary-1-color);
   border-radius: 10px;
+}
+main .home-page .card-box .info-card h1{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 main .home-page .card-box .info-card:hover{
   color: var(--secondary-2-color);

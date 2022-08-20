@@ -55,7 +55,8 @@ const FormInput = (props) => {
        onFocus={()=>inputInfo.name==="confirmPassword" && setFocus(true)}
        focused={focus.toString()}
        />
-      {pswrd &&
+      {
+        pswrd &&
         (visible ?
           <VisibilityOff onClick={()=>toggleVisible()}/>
             :
