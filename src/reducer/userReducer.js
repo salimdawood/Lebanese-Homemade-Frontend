@@ -44,6 +44,18 @@ const userReducer = (state,action)=>{
         ...state,
         cardList :[...cardListTmp]
       }
+    case 'LOG_OUT':
+        sessionStorage.removeItem("userProfile")
+        sessionStorage.removeItem("card")  
+        localStorage.removeItem("userProfile")
+        return {
+          id:null,
+          name:null,
+          email:null,
+          location:null,
+          password:null,
+          cardList:[]
+        }
     default:
       break;
   }

@@ -3,7 +3,7 @@ import userReducer  from '../reducer/userReducer'
 
 
 const user = sessionStorage.getItem("userProfile")? JSON.parse(sessionStorage.getItem("userProfile")) :
- {
+{
   id:null,
   name:null,
   email:null,

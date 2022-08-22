@@ -60,7 +60,7 @@ const SignIn = () => {
           payload:{userProfile:{id,name,email,password,cardList,location},checked:checked}
           })
           setIsLoading(false)
-          navigate(`/user/${id}`)
+          navigate(`/user/${id}`,{replace:true})
           break;
         case 204:
           setWarningMessage("Username or password data are wrong *.")

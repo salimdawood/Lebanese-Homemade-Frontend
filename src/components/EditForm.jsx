@@ -72,10 +72,12 @@ const UserDashboard = () => {
   }
 
   const logOut = ()=>{
-    sessionStorage.removeItem("userProfile")
-    sessionStorage.removeItem("card")  
-    localStorage.removeItem("userProfile")
-    navigate('/signin',{replace:true})
+    try {
+      dispatch({type:'LOG_OUT'})
+      navigate('/signin',{replace:true}) 
+    } catch (error) {
+      
+    }
   }
 
   return (
