@@ -72,7 +72,7 @@ const SignIn = () => {
           break;
       }
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
       setIsLoading(false)

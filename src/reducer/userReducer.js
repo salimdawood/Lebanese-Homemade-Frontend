@@ -15,7 +15,7 @@ const userReducer = (state,action)=>{
     case 'UPDATE_USER_PROFILE':
       sessionStorage.setItem("userProfile",JSON.stringify(action.userProfile))
       let checked = JSON.parse(localStorage.getItem("userProfile"))
-        if(checked != null){
+        if(checked !== null){
           let user ={
             name:action.userProfile.name,
             password:action.userProfile.password
@@ -59,7 +59,6 @@ const userReducer = (state,action)=>{
     default:
       break;
   }
-
 }
 
 export default userReducer
