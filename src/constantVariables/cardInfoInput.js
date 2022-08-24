@@ -5,10 +5,10 @@ export const cardInfoInput =
     name:"title",
     type:"text",
     placeholder:"Enter your card title",
-    errorMessage:"Title should be between 3-30 characters and can only contain letters, numbers,('.-)",
+    errorMessage:"Title should be between 3-30 characters and can only contain letters, numbers,('.-),and space.",
     required:true,
     label:"Title *",
-    pattern:"[a-zA-Z0-9\u0621-\u064A\u0660-\u0669.'-]{3,30}"
+    pattern:"[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 .'-]{3,30}"
   },
   {
     id:2,
