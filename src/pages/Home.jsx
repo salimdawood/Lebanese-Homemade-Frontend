@@ -88,7 +88,8 @@ const Home = ({types}) => {
   let selectType_props = {
     defaultValue:typeId,
     typesArray:types,
-    handleChange
+    handleChange,
+    all:true
   }
 
   return (

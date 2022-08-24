@@ -1,6 +1,8 @@
 import React from 'react'
 
-const SelectType = ({defaultValue,typesArray,handleChange}) => {
+const SelectType = (props) => {
+  const {defaultValue,typesArray,handleChange,all} = props
+  
 
   return (
     <select
@@ -10,6 +12,7 @@ const SelectType = ({defaultValue,typesArray,handleChange}) => {
       required
       >
       <option value="-1" disabled >Choose a card type</option>
+      {all && <option value="-1">All</option>}
       {
         typesArray
         .sort(function(a, b){
