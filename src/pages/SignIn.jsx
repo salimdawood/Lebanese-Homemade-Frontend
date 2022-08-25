@@ -11,6 +11,8 @@ import {notificationContext} from '../context/notificationContext'
 import FormInput from '../components/FormInput'
 import PasswordReset from '../components/PasswordReset'
 import Loading from '../components/Loading'
+//input for form
+import userInfoInput from '../constantVariables/userInfoInput'
 
 const SignIn = () => {
 
@@ -55,12 +57,11 @@ const SignIn = () => {
       switch (result.status) {
         case 200:
           setWarningMessage("")
-          const {id,name,email,password,cardList,location} = result.data
           dispatch({type:'ADD_USER_PROFILE',
-          payload:{userProfile:{id,name,email,password,cardList,location},checked:checked}
+          payload:{userProfile:{...result.data},checked:checked}
           })
           setIsLoading(false)
-          navigate(`/user/${id}`,{replace:true})
+          navigate(`/user/${result.data.id}`,{replace:true})
           break;
         case 204:
           setWarningMessage("Username or password data are wrong *.")
@@ -79,34 +80,17 @@ const SignIn = () => {
     }
   }
 
-
   const handleChange =(e)=>{
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
+  const resetPassword = ()=>{
+    const user = JSON.parse(sessionStorage.getItem("userProfile"));
+    user !== null ? navigate(`/user/${user.id}`) : setPasswordReset(true)
+  }
 
-  const userInput = [
-    {
-      id:1,
-      name:"name",
-      type:"text",
-      placeholder:"Enter your name",
-      errorMessage:"User name should be between 3-30 characters, and should include only letters,numbers,' and spaces.",
-      required:true,
-      label:"Username *",
-      pattern:"^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ']{3,30}$"
-    },
-    {
-      id:2,
-      name:"password",
-      type:"password",
-      placeholder:"Enter your password",
-      errorMessage:"Password should be between 8-20 characters, and must include at least: one letter,one number, and one special character(!@#$%^&*).",
-      label:"Password *",
-      pattern:"(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}",
-      required:true
-    }, 
-  ]
+  const userInput = userInfoInput("")
+  //console.log(userInput)
 
   return (
     <>
@@ -117,7 +101,7 @@ const SignIn = () => {
       <div className="form-container">
         <span className="db-warning">{warningMessage}</span>
         {
-          userInput.map((input)=>(
+          [userInput[0],userInput[2]].map((input)=>(
             <FormInput
             key={input.id}
             {...input}
@@ -128,14 +112,7 @@ const SignIn = () => {
         <div className="form-checkbox">
           <input type="checkbox" defaultChecked={checked} onChange={() => setChecked(!checked)}  />
           <label htmlFor="remember-me">Remember me</label>
-          <h3
-           onClick={()=>{
-            const user = JSON.parse(sessionStorage.getItem("userProfile"));
-            user !== null?
-            navigate(`/user/${user.id}`)
-            :
-            setPasswordReset(true)
-           }}>Reset password</h3>
+          <h3 onClick={resetPassword}>Reset password</h3>
         </div>
         <input type="submit" value="Sign in" />
         <p>Not a user?<Link to="/signup"> Create an account</Link></p>

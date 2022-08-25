@@ -44,7 +44,7 @@ const UserCards = () => {
     setCardModel(false)
   }
   const openCardPopUp = (card)=>{
-    console.log(card)
+    //console.log(card)
     setCardModel(true)
     //fill the card state with the info passed
     setCard(card)

@@ -32,7 +32,7 @@ const Home = ({types}) => {
     setCardModel(false)
   }
   const openCardPopUp = (card)=>{
-    console.log(card)
+    //console.log(card)
     setCardModel(true)
     //fill the card state with the info passed
     setCard(card)
@@ -42,9 +42,10 @@ const Home = ({types}) => {
     setIsLoading(true)
     try {
       const result = await Axios.get(URL_PATH+`Cards/GetCardsById/${typeId}?PageNumber=${paginate.currentPage}&PageSize=${paginate.perPage}`)
+      //console.log(result)
       setCards(result.data)
     } catch (error) {
-      console.log(error)
+      //console.log(error)
     }
     setIsLoading(false)
   }, [paginate,typeId])
@@ -53,9 +54,10 @@ const Home = ({types}) => {
     setIsLoading(true)
     try {
       const count = await Axios.get(URL_PATH+`Cards/GetCardsCount/${typeId}`)
+      //console.log(result)
       setCardsCount(count.data)
     } catch (error) {
-      console.log(error)
+      //console.log(error)
     }
     setIsLoading(false)
   }, [typeId])

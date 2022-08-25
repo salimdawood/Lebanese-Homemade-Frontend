@@ -36,8 +36,14 @@ const SignUp = () => {
     setIsLoading(true)
     try {
       const result = await Axios.post('http://localhost:17733/api/Users',{name,email,password,location});
-      console.log(result)
+      //console.log(result)
       switch (result.data) {
+        case -2:
+          //console.log("data failed server validation")
+          setIsLoading(false)
+          setNotification({isShown:true,message:"Please respect data validation",color:"red"})
+          closeNotification()
+          break;
         case -1:
           //console.log("name is not unique")
           setNameIsUnique(false)
@@ -45,31 +51,31 @@ const SignUp = () => {
           break;
         case 0:
           //console.log("couldn't add try agian later")
+          setIsLoading(false)
           setNameIsUnique(true)
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
-          setIsLoading(false)
           break;
         case 1:
           //console.log("added successfully")
+          setIsLoading(false)
           setNotification({isShown:true,message:"Profile was created successfully",color:"green"})
           closeNotification()
           setNameIsUnique(true)
-          setIsLoading(false)
           navigate("/signin")
           break;
         default:
           //console.log("success code not founded")
+          setIsLoading(false)
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
-          setIsLoading(false)
           break;
       }
     } catch (error) {
       //console.log(error)
+      setIsLoading(false)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
-      setIsLoading(false) 
     }
   }
 

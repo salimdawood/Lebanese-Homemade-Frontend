@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 //components
 import FormInput from '../components/FormInput'
 import SelectType from '../components/SelectType'
+import Loading from '../components/Loading'
 //api
 import * as Axios from 'axios'
 import {URL_PATH} from '../constantVariables/path'
@@ -16,10 +17,13 @@ import {notificationContext} from '../context/notificationContext'
 
 const AddCardPage = ({types}) => {
   
+  //notificatin for better ui
+  const [isLoading,setIsLoading] = useState(false)
+  const {setNotification,closeNotification} = useContext(notificationContext)
+
   const navigate = useNavigate()
   const {userProfile,dispatch} = useAuth()
   const {setMenuModel,setPhotoModel,cardProfile,dispatch:cardDispatch} = useContext(cardContext)
-  const {setNotification,closeNotification} = useContext(notificationContext)
 
   const[cardInfo,setCardInfo] = useState({
     title:"",
@@ -31,14 +35,16 @@ const AddCardPage = ({types}) => {
   })
     
   const addCard = async (e)=>{
+
     e.preventDefault()
 
+    setIsLoading(true)
     let formData = new FormData()
 
     //card basic info
     for ( var info in cardInfo ) {
       if(cardInfo[info].length === 0){
-        console.log("null appended")
+        //console.log("null appended")
         formData.append(info, "");  
       }
       else{
@@ -56,9 +62,11 @@ const AddCardPage = ({types}) => {
       formData.append('itemList', JSON.stringify(cardProfile.itemList[i]))
     }
     //print the form
+    /*
     for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + typeof(pair[1])); 
     }
+    */
 
     try {
       const result = await Axios({
@@ -67,18 +75,25 @@ const AddCardPage = ({types}) => {
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }) 
-      console.log(result)
+      //console.log(result)
       switch (result.data) {
+        case -2:
+          //console.log("data failed server validation")
+          setIsLoading(false)
+          setNotification({isShown:true,message:"Please respect data validation",color:"red"})
+          closeNotification()
+          break;
         case 0:
           //console.log("something went wrong")
+          setIsLoading(false)
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
           break;
         default:
           //console.log("card added successfully")
+          setIsLoading(false)
           setNotification({isShown:true,message:"Card added successfully",color:"green"})
           closeNotification()
-          navigate(`/user/${userProfile.id}`)
           cardDispatch({type:'RESET_CARD_PROFILE'})
           dispatch({type:'UPDATE_USER_PROFILE',userProfile:{
             ...userProfile,
@@ -89,10 +104,12 @@ const AddCardPage = ({types}) => {
               dateCreated: new Date()
             }]}
           })
+          navigate(`/user/${userProfile.id}`)
           break;
         } 
     } catch (error) {
       //console.log(error)
+      setIsLoading(false)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
     }
@@ -102,7 +119,15 @@ const AddCardPage = ({types}) => {
     setCardInfo({ ...cardInfo, [e.target.name]: e.target.value });
   }
 
+  const select_type_props = {
+    defaultValue:cardInfo.typeId,
+    handleChange:handleChange,
+    typesArray:types
+  }
+
   return (
+    <>
+      {isLoading && <Loading/>}
       <div className="form">
         <h1>Create your card</h1>
         <form onSubmit={addCard} className="form-container">
@@ -116,12 +141,13 @@ const AddCardPage = ({types}) => {
             ))
           }
           <label>Card type *</label>
-          <SelectType defaultValue={cardInfo.typeId} handleChange={handleChange} typesArray={types}/>
+          <SelectType {...select_type_props}/>
           <input type="submit" value="Create" />
         </form>
         <input type="submit" onClick={()=>setMenuModel(true)} value="Manage menu" />
         <input type="submit" onClick={()=>setPhotoModel(true)} value="Manage photos" />
       </div>
+    </>
   )
 }
 

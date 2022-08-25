@@ -15,13 +15,13 @@ const userReducer = (state,action)=>{
     case 'UPDATE_USER_PROFILE':
       sessionStorage.setItem("userProfile",JSON.stringify(action.userProfile))
       let checked = JSON.parse(localStorage.getItem("userProfile"))
-        if(checked !== null){
-          let user ={
-            name:action.userProfile.name,
-            password:action.userProfile.password
-          }
-          localStorage.setItem("userProfile",JSON.stringify(user))
+      if(checked !== null){
+        let user ={
+          name:action.userProfile.name,
+          password:action.userProfile.password
         }
+        localStorage.setItem("userProfile",JSON.stringify(user))
+      }
       return action.userProfile
     case 'DELETE_CARD':
       const newCards = state.cardList.filter(card=>card.id != action.id)
@@ -33,29 +33,31 @@ const userReducer = (state,action)=>{
       }
     case 'UPDATE_USER_CARD':
       const cardListTmp = state.cardList
+      //get index
       let index = cardListTmp.findIndex(card=>card.id === action.cardInfo.id)
+      //update in card in the copied card list
       cardListTmp[index].title = action.cardInfo.title
       cardListTmp[index].type = action.cardInfo.type
-
+      //update the session storage information
       state.cardList = [...cardListTmp]
       sessionStorage.setItem("userProfile",JSON.stringify(state))
-
+      //return updated card list
       return {
         ...state,
         cardList :[...cardListTmp]
       }
     case 'LOG_OUT':
-        sessionStorage.removeItem("userProfile")
-        sessionStorage.removeItem("card")  
-        localStorage.removeItem("userProfile")
-        return {
-          id:null,
-          name:null,
-          email:null,
-          location:null,
-          password:null,
-          cardList:[]
-        }
+      sessionStorage.removeItem("userProfile")
+      sessionStorage.removeItem("card")  
+      localStorage.removeItem("userProfile")
+      return {
+        id:null,
+        name:null,
+        email:null,
+        location:null,
+        password:null,
+        cardList:[]
+      }
     default:
       break;
   }
