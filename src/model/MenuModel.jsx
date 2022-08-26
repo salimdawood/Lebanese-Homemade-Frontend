@@ -10,11 +10,10 @@ import UpdateItemBox from '../components/UpdateItemBox'
 import Loading from '../components/Loading'
 import ModelFunctionality from '../components/ModelFunctionality'
 import MenuForm from '../components/MenuForm'
+import ItemTable from '../components/ItemTable'
 //api
 import * as Axios from 'axios'
 import { URL_PATH } from '../constantVariables/path'
-//unique id
-import { nanoid } from 'nanoid'
 
 const MenuModel = () => {
 
@@ -183,6 +182,12 @@ const MenuModel = () => {
     setMenuModel(false)
   }
 
+  const mapFunction = (item)=>{
+    return editTarget === item.id ?
+    <UpdateItemBox key={item.id} item={editItemInput} editItem={editItem} onChange={handleEditChange} /> : 
+    <ReadOnlyItemBox key={item.id} item={item} removeItem={removeItem} editItem={editItem}/>
+  }
+
   let model_functionality_props = {
     inExistingCard,
     updateFunc:updateItems,
@@ -195,6 +200,11 @@ const MenuModel = () => {
     items,
     setItems
   }
+  let item_table_props = {
+    items,
+    model:true,
+    mapFunction
+  }
 
   return (
     menuModel && reactDom.createPortal(
@@ -203,34 +213,7 @@ const MenuModel = () => {
       <div className="model">
         <div className="model-container">
           <form className="table-form">
-            <table>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Price</th>
-                  <th>actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  items
-                  .sort(function(a, b){
-                    var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-                    if (nameA < nameB)
-                     return -1;
-                    if (nameA > nameB)
-                     return 1;
-                    return 0;
-                   })
-                  .map((item)=>(
-                        editTarget === item.id ?
-                        <UpdateItemBox key={item.id} item={editItemInput} editItem={editItem} onChange={handleEditChange} /> : 
-                        <ReadOnlyItemBox key={item.id} item={item} removeItem={removeItem} editItem={editItem}/>
-                    )
-                  )
-                }
-              </tbody>
-            </table>
+            <ItemTable {...item_table_props}/>
           </form>
           <MenuForm {...menu_form_props}/>
           <ModelFunctionality {...model_functionality_props}/>

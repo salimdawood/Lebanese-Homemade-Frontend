@@ -1,15 +1,14 @@
 import React from 'react'
+//
 import {IMAGE_PATH} from '../constantVariables/path'
+import dateBeautify from '../constantVariables/dateBeautify'
+//component
 import ImageSlider from './ImageSlider'
 
 
 const Card = (props) => {
-  const{openCardPopUp,...card} = props
 
-  let dateDB = new Date(card.dateCreated)
-  let dateNow = new Date()
-  var diff = (dateNow - dateDB)
-  //86400000 === 24 hours
+  const{openCardPopUp,...card} = props
 
   return (
 
@@ -24,7 +23,7 @@ const Card = (props) => {
         <h1>{card.title}</h1>
         <h3>{card.type.name}</h3>
         <div className="info-box">
-          <h4>{diff>=86400000?dateDB.toLocaleString('ar-EG'):dateDB.toLocaleTimeString('ar-EG')}</h4>
+          <h4>{dateBeautify(card.dateCreated)}</h4>
           <h4 onClick={()=>openCardPopUp(card)}>Show more</h4>
         </div>
       </div>

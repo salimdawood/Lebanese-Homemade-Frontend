@@ -15,8 +15,6 @@ const MenuForm = (props) => {
     price:""
   })
 
-  const test = useRef()
-
   const handleChange = (e) =>{
     setItemInput({...itemInput,[e.target.name]:e.target.value})
   }
@@ -30,8 +28,6 @@ const MenuForm = (props) => {
       price:itemInput.price.length===0?null:itemInput.price
     }
     setItems([...items,newItem])
-    
-    console.log(test.current)
     setItemInput({name:"",price:""})
   }
 

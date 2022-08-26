@@ -1,7 +1,11 @@
 import React from 'react'
-import ImageSlider from './ImageSlider'
-import { Facebook,Instagram,WhatsApp } from './Svg'
 import { useNavigate,useLocation } from 'react-router-dom'
+//components
+import ImageSlider from './ImageSlider'
+import ItemTable from './ItemTable'
+import CardPopUpMedia from './CardPopUpMedia'
+//
+import dateBeautify from '../constantVariables/dateBeautify'
 
 const CardPopUp = (props) => {
   const {title,type,photoList,menu,instagramLink,faceBookLink,whatsAppLink,dateCreated,user,setCardModel} = props
@@ -19,10 +23,22 @@ const CardPopUp = (props) => {
 
   }
 
-  let dateDB = new Date(dateCreated)
-  let dateNow = new Date()
-  var diff = (dateNow - dateDB);
-  //86400000 === 24 hours
+  const mapFunction = (item)=>{
+    return  <tr key={item.id}>
+              <td>{item.name}</td>
+              <td>{item.price}</td>
+            </tr>
+  }
+  
+  let item_table_props = {
+    items:menu.itemList,
+    mapFunction
+  }
+  let card_media_props = {
+    faceBookLink,
+    instagramLink,
+    whatsAppLink
+  }
 
   return (
     <div className="card-info">
@@ -41,61 +57,17 @@ const CardPopUp = (props) => {
           <div className="flex-box">
             <h3>Social media :</h3>
             <div className="media-link">
-              {faceBookLink !== null ?
-                <a href={`https://facebook.com/${faceBookLink}`} target="_blank"><Facebook/></a>
-                  :
-                <></>}
-              {
-                whatsAppLink !== null ?
-                 <a href={`https://wa.me//961${whatsAppLink}`} target="_blank"><WhatsApp/></a>
-                  :
-                 <></> 
-              }
-              {instagramLink !== null?
-                <a href={`https://instagram.com/${instagramLink}`} target="_blank"><Instagram/></a>
-                  :
-                <></>
-              }
+              <CardPopUpMedia {...card_media_props}/>
             </div>
           </div>
           <div className="flex-box">
             <h3>Created on :</h3>
-            <h2>{diff>=86400000?dateDB.toLocaleString('ar-EG'):dateDB.toLocaleTimeString('ar-EG')}</h2>
+            <h2>{dateBeautify(dateCreated)}</h2>
           </div>
         </div>
       </div>
       <div className="bottom-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-          {
-            menu.itemList.length > 0?
-            menu.itemList.sort(function(a, b){
-              var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-              if (nameA < nameB)
-                return -1;
-              if (nameA > nameB)
-                return 1;
-              return 0;
-            })
-            .map((item)=>(
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.price}</td>
-              </tr>
-            ))
-            :
-            <tr>
-              <td>No items found</td>
-            </tr>
-          }
-          </tbody>
-        </table>
+        <ItemTable {...item_table_props}/>
       </div>
     </div>
   )

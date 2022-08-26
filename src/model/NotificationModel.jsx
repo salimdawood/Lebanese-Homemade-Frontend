@@ -1,10 +1,12 @@
-import React,{useContext,useEffect} from 'react'
+import React,{useContext} from 'react'
 import reactDom from 'react-dom'
+//context
 import { notificationContext } from '../context/notificationContext'
-import {Close,CheckCircle,ErrorCircle} from '../components/Svg'
+//components
+import {CheckCircle,ErrorCircle} from '../components/Svg'
 
 const NotificationModel = () => {
-  const {notification,setNotification} = useContext(notificationContext)
+  const {notification} = useContext(notificationContext)
 
   return (
     notification.isShown && reactDom.createPortal(
