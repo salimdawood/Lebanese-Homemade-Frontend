@@ -1,7 +1,11 @@
 import React from 'react'
+//components
 import { Delete,Edit } from './Svg'
 
-const ReadOnlyItemBox = ({item,removeItem,editItem}) => {
+const ReadOnlyItemBox = (props) => {
+
+  const {item,removeItem,editItem} = props
+  
   return (
     <tr>
       <td>{item.name}</td>

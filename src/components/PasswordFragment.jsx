@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 //api
 import * as Axios from 'axios'
 import { URL_PATH } from '../constantVariables/path'
@@ -6,10 +6,14 @@ import { URL_PATH } from '../constantVariables/path'
 import userInfoInput from '../constantVariables/userInfoInput'
 //components
 import FormInput from './FormInput'
+//context
+import { notificationContext } from '../context/notificationContext'
 
 const PasswordFragment = (props) => {
 
-  const {form} = props
+  const {form,setIsLoading,popUpState} = props
+  
+  const {setNotification,closeNotification} = useContext(notificationContext)
 
   const[userInfo,setUserInfo] = useState({
     name:form.name,
@@ -21,49 +25,59 @@ const PasswordFragment = (props) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
-  const handleSubmit = (e)=>{
-    console.log("clicked")
+  const handleSubmit = async(e)=>{
+    //console.log("clicked")
     const {name,password} = userInfo
     e.preventDefault()
-    var data = JSON.stringify([
-      {
-        "op": "replace",
-        "path": "/password",
-        "value": password
-      }
-    ]);
-    
-    var config = {
-      method: 'patch',
-      url: URL_PATH+`Users/${name}`,
-      headers: { 
-        'Content-Type': 'application/json'
-      },
-      data : data
-    };
-    Axios(config)
-    .then((result)=>{
-      console.log(result)
+    setIsLoading(true)
+    try {
+      var data = JSON.stringify([
+        {
+          "op": "replace",
+          "path": "/password",
+          "value": password
+        }
+      ]);
+      
+      var config = {
+        method: 'patch',
+        url: URL_PATH+`Users/${name}`,
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      const result = await Axios(config)
+      //console.log(result)
       switch (result.data) {
+        case -2:
+          //console.log("data failed server validation")
+          setNotification({isShown:true,message:"Please respect data validation",color:"red"})
+          closeNotification()
+          break;
         case 0:
-          console.log("server error .....")
+          //console.log("server error")
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
         case 1:
-          console.log("updated successfully")
-          /*
-          dispatch({type:'UPDATE_USER_PROFILE',userProfile:{...userInfo,cardList:userProfile.cardList}})
-          setNameIsUnique(true)
-          setNotification({isShown:true,message:'Successfully updated your profile information',color:'green'})
+          //console.log("changed successfully")
+          setNotification({isShown:true,message:'Successfully changed your password',color:'green'})
           closeNotification()
-          */
+          popUpState(false)
           break;
         default:
-          console.log("success code not founded")
+          //console.log("success code not founded")
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
       }
-    },(error)=>{
-      console.log(error)
-    }); 
+    } catch (error) {
+      //console.log(error)
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
+    }
+    setIsLoading(false)
   }
 
   return (

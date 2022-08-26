@@ -10,7 +10,8 @@ import Loading from './Loading'
 
 const PasswordReset = ({popUpState}) => {
 
-  const [loading,setLoading] = useState(false)
+  const [isLoading,setIsLoading] = useState(false)
+
   const [codeSent,setCodeSent] = useState(false)
   const [codeMatch,setCodeMatch] = useState(false)  
   const[page,setPage] = useState(1)
@@ -32,7 +33,7 @@ const PasswordReset = ({popUpState}) => {
     form,
     setForm,
     setPage,
-    setLoading,
+    setIsLoading,
     setCodeSent
   }
   let verification_props = {
@@ -41,10 +42,12 @@ const PasswordReset = ({popUpState}) => {
     setPage
   }
   let password_props = {
-    form
+    form,
+    setIsLoading,
+    popUpState
   }
 
-  const inflateFragment = (pageNumber) =>{
+  const inflateFragment = (pageNumber) => {
     switch (pageNumber) {
       case 1:
         return <EmailFragment {...email_props}/>
@@ -59,10 +62,10 @@ const PasswordReset = ({popUpState}) => {
 
   return (
     <div className='password-popup'>
-      {loading && <Loading/>}
+      {isLoading && <Loading/>}
       <div className="container">
         <Close onClick={()=>popUpState(false)}/>
-         {inflateFragment(page)}
+        {inflateFragment(page)}
         <button className='prev-btn' disabled={page===1?true:false} onClick={prevFragment}>Previous</button>
         <button className='next-btn' disabled={(page===1 && codeSent)||(page===2 && codeMatch)?false:true} onClick={nextFragment}>Next</button>
       </div>

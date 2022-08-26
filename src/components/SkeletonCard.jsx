@@ -5,7 +5,7 @@ const SkeletonCard = () => {
       <div className="card-container">
         {
           [1,2,3,4,5].map((index)=>{ 
-            return<div key={index} className="skeleton-card card-box">
+          return  <div key={index} className="skeleton-card card-box">
                     <div className="skeleton-img"></div>
                     <div className="info-card">
                       <h1></h1>

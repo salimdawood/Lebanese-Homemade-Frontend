@@ -7,28 +7,27 @@ import * as Axios from 'axios'
 import {URL_PATH} from '../constantVariables/path'
 //component
 import Loading from './Loading'
+//
+import dateBeautify from '../constantVariables/dateBeautify'
 
 const UserCard = (props) => {
+
+  const {dateCreated,id:cardId,title,type} = props
 
   const[isLoading,setIsLoading] = useState(false)
   const {userProfile:{id}} = useContext(userContext)
   const navigate = useNavigate()
-
-  let dateDB = new Date(props.dateCreated)
-  let dateNow = new Date()
-  var diff = (dateNow - dateDB)
-  //86400000 === 24 hours
   
   const updateCard = async () =>{
     setIsLoading(true)
     try {
-      const result = await Axios.get(URL_PATH+`Cards/${props.id}`)
+      const result = await Axios.get(URL_PATH+`Cards/${cardId}`)
       //console.log(result)
       sessionStorage.setItem("card",JSON.stringify(result.data))
       setIsLoading(false)
-      navigate(`/user/${id}/cards?card=${props.id}`)
+      navigate(`/user/${id}/cards?card=${cardId}`)
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       setIsLoading(false)
     }
   }
@@ -41,11 +40,11 @@ const UserCard = (props) => {
     <>
       {isLoading && <Loading/>}
       {
-        props.id != null ?
+        cardId ?
         <div onClick={updateCard} className="card-space">
-          <h3>{props.title}</h3>
-          <h4>{props.type}</h4>
-          <h6>{diff>=86400000?dateDB.toLocaleString('ar-EG'):dateDB.toLocaleTimeString('ar-EG')}</h6>
+          <h3>{title}</h3>
+          <h4>{type}</h4>
+          <h6>{dateBeautify(dateCreated)}</h6>
         </div>
         :
         <div onClick={addCard} className="card-space card-add">

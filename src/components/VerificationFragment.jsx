@@ -9,8 +9,8 @@ const VerificationFragment = (props) => {
   const checkVerification = (e)=>{
     e.preventDefault()
     if(code===form.message){
-      setPage(3)
       setCodeMatch(true)
+      setPage(3)
     }
   }
 

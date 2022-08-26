@@ -3,8 +3,11 @@ import { VisibilityOff,VisibilityOn } from './Svg'
 
 const FormInput = (props) => {
 
-  const [focus,setFocus] = useState(false)
   const {label,errorMessage,onChange,id,type,value,...inputInfo} = props
+
+  //state for validation error message 
+  const [focus,setFocus] = useState(false)
+  //state for password visibility toggle
   const [visible,setVisible] = useState(false)
   let pswrd = false
   let link = false
@@ -12,9 +15,11 @@ const FormInput = (props) => {
   const linkTypeRegex = /(facebookLink|instagramLink|whatsappLink)/gm
   const passwordTypeRegex = /(confirmPassword|password)/gm
 
+  //for password input type
   if(inputInfo.name.match(passwordTypeRegex)){
     pswrd = true
   }
+  //toggle password visibility
   const toggleVisible = () =>{
     if(visible){
       setVisible(false)
@@ -25,7 +30,7 @@ const FormInput = (props) => {
       return
     }
   }
-  //use regex
+  //for social media links input
   if(inputInfo.name.match(linkTypeRegex)){
     link = true
     switch (inputInfo.name) {
@@ -54,7 +59,7 @@ const FormInput = (props) => {
        onBlur={()=>setFocus(true)}
        onFocus={()=>inputInfo.name==="confirmPassword" && setFocus(true)}
        focused={focus.toString()}
-       />
+      />
       {
         pswrd &&
         (visible ?

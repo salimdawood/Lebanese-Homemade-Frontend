@@ -3,6 +3,7 @@ import React from 'react'
 import {Delete,Close,Sync,Check} from './Svg'
 
 const ModelFunctionality = (props) => {
+  
   const {inExistingCard,updateFunc,deleteFunc,cancelFunc,confirmFunc} = props
 
   return (

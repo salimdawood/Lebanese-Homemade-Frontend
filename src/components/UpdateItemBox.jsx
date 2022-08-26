@@ -3,8 +3,9 @@ import React from 'react'
 import { Check,Close } from './Svg'
 
 const UpdateItemBox = (props) => {
+
   const {item,onChange,editItem} = props
-  console.log(props)
+  
   return (
     <tr>
       <td><input type="text" name="name" value={item.name} onChange={onChange}/></td>

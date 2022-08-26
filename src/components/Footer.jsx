@@ -1,10 +1,11 @@
 import React from 'react'
+//components
 import {LinkedIn,GitHub} from './Svg'
 
 const Footer = () => {
-  //change icons
-  //change copyright
-  //change paragraph if found better
+
+  let dateNow = new Date().getFullYear() === 2022?'':'-'+new Date().getFullYear()
+
   return (
     <>
       <span>Developed By Salim Dawood</span>
@@ -12,7 +13,7 @@ const Footer = () => {
         <a href='https://github.com/salimdawood' target='_blank'><GitHub/></a>
         <a href='https://linkedin.com/in/salim-dawood-0618a8241' target='_blank'><LinkedIn/></a>
       </div>
-      <span>&copy;copyright 2022</span>
+      <span>&copy;Copyright 2022{dateNow}</span>
     </>
   )
 }

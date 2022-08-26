@@ -1,8 +1,10 @@
 import React from 'react'
+//
+import sortItemList from '../constantVariables/sortItemsList'
 
 const SelectType = (props) => {
+
   const {defaultValue,typesArray,handleChange,all} = props
-  
 
   return (
     <select
@@ -14,15 +16,7 @@ const SelectType = (props) => {
       <option value="-1" disabled >Choose a card type</option>
       {all && <option value="-1">All</option>}
       {
-        typesArray
-        .sort(function(a, b){
-          var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-          if (nameA < nameB)
-           return -1;
-          if (nameA > nameB)
-           return 1;
-          return 0;
-         })
+        sortItemList(typesArray)
         .map((type)=>(
           <option key={type.id} value={type.id}>{type.name}</option>
         ))

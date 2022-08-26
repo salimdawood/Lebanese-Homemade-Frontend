@@ -42,6 +42,12 @@ const UserDashboard = () => {
     try {
       const result = await Axios.put(URL_PATH+'Users/'+userProfile.id,{name,email,password,location});console.log(result)
       switch (result.data) {
+        case -2:
+          //console.log("data failed server validation")
+          setNameIsUnique(true)
+          setNotification({isShown:true,message:"Please respect data validation",color:"red"})
+          closeNotification()
+          break;
         case -1:
           //console.log("name is not unique")
           setNameIsUnique(false)
@@ -49,6 +55,8 @@ const UserDashboard = () => {
         case 0:
           //console.log("couldn't add try agian later")
           setNameIsUnique(true)
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
         case 1:
           //console.log("updated successfully")
@@ -59,10 +67,14 @@ const UserDashboard = () => {
           break;
         default:
           //console.log("success code not founded")
+          setNotification({isShown:true,message:"Something went wrong",color:"red"})
+          closeNotification()
           break;
       }
     } catch (error) {
-      console.log(error)
+      //console.log(error)
+      setNotification({isShown:true,message:"Something went wrong",color:"red"})
+      closeNotification()
     }
     setIsLoading(false)
   }
