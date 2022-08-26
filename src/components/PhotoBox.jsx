@@ -10,7 +10,7 @@ import {IMAGE_PATH} from '../constantVariables/path'
 const PhotoBox = (props) => {
 
   const{id,photo,photos,setPhotos} = props
-  const {setNotification} = useContext(notificationContext)
+  const {setNotification,closeNotification} = useContext(notificationContext)
 
   const [fileDataURL, setFileDataURL] = useState(null)
   const [file, setFile] = useState(photo);
@@ -34,11 +34,13 @@ const PhotoBox = (props) => {
       else{
         e.target.value = null
         setNotification({isShown:true,message:"You can't upload image larger than 2MB",color:"red"})
+        closeNotification()
       }
     }
     else{
       e.target.value = null
       setNotification({isShown:true,message:"You can't upload this image type",color:"red"})
+      closeNotification()
     }
   }
 
@@ -57,6 +59,7 @@ const PhotoBox = (props) => {
   }, [photo])
 
 
+  //preview photo functionality
   //when passed all validation preview it in the placeholder
   useEffect(() => {
     let fileReader, isCancel = false;
