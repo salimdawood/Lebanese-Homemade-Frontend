@@ -72,7 +72,7 @@ const FormInput = (props) => {
       {
         link &&
         (value.length>0?
-          <a href={`${base_url}${value}`} target="_blank">Test the link</a>
+          <a href={`${base_url}${value}`} target="_blank" rel="noreferrer">Test the link</a>
           :
           <></>
         )

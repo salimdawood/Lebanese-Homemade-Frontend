@@ -10,19 +10,19 @@ const CardPopUpMedia = (props) => {
     <>
       {
         faceBookLink !== null ?
-        <a href={`https://facebook.com/${faceBookLink}`} target="_blank"><Facebook/></a>
+        <a href={`https://facebook.com/${faceBookLink}`} target="_blank" rel="noreferrer"><Facebook/></a>
         :
         <></>
       }
       {
         whatsAppLink !== null ?
-        <a href={`https://wa.me//961${whatsAppLink}`} target="_blank"><WhatsApp/></a>
+        <a href={`https://wa.me//961${whatsAppLink}`} target="_blank" rel="noreferrer"><WhatsApp/></a>
         :
         <></> 
       }
       {
         instagramLink !== null?
-        <a href={`https://instagram.com/${instagramLink}`} target="_blank"><Instagram/></a>
+        <a href={`https://instagram.com/${instagramLink}`} target="_blank" rel="noreferrer"><Instagram/></a>
         :
         <></>
       }

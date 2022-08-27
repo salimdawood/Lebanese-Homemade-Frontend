@@ -17,7 +17,7 @@ const Card = (props) => {
         card.photoList.length>0 ?
           <ImageSlider photoList={card.photoList}/>
         :
-          <img src={IMAGE_PATH+"default.jpg"} loading="lazy" />
+          <img src={IMAGE_PATH+"default.jpg"} loading="lazy" alt='default'/>
       }
       <div className="info-card">
         <h1>{card.title}</h1>
