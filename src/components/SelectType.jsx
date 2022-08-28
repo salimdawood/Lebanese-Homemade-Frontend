@@ -14,7 +14,7 @@ const SelectType = (props) => {
       required
       >
       <option value="-1" disabled >Choose a card type</option>
-      {all && <option value="-1">All</option>}
+      {all && <option value="-2">All</option>}
       {
         sortItemList(typesArray)
         .map((type)=>(
