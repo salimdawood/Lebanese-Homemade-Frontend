@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 //api
 import * as Axios from 'axios'
 import {URL_PATH} from '../constantVariables/path'
@@ -9,24 +9,22 @@ import Card from '../components/Card.jsx'
 import CardPopUp from '../components/CardPopUp'
 import SkeletonCard from '../components/SkeletonCard'
 import Pagination from '../components/Pagination'
+//context
+import { homeContext } from '../context/homeContext'
 
 const Home = ({types}) => {
 
   const [isLoading,setIsLoading] = useState(false)
-  //pagination logic
-  const [paginate,setPaginate] = useState({
-    perPage:10,
-    currentPage:1
-  })
-  const [cardsCount,setCardsCount] = useState()
+
+  const {home,dispatch} = useContext(homeContext)
+
+  const [cardsCount,setCardsCount] = useState(0)
   //cards shown 
   const[cards,setCards] = useState([])
   //popup model
   const[cardModel, setCardModel] = useState(false)
   const[card,setCard] = useState()
-  //select type
-  const [typeId,setTypeId] = useState(-1)
-
+  
 
   const closeCardPopUp = ()=>{
     setCardModel(false)
@@ -41,54 +39,54 @@ const Home = ({types}) => {
   useEffect(async() => {
     setIsLoading(true)
     try {
-      const result = await Axios.get(URL_PATH+`Cards/GetCardsById/${typeId}?PageNumber=${paginate.currentPage}&PageSize=${paginate.perPage}`)
+      const result = await Axios.get(URL_PATH+`Cards/GetCardsById/${home.typeId}?PageNumber=${home.currentPage}&PageSize=${home.perPage}`)
       //console.log(result)
       setCards(result.data)
     } catch (error) {
       //console.log(error)
     }
     setIsLoading(false)
-  }, [paginate,typeId])
+  }, [home])
 
   useEffect(async() => {
     setIsLoading(true)
     try {
-      const count = await Axios.get(URL_PATH+`Cards/GetCardsCount/${typeId}`)
+      const count = await Axios.get(URL_PATH+`Cards/GetCardsCount/${home.typeId}`)
       //console.log(result)
       setCardsCount(count.data)
     } catch (error) {
       //console.log(error)
     }
     setIsLoading(false)
-  }, [typeId])
+  }, [home.typeId])
 
   const handleChange = (e)=>{
-    setTypeId(e.target.value)
-    setPaginate({perPage:10,currentPage:1})
+    dispatch({type:'UPDATE_HOME',home:{...home,currentPage:1,typeId:e.target.value}})
   }
 
   const loadPerPage = () =>{
-    if(paginate.perPage === 10){
+    if(home.perPage === 10){
       //if only one page no need to load  more
-      let pageNumber = Math.ceil(cardsCount/paginate.perPage)
+      let pageNumber = Math.ceil(cardsCount/home.perPage)
       if(pageNumber===1) return
       pageNumber = Math.ceil(pageNumber/2)
-      setPaginate({perPage:20,
-      currentPage:paginate.currentPage > pageNumber ? pageNumber:paginate.currentPage})
+      dispatch({type:'UPDATE_HOME',home:{...home,perPage:20,
+      currentPage:home.currentPage > pageNumber ? pageNumber:home.currentPage
+      }})
       return
     }
-    setPaginate({perPage:10,currentPage:paginate.currentPage})
+    dispatch({type:'UPDATE_HOME',home:{...home,perPage:10}})
     return
   }
 
   let pagination_props = {
     cardsCount,
-    ...paginate,
-    setPaginate
+    home,
+    dispatch
   }
 
   let selectType_props = {
-    defaultValue:typeId,
+    defaultValue:home.typeId,
     typesArray:types,
     handleChange,
     all:true
@@ -119,7 +117,7 @@ const Home = ({types}) => {
               <CardPopUp {...card}/>
             </div>
             }
-            <button className="load-more" onClick={loadPerPage}>{paginate.perPage===10?'Load more' : 'Load less'}</button>
+            <button className="load-more" onClick={loadPerPage}>{home.perPage===10?'Load more' : 'Load less'}</button>
             <Pagination {...pagination_props} />
             </>
             :
