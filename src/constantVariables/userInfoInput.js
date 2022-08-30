@@ -6,10 +6,11 @@ export default function userInfoInput (inputPassword){
         name:"name",
         type:"text",
         placeholder:"Enter your name",
-        errorMessage:"User name should be between 3-30 characters, and should include only letters,numbers,and ('._).",
-        required:true,
+        errorMessage:"User name should be between 3-30 characters, and should include only letters,numbers, ('._), and spaces",
         label:"Username *",
-        pattern:"[a-zA-Z0-9\u0621-\u064A\u0660-\u0669'._]{3,30}"
+        pattern:"(?=(?:.*[a-zA-Z0-9\u0621-\u064A\u0660-\u0669]){3})[a-zA-Z0-9\u0621-\u064A\u0660-\u0669'._ ]{0,27}",
+        required:true,
+        title:"Should have at least 3 characters of alphanumeric(letters or numbers)"
       },
       {
         id:2,
@@ -17,8 +18,9 @@ export default function userInfoInput (inputPassword){
         type:"email",
         placeholder:"Enter your email",
         errorMessage:"You didn't enter a valid email.",
-        required:true,
-        label:"Email *"
+        label:"Email *",
+        pattern:"[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*",
+        required:true
       },
       {
         id:3,

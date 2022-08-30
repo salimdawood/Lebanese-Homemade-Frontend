@@ -81,13 +81,13 @@ const MenuModel = () => {
         break;
       //save the edit
       case 1:
-        if(editItemInput.name.match(/^[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 ']{3,50}$/g)
+        if(editItemInput.name.match(/^(?=(?:.*[a-zA-Z0-9\u0621-\u064A\u0660-\u0669]){3})[a-zA-Z0-9\u0621-\u064A\u0660-\u0669 '.]{0,47}$/g)
          && editItemInput.price.match(/^[lL0-9\u0660-\u0669,$.]{0,20}$/g)){
           setItems([...items.filter(item=>item.id !== itemId),editItemInput])
           setEditTarget(null)  
         }
         else{
-          setNotification({isShown:true,message:"Name should be between 3-50 characters and can only contain letters, numbers, ' , and spaces, price must range between 0 - 99,000,000",color:"red"})
+          setNotification({isShown:true,message:"Please follow given validations",color:"red"})
           closeNotification()
         }
         break;
