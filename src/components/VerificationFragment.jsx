@@ -5,12 +5,16 @@ const VerificationFragment = (props) => {
   const {form,setPage,setCodeMatch} = props
 
   const [code,setCode] = useState('')
+  const [errorMessage,setErrorMessage] = useState('')
 
   const checkVerification = (e)=>{
     e.preventDefault()
     if(code===form.message){
       setCodeMatch(true)
       setPage(3)
+    }
+    else{
+      setErrorMessage('Code entered doesn\'t match')
     }
   }
 
@@ -23,6 +27,7 @@ const VerificationFragment = (props) => {
         <input type="text" name="message" value={code}
         onChange={(e)=>setCode(e.target.value)}
         placeholder="XXXXX"  required/>
+        <span>{errorMessage}</span>
         <input type="submit" value="Check"/>
       </form>
     </>

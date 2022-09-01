@@ -7,6 +7,10 @@ import * as Axios from 'axios'
 import emailjs from 'emailjs-com'
 //context
 import { notificationContext } from '../context/notificationContext'
+//component
+import FormInput from './FormInput'
+//
+import userInfoInput from '../constantVariables/userInfoInput'
 
 const EmailFragment = (props) => {
 
@@ -24,7 +28,7 @@ const EmailFragment = (props) => {
     try {
       const result_api = await Axios.get(URL_PATH+`Users/${form.name}`)
       //console.log(result_api)
-      if(result_api.data !== null){
+      if(result_api.data){
         let form_copy = formRef.current.cloneNode(true)
         let form_input_email = React.createElement('input',{type:'email',name:'email',defaultValue:result_api.data})
         let form_input_message = React.createElement('input',{type:'text',name:'message',defaultValue:form.message})
@@ -38,6 +42,10 @@ const EmailFragment = (props) => {
         setCodeSent(true)
         setPage(2)
       }
+      else{
+        setNotification({isShown:true,message:"No user was found with this name",color:"red"})
+        closeNotification()
+      }
     } catch (error) {
       //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
@@ -46,16 +54,20 @@ const EmailFragment = (props) => {
     setIsLoading(false)
   }
 
+  const userInput = userInfoInput("")
+  //console.log(userInput)
 
   return (
     <>
       <h1>Reset your password</h1>
       <p>We will send a verification code to your email</p>
       <form ref={formRef} className='email-form' onSubmit={sendVerification}>
-        <label>Name *</label>
-        <input type="text" name="name" value={form.name}
-        onChange={(e)=>setForm({...form,[e.target.name]:e.target.value})}
-        placeholder="Enter profile name"  required/>
+        <FormInput
+          key={userInput[0].id}
+          {...userInput[0]}
+          value={form.name}
+          onChange={(e)=>setForm({...form,[e.target.name]:e.target.value})}
+        />
         <input type="submit" value="Send"/>
       </form>
     </>

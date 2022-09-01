@@ -52,32 +52,36 @@ const PasswordFragment = (props) => {
       switch (result.data) {
         case -2:
           //console.log("data failed server validation")
+          setIsLoading(false)
           setNotification({isShown:true,message:"Please respect data validation",color:"red"})
           closeNotification()
           break;
         case 0:
           //console.log("server error")
+          setIsLoading(false)
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
           break;
         case 1:
           //console.log("changed successfully")
+          setIsLoading(false)
           setNotification({isShown:true,message:'Successfully changed your password',color:'green'})
           closeNotification()
           popUpState(false)
           break;
         default:
           //console.log("success code not founded")
+          setIsLoading(false)
           setNotification({isShown:true,message:"Something went wrong",color:"red"})
           closeNotification()
           break;
       }
     } catch (error) {
       //console.log(error)
+      setIsLoading(false)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
     }
-    setIsLoading(false)
   }
 
   return (
