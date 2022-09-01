@@ -31,6 +31,9 @@ const MenuModel = () => {
   const [editTarget,setEditTarget] = useState(null)
   const [items,setItems] = useState(cardProfile.itemList)
 
+  //console.log(editItemInput)
+
+  //console.log(items)
 
   //detect whether we are in a update or create state 
   const location = useLocation()
@@ -71,7 +74,12 @@ const MenuModel = () => {
     switch (editCode) {
       //open the edit form
       case 0:
-        setEditItemInput(...items.filter(item=>item.id === itemId))
+        let editItem = items.filter(item=>item.id === itemId)
+        setEditItemInput({
+          id:editItem[0].id,
+          name:editItem[0].name,
+          price:editItem[0].price===null?"":editItem[0].price
+        })
         setEditTarget(itemId)
         break;
       //cancel the edit
@@ -99,7 +107,7 @@ const MenuModel = () => {
   //for card update
   const deleteItems = async() =>{
     //delete all menu items from database
-    isLoading(true)
+    setIsLoading(true)
     let tmpItems = JSON.parse(sessionStorage.getItem("card"))
     if(tmpItems.menu !== null){
       try {

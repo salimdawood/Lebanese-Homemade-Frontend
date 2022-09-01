@@ -25,7 +25,7 @@ const MenuForm = (props) => {
     const newItem ={
       id:nanoid(),
       name:itemInput.name,
-      price:itemInput.price.length===0?null:itemInput.price
+      price:itemInput.price.length===0?"":itemInput.price
     }
     setItems([...items,newItem])
     setItemInput({name:"",price:""})

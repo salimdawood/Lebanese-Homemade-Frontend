@@ -5,6 +5,7 @@ import { Check,Close } from './Svg'
 const UpdateItemBox = (props) => {
 
   const {item,onChange,editItem} = props
+  //console.log(props)
   
   return (
     <tr>
