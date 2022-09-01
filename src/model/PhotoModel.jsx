@@ -91,7 +91,7 @@ const PhotoModel = () => {
     let card = JSON.parse(sessionStorage.getItem("card"))
     //update photos using api call
     let formData = new FormData()
-    console.log(photos)
+    //console.log(photos)
     for(let i=0;i<photos.length;i++){
       if(photos[i]){
         if(!('size' in photos[i])){
@@ -102,10 +102,12 @@ const PhotoModel = () => {
         }
       }
     }
+    /*
      //print the form
      for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 
     }
+    */
 
     try {
       const result = await Axios({
@@ -114,10 +116,10 @@ const PhotoModel = () => {
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
-      console.log(result)
+      //console.log(result)
       switch (result.data) {
         case "":
-          console.log("photos updated successfully")
+          //console.log("photos updated successfully")
           setNotification({isShown:true,message:"Photos updated successfully",color:"green"})
           closeNotification()
           break;
@@ -127,7 +129,7 @@ const PhotoModel = () => {
             closeNotification()
             break;
           }
-          console.log("photos updated successfully")
+          //console.log("photos updated successfully")
           //update card session
           card.photoList = [...result.data]
           sessionStorage.setItem("card",JSON.stringify(card))
@@ -136,7 +138,7 @@ const PhotoModel = () => {
           break;
         }
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:"red"})
       closeNotification()
     }
@@ -164,7 +166,7 @@ const PhotoModel = () => {
           break;
       }
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       setNotification({isShown:true,message:"Something went wrong",color:'red'})
       closeNotification()
     }

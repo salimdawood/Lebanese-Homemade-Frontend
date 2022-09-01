@@ -40,7 +40,8 @@ const UserDashboard = () => {
     e.preventDefault()
     setIsLoading(true)
     try {
-      const result = await Axios.put(URL_PATH+'Users/'+userProfile.id,{name,email,password,location});console.log(result)
+      const result = await Axios.put(URL_PATH+'Users/'+userProfile.id,{name,email,password,location});
+      //console.log(result)
       switch (result.data) {
         case -2:
           //console.log("data failed server validation")

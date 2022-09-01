@@ -61,10 +61,10 @@ const AddCardPage = ({types}) => {
     for(let i=0;i<cardProfile.itemList.length;i++){
       formData.append('itemList', JSON.stringify(cardProfile.itemList[i]))
     }
-    //print the form
     /*
+    //print the form
     for (var pair of formData.entries()) {
-      console.log(pair[0]+ ', ' + typeof(pair[1])); 
+      console.log(pair[0]+ ', ' + pair[1]); 
     }
     */
 

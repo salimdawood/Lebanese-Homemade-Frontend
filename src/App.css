@@ -444,6 +444,7 @@ main .cards-gallery .cards-container{
   padding: 20px;
 }
 main .cards-gallery .card-space{
+  padding: 5px;
   background-color: var(--secondary-2-color);
   color: var(--secondary-1-color);
   border-radius: 10px;
@@ -458,6 +459,9 @@ main .cards-gallery .card-space{
   align-items: center;
   text-align: center;
   gap: 5px;
+}
+main .cards-gallery .card-space h3{
+  text-align: center;
 }
 main .cards-gallery .card-space h4{
   text-transform: capitalize;

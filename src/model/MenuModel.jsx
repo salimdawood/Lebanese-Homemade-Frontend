@@ -112,7 +112,7 @@ const MenuModel = () => {
             setItems([])
             //check if need to update session storage
             //update the session
-            tmpItems.menu.itemList.$values = []
+            tmpItems.menu.itemList = []
             sessionStorage.setItem("card",JSON.stringify(tmpItems))
             setMenuModel(false)
             break;
@@ -144,7 +144,7 @@ const MenuModel = () => {
           setNotification({isShown:true,message:"Menu updated successfully",color:"green"})
           closeNotification()
           //update the session
-          tmpItems.menu.itemList.$values = items
+          tmpItems.menu.itemList = items
           sessionStorage.setItem("card",JSON.stringify(tmpItems))
           setMenuModel(false)
           break;
