@@ -37,7 +37,7 @@ const UpdateCardPage = ({types}) => {
       facebookLink:cardProfile.faceBookLink || "",
       instagramLink:cardProfile.instagramLink || "",
       whatsappLink:cardProfile.whatsAppLink || "",
-      typeId:cardProfile.type.id || "-1"
+      typeId:cardProfile.type.id || ""
     }
     :
     {

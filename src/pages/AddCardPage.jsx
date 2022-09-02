@@ -30,7 +30,7 @@ const AddCardPage = ({types}) => {
     facebookLink:"",
     instagramLink:"",
     whatsappLink:"",
-    typeId:"-1",
+    typeId:"",
     userId:userProfile.id
   })
     

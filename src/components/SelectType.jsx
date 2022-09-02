@@ -13,7 +13,7 @@ const SelectType = (props) => {
       onChange={handleChange}
       required
       >
-      <option value="-1" disabled>Choose a card type</option>
+      <option value="" disabled>Choose a card type</option>
       {all && <option value="-2">All</option>}
       {
         sortItemList(typesArray)

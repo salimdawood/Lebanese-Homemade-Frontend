@@ -38,8 +38,12 @@ const Home = ({types}) => {
 
   useEffect(async() => {
     setIsLoading(true)
+
     try {
-      const result = await Axios.get(URL_PATH+`Cards/GetCardsById/${home.typeId}?PageNumber=${home.currentPage}&PageSize=${home.perPage}`)
+      const result = home.typeId ? 
+      await Axios.get(URL_PATH+`Cards/GetCardsById/${home.typeId}?PageNumber=${home.currentPage}&PageSize=${home.perPage}`)
+      :
+      await Axios.get(URL_PATH+`Cards/GetCardsById/-1?PageNumber=${home.currentPage}&PageSize=${home.perPage}`)
       //console.log(result)
       setCards(result.data)
     } catch (error) {
@@ -50,9 +54,13 @@ const Home = ({types}) => {
 
   useEffect(async() => {
     setIsLoading(true)
+    //const count = 0
     try {
-      const count = await Axios.get(URL_PATH+`Cards/GetCardsCount/${home.typeId}`)
-      //console.log(result)
+      const count = home.typeId?
+      await Axios.get(URL_PATH+`Cards/GetCardsCount/${home.typeId}`)
+      :
+      await Axios.get(URL_PATH+'Cards/GetCardsCount/-1')
+      //console.log(count)
       setCardsCount(count.data)
     } catch (error) {
       //console.log(error)

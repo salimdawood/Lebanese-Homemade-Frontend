@@ -5,7 +5,7 @@ import homeReducer  from '../reducer/homeReducer'
 const home = {
   perPage:10,
   currentPage:1,
-  typeId:-1
+  typeId:""
 }
 
 
