@@ -9,6 +9,7 @@ import dateBeautify from '../constantVariables/dateBeautify'
 
 const CardPopUp = (props) => {
   const {title,type,photoList,menu,instagramLink,faceBookLink,whatsAppLink,dateCreated,user,setCardModel} = props
+  //console.log(props)
 
   const navigate = useNavigate()
   const location = useLocation()
