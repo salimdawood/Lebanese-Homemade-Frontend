@@ -492,6 +492,11 @@ main .home-page select{
   border-radius: 5px;
   background-color: transparent;
 }
+@media screen and (max-width:1000px) {
+  main .home-page select{
+    width: 90%;
+  }
+}
 /*cardshowing on home screen*/
 /*--------------------------*/
 main .home-page > p
