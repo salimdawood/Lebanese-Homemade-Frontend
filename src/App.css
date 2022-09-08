@@ -1246,3 +1246,10 @@ footer .footer-media-container svg:hover{
 .model-svg li:hover::before{
   --scale:1
 }
+body:has(.card-popup){
+  overflow-y: hidden;
+}
+/*on model opening*/
+body:has(.card-popup,.cards-container,.model){
+  overflow-y: hidden;
+}
