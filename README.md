@@ -10,6 +10,7 @@ I used ReactsJs for building the front-end platform due to the flexibility this 
 
 
 ## Installation
+
 -After installing the code, run `npm install` to install all the dependencies of the project.
 -Run `npm start` to execute the code.
 -Make sure to that [API](https://github.com/salimdawood/Lebanese-Homemade-API) project for this project is running.
