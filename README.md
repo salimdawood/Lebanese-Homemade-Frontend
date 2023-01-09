@@ -8,6 +8,21 @@ A developer's main work is to find a real world problem and build the solution. 
 
 I used ReactsJs for building the front-end platform due to the flexibility this JS framework can provide. This was my first ReactJs project dealing with API and state management at this scale. This caused in implementing some features in a different way and not following the best practices. Many features can be easily added with this scalable JS framework such as `description text`, `confirmation alert`, `search by name`, and `save favorite items`.
 
+## Screenshots
+
+<img src="https://github.com/salimdawood/Media/blob/master/react%2Bapi/cover.png" width="100%" alt="Main page" loading="lazy"/>
+
+<img src="https://github.com/salimdawood/Media/blob/master/react%2Bapi/p2.png" width="100%" alt="Product" loading="lazy"/>
+
+<img src="https://github.com/salimdawood/Media/blob/master/react%2Bapi/p4.png" width="100%" alt="Product Full Page" loading="lazy"/>
+
+<img src="https://github.com/salimdawood/Media/blob/master/react%2Bapi/p5.png" width="100%" alt="Card" loading="lazy"/>
+
+<img src="https://github.com/salimdawood/Media/blob/master/react%2Bapi/v2.gif" width="100%" alt="Getting Cards By Category" loading="lazy"/>
+
+<img src="https://github.com/salimdawood/Media/blob/master/react%2Bapi/v3.gif" width="100%" alt="Getting All Cards Of User" loading="lazy"/>
+
+<img src="https://github.com/salimdawood/Media/blob/master/react%2Bapi/v4.gif" width="100%" alt="Updating Card" loading="lazy"/>
 
 ## Installation
 
